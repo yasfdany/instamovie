@@ -1,35 +1,42 @@
 package dev.studiocloud.meditation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Surface
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-
+import androidx.lifecycle.ViewModelProvider
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dev.studiocloud.meditation.data.services.response.movieResponse.MovieItem
+import dev.studiocloud.meditation.data.services.viewModels.MovieViewModel
+import dev.studiocloud.meditation.ui.components.PostView
+import dev.studiocloud.meditation.ui.components.StoryView
 
 class MainActivity : ComponentActivity() {
+    private lateinit var movieViewModel: MovieViewModel
+
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        movieViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
+        movieViewModel.getMovies()
+
         setContent {
             val systemUiController = rememberSystemUiController()
             systemUiController.setSystemBarsColor(
@@ -81,172 +88,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxWidth()
                 ){
-                    items(5){
-                        postView()
+                    itemsIndexed( movieViewModel.movies){ index, movie ->
+                        if (index == movieViewModel.movies.count() - 1 && movieViewModel.page <= movieViewModel.maxPage){
+                            Log.d("loadmore", "loadmore")
+                            movieViewModel.getMovies()
+                        }
+                        PostView(item =  movie)
                     }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun postView(){
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(14.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(R.drawable.dog),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-            )
-            Column(
-                modifier = Modifier
-                    .padding(start = 12.dp)
-                    .width(0.dp)
-                    .weight(1f)
-            ) {
-                Text(
-                    text = "Lanasmith",
-                    fontSize = 14.sp
-                )
-                Text(
-                    text = "Manhattan, NYC",
-                    fontSize = 12.sp,
-                    color = Color(0xFFA2A2A2)
-                )
-            }
-            Image(
-                painter = painterResource(id = R.drawable.ic_option),
-                contentDescription = null,
-                modifier = Modifier.clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(bounded = false),
-                    onClick = {
-
-                    },
-                )
-            )
-        }
-        Image(
-            painter = painterResource(id = R.drawable.dog),
-            contentScale = ContentScale.Crop,
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(360.dp)
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Image(
-                painterResource(R.drawable.ic_love),
-                contentDescription = null,
-                modifier = Modifier
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(bounded = false),
-                        onClick = {
-
-                        },
-                    )
-                    .padding(14.dp)
-            )
-            Image(
-                painterResource(R.drawable.ic_comment),
-                contentDescription = null,
-                modifier = Modifier
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(bounded = false),
-                        onClick = {
-
-                        },
-                    )
-                    .padding(
-                        vertical = 14.dp,
-                    )
-            )
-            Image(
-                painterResource(R.drawable.ic_share),
-                contentDescription = null,
-                modifier = Modifier
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(bounded = false),
-                        onClick = {
-
-                        },
-                    )
-                    .padding(14.dp)
-            )
-            Surface(modifier = Modifier
-                .width(0.dp)
-                .weight(1f)
-            ){}
-            Image(
-                painterResource(R.drawable.ic_bookmark),
-                contentDescription = null,
-                modifier = Modifier
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(bounded = false),
-                        onClick = {
-
-                        },
-                    )
-                    .padding(14.dp)
-            )
-        }
-        Text(
-            text = "yasfdany",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 14.dp)
-        )
-        Text(
-            text = "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is",
-            fontSize = 12.sp,
-            modifier = Modifier.padding(horizontal = 14.dp)
-                .padding(bottom = 14.dp)
-        )
-    }
-}
-
-@Composable
-fun StoryView(){
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                vertical = 14.dp,
-            ),
-        contentPadding = PaddingValues(horizontal = 14.dp)
-    ) {
-        items(12){
-            Surface(
-                modifier = Modifier
-                    .padding(end = 12.dp)
-                    .border(color = Color.Magenta, width = 2.dp, shape = CircleShape)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.dog),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .size(54.dp)
-                        .clip(CircleShape)
-                )
             }
         }
     }
@@ -255,5 +104,5 @@ fun StoryView(){
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    postView()
+//    PostView()
 }
