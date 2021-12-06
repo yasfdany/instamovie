@@ -8,45 +8,46 @@ import androidx.lifecycle.ViewModel
 import dev.studiocloud.meditation.BuildConfig
 import dev.studiocloud.meditation.data.services.ApiClient
 import dev.studiocloud.meditation.data.services.ApiService
-import dev.studiocloud.meditation.data.services.response.movieResponse.MovieItem
 import dev.studiocloud.meditation.data.services.response.movieResponse.MovieResponse
+import dev.studiocloud.meditation.data.services.response.tvResponse.TvItem
+import dev.studiocloud.meditation.data.services.response.tvResponse.TvResponse
 import retrofit2.Call
 import retrofit2.Response
 
-class MovieViewModel : ViewModel() {
+class TvViewModel : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
-    val movies : SnapshotStateList<MovieItem> = mutableStateListOf();
+    val tvs : SnapshotStateList<TvItem> = mutableStateListOf();
     var page: Int = 1;
     var maxPage: Int = -1;
 
-    fun getMovies(reset : Boolean = false){
+    fun getTvs(reset : Boolean = false){
         if(reset){
             loading.value = true
-            movies.clear()
+            tvs.clear()
         }
 
         val client: ApiService = ApiClient.get()
 
-        client.getMovies(
+        client.getTv(
             api_key = BuildConfig.MOVIE_API_KEY,
             page = page,
             language = "id",
-        )?.enqueue(object : retrofit2.Callback<MovieResponse?> {
+        )?.enqueue(object : retrofit2.Callback<TvResponse?> {
             override fun onResponse(
-                call: Call<MovieResponse?>,
-                response: Response<MovieResponse?>
+                call: Call<TvResponse?>,
+                response: Response<TvResponse?>
             ) {
                 loading.value = false
 
                 if(response.code() == 200){
                     maxPage = response.body()?.totalPages!!
-                    movies.addAll(response.body()?.results!!.toMutableList())
+                    tvs.addAll(response.body()?.results!!.toMutableList())
 
                     page++
                 }
             }
 
-            override fun onFailure(call: Call<MovieResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<TvResponse?>, t: Throwable) {
             }
 
         });

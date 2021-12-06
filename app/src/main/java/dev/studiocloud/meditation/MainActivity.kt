@@ -22,20 +22,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import dev.studiocloud.meditation.data.services.response.movieResponse.MovieItem
 import dev.studiocloud.meditation.data.services.viewModels.MovieViewModel
+import dev.studiocloud.meditation.data.services.viewModels.TvViewModel
 import dev.studiocloud.meditation.ui.components.PostView
 import dev.studiocloud.meditation.ui.components.StoryView
 
 class MainActivity : ComponentActivity() {
     private lateinit var movieViewModel: MovieViewModel
+    private lateinit var tvViewModel: TvViewModel
 
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         movieViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
-        movieViewModel.getMovies()
+        tvViewModel = ViewModelProvider(this)[TvViewModel::class.java]
+        movieViewModel.getMovies(reset = true)
+        tvViewModel.getTvs(reset = true)
 
         setContent {
             val systemUiController = rememberSystemUiController()
@@ -47,8 +50,7 @@ class MainActivity : ComponentActivity() {
             Column {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Image(
                         painterResource(R.drawable.ic_camera),
@@ -77,7 +79,14 @@ class MainActivity : ComponentActivity() {
                             .padding(14.dp)
                     )
                 }
-                StoryView()
+                StoryView(
+                    tvs = tvViewModel.tvs,
+                    loadMore = { index ->
+                        if (index == tvViewModel.tvs.count() - 1 && tvViewModel.page <= tvViewModel.maxPage){
+                            tvViewModel.getTvs()
+                        }
+                    }
+                )
                 Surface(
                     color = Color(0xFFE0E0E0),
                     modifier = Modifier
@@ -85,8 +94,7 @@ class MainActivity : ComponentActivity() {
                         .height(1.dp)
                 ){}
                 LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 ){
                     itemsIndexed( movieViewModel.movies){ index, movie ->
                         if (index == movieViewModel.movies.count() - 1 && movieViewModel.page <= movieViewModel.maxPage){
