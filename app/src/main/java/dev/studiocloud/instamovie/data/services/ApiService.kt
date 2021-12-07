@@ -1,6 +1,6 @@
 package dev.studiocloud.instamovie.data.services
 
-import dev.studiocloud.instamovie.data.services.response.movieDetailResponse.MovieDetalResponse
+import dev.studiocloud.instamovie.data.services.response.movieDetailResponse.MovieDetailResponse
 import dev.studiocloud.instamovie.data.services.response.movieResponse.MovieResponse
 import dev.studiocloud.instamovie.data.services.response.tvDetailResponse.TvDetailResponse
 import dev.studiocloud.instamovie.data.services.response.tvResponse.TvResponse
@@ -15,7 +15,7 @@ interface ApiService {
     fun getDetailMovies(
         @Path("id") id: Int,
         @Query("api_key") api_key: String?
-    ): Call<MovieDetalResponse?>?
+    ): Call<MovieDetailResponse?>?
 
     @GET("tv/{id}")
     fun getDetailTv(

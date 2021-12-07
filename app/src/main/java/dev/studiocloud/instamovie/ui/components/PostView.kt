@@ -8,12 +8,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -26,6 +26,9 @@ import dev.studiocloud.instamovie.data.services.response.movieResponse.MovieItem
 
 @Composable
 fun PostView(item: MovieItem){
+    var loved by remember { mutableStateOf(item.loved) }
+    var saved by remember { mutableStateOf(item.saved) }
+
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -50,11 +53,11 @@ fun PostView(item: MovieItem){
                     .weight(1f)
             ) {
                 Text(
-                    text = item.title,
+                    text = item.title ?: "",
                     fontSize = 14.sp
                 )
                 Text(
-                    text = item.releaseDate,
+                    text = item.releaseDate ?: "",
                     fontSize = 12.sp,
                     color = Color(0xFFA2A2A2)
                 )
@@ -88,14 +91,16 @@ fun PostView(item: MovieItem){
             modifier = Modifier.fillMaxWidth()
         ){
             Image(
-                painterResource(R.drawable.ic_love),
+                painterResource(if (loved) R.drawable.ic_love_filled else R.drawable.ic_love),
                 contentDescription = null,
+                colorFilter = ColorFilter.tint(if (loved) Color.Red else Color.Black),
                 modifier = Modifier
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
                         onClick = {
-
+                            loved = !loved
+                            item.loved = !item.loved
                         },
                     )
                     .padding(14.dp)
@@ -133,23 +138,25 @@ fun PostView(item: MovieItem){
                 .weight(1f)
             ){}
             Image(
-                painterResource(R.drawable.ic_bookmark),
+                painterResource(if (saved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark),
                 contentDescription = null,
                 modifier = Modifier
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
                         onClick = {
-
+                            saved = !saved
+                            item.saved = !item.saved
                         },
                     )
                     .padding(14.dp)
             )
         }
         Text(
-            text = item.overview,
+            text = item.overview ?: "",
             fontSize = 12.sp,
-            modifier = Modifier.padding(horizontal = 14.dp)
+            modifier = Modifier
+                .padding(horizontal = 14.dp)
                 .padding(bottom = 14.dp)
         )
     }

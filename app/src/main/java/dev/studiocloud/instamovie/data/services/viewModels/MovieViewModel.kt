@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class MovieViewModel : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
-    val movies : SnapshotStateList<MovieItem> = mutableStateListOf();
+    val movies = mutableStateListOf<MovieItem>();
     var page: Int = 1;
     var maxPage: Int = -1;
 

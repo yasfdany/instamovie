@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class TvViewModel : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
-    val tvs : SnapshotStateList<TvItem> = mutableStateListOf();
+    val tvs = mutableStateListOf<TvItem>();
     var page: Int = 1;
     var maxPage: Int = -1;
 
