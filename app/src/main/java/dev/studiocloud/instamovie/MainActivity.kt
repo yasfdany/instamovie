@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var movieViewModel: MovieViewModel
     private lateinit var tvViewModel: TvViewModel
 
+    @ExperimentalAnimationApi
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +99,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth()
                 ){
                     itemsIndexed( movieViewModel.movies){ index, movie ->
-                        if (index == movieViewModel.movies.count() - 1 && movieViewModel.page <= movieViewModel.maxPage){
+                        if (index == movieViewModel.movies.count() - 2 && movieViewModel.page <= movieViewModel.maxPage){
                             Log.d("loadmore", "loadmore")
                             movieViewModel.getMovies()
                         }

@@ -1,7 +1,9 @@
 package dev.studiocloud.instamovie.ui.components
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -22,12 +25,16 @@ import coil.compose.rememberImagePainter
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.services.response.movieResponse.MovieItem
+import java.util.*
+import kotlin.concurrent.schedule
 
 
+@ExperimentalAnimationApi
 @Composable
 fun PostView(item: MovieItem){
     var loved by remember { mutableStateOf(item.loved) }
     var saved by remember { mutableStateOf(item.saved) }
+    var loveVisibility by remember {(mutableStateOf(false))}
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -69,24 +76,53 @@ fun PostView(item: MovieItem){
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(bounded = false),
                     onClick = {
-
                     },
                 )
             )
         }
-        Image(
-            painter = rememberImagePainter(
-                data = BuildConfig.IMAGE_BASE_URL+"w342/"+item.posterPath,
-                builder = {
-                    crossfade(true)
-                },
-            ),
-            contentScale = ContentScale.Crop,
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(360.dp)
-        )
+        Box(contentAlignment = Alignment.Center) {
+            Image(
+                painter = rememberImagePainter(
+                    data = BuildConfig.IMAGE_BASE_URL+"w342/"+item.posterPath,
+                    builder = {
+                        crossfade(true)
+                    },
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(360.dp)
+                    .pointerInput(Unit) {
+                        detectTapGestures(
+                            onDoubleTap = {
+                                loved = !loved
+                                item.loved = !item.loved
+
+                                loveVisibility = !loveVisibility
+                                Timer().schedule(800) {
+                                    loveVisibility = !loveVisibility
+                                }
+                            }
+                        )
+                    }
+
+            )
+            androidx.compose.animation.AnimatedVisibility(
+                visible = loveVisibility,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_love_filled),
+                    contentDescription = null,
+                    colorFilter = ColorFilter.tint(color = Color.White),
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(120.dp)
+                )
+            }
+        }
         Row(
             modifier = Modifier.fillMaxWidth()
         ){
