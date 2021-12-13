@@ -1,4 +1,4 @@
-package dev.studiocloud.instamovie.data.services
+package dev.studiocloud.instamovie.data.remote
 
 import com.google.gson.GsonBuilder;
 import dev.studiocloud.instamovie.BuildConfig

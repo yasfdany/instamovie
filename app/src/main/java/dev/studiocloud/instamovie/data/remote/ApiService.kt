@@ -1,9 +1,9 @@
-package dev.studiocloud.instamovie.data.services
+package dev.studiocloud.instamovie.data.remote
 
-import dev.studiocloud.instamovie.data.services.response.movieDetailResponse.MovieDetailResponse
-import dev.studiocloud.instamovie.data.services.response.movieResponse.MovieResponse
-import dev.studiocloud.instamovie.data.services.response.tvDetailResponse.TvDetailResponse
-import dev.studiocloud.instamovie.data.services.response.tvResponse.TvResponse
+import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailResponse
+import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.remote.response.tvDetailResponse.TvDetailResponse
+import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

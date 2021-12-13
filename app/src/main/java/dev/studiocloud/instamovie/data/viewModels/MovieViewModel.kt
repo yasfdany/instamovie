@@ -1,21 +1,20 @@
-package dev.studiocloud.instamovie.data.services.viewModels
+package dev.studiocloud.instamovie.data.viewModels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import dev.studiocloud.instamovie.BuildConfig
-import dev.studiocloud.instamovie.data.services.ApiClient
-import dev.studiocloud.instamovie.data.services.ApiService
-import dev.studiocloud.instamovie.data.services.response.movieResponse.MovieItem
-import dev.studiocloud.instamovie.data.services.response.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.remote.ApiClient
+import dev.studiocloud.instamovie.data.remote.ApiService
+import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
+import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
 import retrofit2.Call
 import retrofit2.Response
 
 class MovieViewModel : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
-    val movies = mutableStateListOf<MovieItem>();
+    val movies = mutableStateListOf<MovieItem>()
     var page: Int = 1;
     var maxPage: Int = -1;
 

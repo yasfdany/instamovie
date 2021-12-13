@@ -1,8 +1,8 @@
-package dev.studiocloud.instamovie.data.services.response.tvDetailResponse
+package dev.studiocloud.instamovie.data.remote.response.tvDetailResponse
 
 import com.google.gson.annotations.SerializedName
 
-class ProductionCompaniesItem {
+class NetworksItem {
     @SerializedName("logo_path")
     var logoPath: String? = null
 
@@ -15,7 +15,7 @@ class ProductionCompaniesItem {
     @SerializedName("origin_country")
     var originCountry: String? = null
     override fun toString(): String {
-        return "ProductionCompaniesItem{" +
+        return "NetworksItem{" +
                 "logo_path = '" + logoPath + '\'' +
                 ",name = '" + name + '\'' +
                 ",id = '" + id + '\'' +

@@ -1,7 +1,7 @@
-package dev.studiocloud.instamovie
+package dev.studiocloud.instamovie.ui.pages
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -22,13 +22,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import dev.studiocloud.instamovie.data.services.viewModels.MovieViewModel
-import dev.studiocloud.instamovie.data.services.viewModels.TvViewModel
+import dev.studiocloud.instamovie.R
+import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
+import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.components.PostView
 import dev.studiocloud.instamovie.ui.components.StoryView
+import kotlinx.coroutines.InternalCoroutinesApi
 
-class MainActivity : ComponentActivity() {
+@ExperimentalPagerApi
+@InternalCoroutinesApi
+class HomeActivity : ComponentActivity() {
     private lateinit var movieViewModel: MovieViewModel
     private lateinit var tvViewModel: TvViewModel
 
@@ -83,10 +88,10 @@ class MainActivity : ComponentActivity() {
                 }
                 StoryView(
                     tvs = tvViewModel.tvs,
-                    loadMore = { index ->
-                        if (index == tvViewModel.tvs.count() - 1 && tvViewModel.page <= tvViewModel.maxPage){
-                            tvViewModel.getTvs()
-                        }
+                    onTapStory = { index, _ ->
+                        val intent = Intent(this@HomeActivity,StoryActivity::class.java)
+                        intent.putExtra("index",index)
+                        startActivity(intent)
                     }
                 )
                 Surface(
@@ -100,7 +105,6 @@ class MainActivity : ComponentActivity() {
                 ){
                     itemsIndexed( movieViewModel.movies){ index, movie ->
                         if (index == movieViewModel.movies.count() - 2 && movieViewModel.page <= movieViewModel.maxPage){
-                            Log.d("loadmore", "loadmore")
                             movieViewModel.getMovies()
                         }
                         PostView(item =  movie)

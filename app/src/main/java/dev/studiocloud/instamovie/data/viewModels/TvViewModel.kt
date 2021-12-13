@@ -1,15 +1,14 @@
-package dev.studiocloud.instamovie.data.services.viewModels
+package dev.studiocloud.instamovie.data.viewModels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import dev.studiocloud.instamovie.BuildConfig
-import dev.studiocloud.instamovie.data.services.ApiClient
-import dev.studiocloud.instamovie.data.services.ApiService
-import dev.studiocloud.instamovie.data.services.response.tvResponse.TvItem
-import dev.studiocloud.instamovie.data.services.response.tvResponse.TvResponse
+import dev.studiocloud.instamovie.data.remote.ApiClient
+import dev.studiocloud.instamovie.data.remote.ApiService
+import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
+import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
 import retrofit2.Call
 import retrofit2.Response
 
@@ -19,7 +18,10 @@ class TvViewModel : ViewModel() {
     var page: Int = 1;
     var maxPage: Int = -1;
 
-    fun getTvs(reset : Boolean = false){
+    fun getTvs(
+        reset : Boolean = false,
+        onFinish : (response: TvResponse) -> Unit = {},
+    ){
         if(reset){
             loading.value = true
             tvs.clear()
@@ -44,6 +46,8 @@ class TvViewModel : ViewModel() {
 
                     page++
                 }
+
+                onFinish(response.body()!!)
             }
 
             override fun onFailure(call: Call<TvResponse?>, t: Throwable) {

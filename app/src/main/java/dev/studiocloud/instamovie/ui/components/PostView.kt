@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
-import dev.studiocloud.instamovie.data.services.response.movieResponse.MovieItem
+import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 import java.util.*
 import kotlin.concurrent.schedule
 

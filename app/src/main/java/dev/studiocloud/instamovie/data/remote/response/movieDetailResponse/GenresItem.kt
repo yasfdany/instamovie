@@ -1,4 +1,4 @@
-package dev.studiocloud.instamovie.data.services.response.movieDetailResponse
+package dev.studiocloud.instamovie.data.remote.response.movieDetailResponse
 
 import com.google.gson.annotations.SerializedName
 

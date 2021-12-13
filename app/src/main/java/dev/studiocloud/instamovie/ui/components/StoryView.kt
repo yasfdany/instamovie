@@ -2,6 +2,7 @@ package dev.studiocloud.instamovie.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,12 +20,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import dev.studiocloud.instamovie.BuildConfig
-import dev.studiocloud.instamovie.data.services.response.tvResponse.TvItem
+import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 
 @Composable
 fun StoryView(
     tvs: SnapshotStateList<TvItem>,
-    loadMore: (index: Int) -> Unit
+    onTapStory: (index: Int, selected: TvItem) -> Unit
 ){
     LazyRow(
         modifier = Modifier
@@ -35,7 +36,6 @@ fun StoryView(
         contentPadding = PaddingValues(horizontal = 14.dp)
     ) {
         itemsIndexed(tvs){ index, tv ->
-            loadMore(index)
             Surface(
                 modifier = Modifier
                     .padding(end = 12.dp)
@@ -54,6 +54,9 @@ fun StoryView(
                         .padding(4.dp)
                         .size(54.dp)
                         .clip(CircleShape)
+                        .clickable {
+                            onTapStory(index, tv)
+                        }
                 )
             }
         }
