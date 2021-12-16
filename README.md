@@ -2,7 +2,7 @@
 Jetpack compose exploration instagram clone
 
 # Screenshoot
-![Screenshoot 1](screenshoot/1.png)
+![Screenshoot 1](screenshoot/1.png){ width=20% }
 
 # Library used in this project
 ## Retrofit
@@ -22,5 +22,5 @@ Jetpack compose exploration instagram clone
 ## Accompanist Pager
 - com.google.accompanist:accompanist-pager:0.21.4-beta
 
-# REST API SOURCE
+# REST API Source
 [The Movie DB API](https://www.themoviedb.org/documentation/api)
