@@ -2,7 +2,7 @@
 Jetpack compose exploration instagram clone
 
 # Screenshoot
-![Screenshoot 1](screenshoot/1.png){ width=20% }
+<img src="screenshoot/1.png" width="200px">
 
 # Library used in this project
 ## Retrofit
