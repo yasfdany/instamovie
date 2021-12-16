@@ -30,6 +30,7 @@ import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.components.PostView
 import dev.studiocloud.instamovie.ui.components.StoryView
+import dev.studiocloud.instamovie.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @ExperimentalMaterialApi
@@ -38,14 +39,15 @@ import kotlinx.coroutines.InternalCoroutinesApi
 class HomeActivity : ComponentActivity() {
     private lateinit var movieViewModel: MovieViewModel
     private lateinit var tvViewModel: TvViewModel
+    private val viewModelFactory: ViewModelFactory? = ViewModelFactory.getInstance()
 
     @ExperimentalAnimationApi
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        movieViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
-        tvViewModel = ViewModelProvider(this)[TvViewModel::class.java]
+        movieViewModel = ViewModelProvider(this,viewModelFactory!!)[MovieViewModel::class.java]
+        tvViewModel = ViewModelProvider(this, viewModelFactory)[TvViewModel::class.java]
         movieViewModel.getMovies(reset = true)
         tvViewModel.getTvs(reset = true)
 

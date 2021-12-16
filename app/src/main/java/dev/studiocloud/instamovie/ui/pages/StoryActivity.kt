@@ -19,10 +19,12 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
+import dev.studiocloud.instamovie.ui.viewmodel.ViewModelFactory
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 class StoryActivity : ComponentActivity() {
+    private val viewModelFactory: ViewModelFactory? = ViewModelFactory.getInstance()
     private lateinit var tvViewModel: TvViewModel
     private var pagerState : PagerState? = null
 
@@ -37,7 +39,8 @@ class StoryActivity : ComponentActivity() {
 
         val pageIndex : Int? = intent.extras?.getInt("index")
 
-        tvViewModel = ViewModelProvider(this)[TvViewModel::class.java]
+        tvViewModel = ViewModelProvider(this, viewModelFactory!!)[TvViewModel::class.java]
+        pagerState = PagerState(currentPage = pageIndex ?: 0)
         tvViewModel.getTvs(
             reset = true
         ) {
