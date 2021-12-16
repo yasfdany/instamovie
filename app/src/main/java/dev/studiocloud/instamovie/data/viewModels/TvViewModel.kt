@@ -4,13 +4,11 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import dev.studiocloud.instamovie.BuildConfig
+import dev.studiocloud.instamovie.data.MainRepository
 import dev.studiocloud.instamovie.data.remote.ApiClient
 import dev.studiocloud.instamovie.data.remote.ApiService
+import dev.studiocloud.instamovie.data.remote.RemoteRepository
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
-import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
-import retrofit2.Call
-import retrofit2.Response
 
 class TvViewModel : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
@@ -18,41 +16,25 @@ class TvViewModel : ViewModel() {
     var page: Int = 1;
     var maxPage: Int = -1;
 
+    private val client: ApiService = ApiClient.get()
+    private val remoteRepository: RemoteRepository? = RemoteRepository.getInstance(client);
+    private val repository: MainRepository? = MainRepository.getInstance(remoteRepository!!)
+
     fun getTvs(
-        reset : Boolean = false,
-        onFinish : (response: TvResponse) -> Unit = {},
+        reset: Boolean = false,
+        onFinish: () -> Unit = {},
     ){
         if(reset){
             loading.value = true
             tvs.clear()
         }
 
-        val client: ApiService = ApiClient.get()
-
-        client.getTv(
-            api_key = BuildConfig.MOVIE_API_KEY,
-            page = page,
-            language = "id",
-        )?.enqueue(object : retrofit2.Callback<TvResponse?> {
-            override fun onResponse(
-                call: Call<TvResponse?>,
-                response: Response<TvResponse?>
-            ) {
-                loading.value = false
-
-                if(response.code() == 200){
-                    maxPage = response.body()?.totalPages!!
-                    tvs.addAll(response.body()?.results!!.toMutableList())
-
-                    page++
-                }
-
-                onFinish(response.body()!!)
-            }
-
-            override fun onFailure(call: Call<TvResponse?>, t: Throwable) {
-            }
-
-        });
+        repository?.getTvs(page){
+            loading.value = false
+            tvs.addAll(it?.data ?: mutableStateListOf())
+            maxPage = it?.maxPage ?: 1
+            page = it?.page ?: 1
+            onFinish()
+        }
     }
 }

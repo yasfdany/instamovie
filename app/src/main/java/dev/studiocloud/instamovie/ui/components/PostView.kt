@@ -96,8 +96,8 @@ fun PostView(item: MovieItem){
                     .pointerInput(Unit) {
                         detectTapGestures(
                             onDoubleTap = {
-                                loved = !loved
-                                item.loved = !item.loved
+                                loved = true
+                                item.loved = true
 
                                 loveVisibility = !loveVisibility
                                 Timer().schedule(800) {

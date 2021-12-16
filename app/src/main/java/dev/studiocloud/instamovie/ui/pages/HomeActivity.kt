@@ -12,6 +12,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
@@ -31,6 +32,7 @@ import dev.studiocloud.instamovie.ui.components.PostView
 import dev.studiocloud.instamovie.ui.components.StoryView
 import kotlinx.coroutines.InternalCoroutinesApi
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @InternalCoroutinesApi
 class HomeActivity : ComponentActivity() {

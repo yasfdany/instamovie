@@ -1,16 +1,13 @@
 package dev.studiocloud.instamovie.ui.pages
 
-import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.Window
-import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -23,6 +20,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 class StoryActivity : ComponentActivity() {
     private lateinit var tvViewModel: TvViewModel
@@ -41,11 +39,10 @@ class StoryActivity : ComponentActivity() {
 
         tvViewModel = ViewModelProvider(this)[TvViewModel::class.java]
         tvViewModel.getTvs(
-            reset = true,
-            onFinish = {
-                pagerState = PagerState(currentPage = pageIndex ?: 0)
-            }
-        )
+            reset = true
+        ) {
+            pagerState = PagerState(currentPage = pageIndex ?: 0)
+        }
 
         setContent {
             val systemUiController = rememberSystemUiController()

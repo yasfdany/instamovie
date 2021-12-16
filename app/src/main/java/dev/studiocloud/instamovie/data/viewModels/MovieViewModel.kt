@@ -4,13 +4,11 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import dev.studiocloud.instamovie.BuildConfig
+import dev.studiocloud.instamovie.data.MainRepository
 import dev.studiocloud.instamovie.data.remote.ApiClient
 import dev.studiocloud.instamovie.data.remote.ApiService
+import dev.studiocloud.instamovie.data.remote.RemoteRepository
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
-import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
-import retrofit2.Call
-import retrofit2.Response
 
 class MovieViewModel : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
@@ -18,36 +16,22 @@ class MovieViewModel : ViewModel() {
     var page: Int = 1;
     var maxPage: Int = -1;
 
+    private val client: ApiService = ApiClient.get()
+    private val remoteRepository: RemoteRepository? = RemoteRepository.getInstance(client);
+    private val repository: MainRepository? = MainRepository.getInstance(remoteRepository!!)
+
     fun getMovies(reset : Boolean = false){
         if(reset){
+            page = 1
             loading.value = true
             movies.clear()
         }
 
-        val client: ApiService = ApiClient.get()
-
-        client.getMovies(
-            api_key = BuildConfig.MOVIE_API_KEY,
-            page = page,
-            language = "id",
-        )?.enqueue(object : retrofit2.Callback<MovieResponse?> {
-            override fun onResponse(
-                call: Call<MovieResponse?>,
-                response: Response<MovieResponse?>
-            ) {
-                loading.value = false
-
-                if(response.code() == 200){
-                    maxPage = response.body()?.totalPages!!
-                    movies.addAll(response.body()?.results!!.toMutableList())
-
-                    page++
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponse?>, t: Throwable) {
-            }
-
-        });
+        repository?.getMovies(page) {
+            loading.value = false
+            movies.addAll(it?.data ?: mutableStateListOf())
+            maxPage = it?.maxPage ?: 1
+            page = it?.page ?: 1
+        }
     }
 }
