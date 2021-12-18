@@ -87,7 +87,7 @@ fun ItemPost(
         Box(contentAlignment = Alignment.Center) {
             Image(
                 painter = rememberImagePainter(
-                    data = BuildConfig.IMAGE_BASE_URL+"w342/"+item.posterPath,
+                    data = BuildConfig.IMAGE_BASE_URL+"w500/"+item.posterPath,
                     builder = {
                         crossfade(true)
                     },

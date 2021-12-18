@@ -29,10 +29,8 @@ import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
 import dev.studiocloud.instamovie.ui.components.GradientBox
-import dev.studiocloud.instamovie.ui.theme.Purple200
-import dev.studiocloud.instamovie.ui.theme.blackText12
-import dev.studiocloud.instamovie.ui.theme.blackText18
-import dev.studiocloud.instamovie.ui.theme.whiteText12
+import dev.studiocloud.instamovie.ui.components.ItemRow
+import dev.studiocloud.instamovie.ui.theme.*
 
 @Composable
 fun DetailMovieScreen(
@@ -54,7 +52,7 @@ fun DetailMovieScreen(
             Box {
                 Image(
                     painter = rememberImagePainter(
-                        BuildConfig.IMAGE_BASE_URL+"w342/"+ movieDetail?.backdropPath,
+                        BuildConfig.IMAGE_BASE_URL+"w780/"+ movieDetail?.backdropPath,
                     ),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
@@ -153,6 +151,85 @@ fun DetailMovieScreen(
                     }
                 }
             }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column {
+                    ItemRow(
+                        leftText = "Status",
+                        rightText = movieDetail?.status ?: "",
+                        modifier = Modifier.padding(
+                            top = 24.dp,
+                            start = 14.dp,
+                        )
+                    )
+                    ItemRow(
+                        leftText = "Runtime",
+                        rightText = (movieDetail?.runtime ?: 0).toString(),
+                        modifier = Modifier.padding(
+                            top = 10.dp,
+                            start = 14.dp,
+                        )
+                    )
+                    ItemRow(
+                        leftText = "Release",
+                        rightText = movieDetail?.releaseDate ?: "",
+                        modifier = Modifier.padding(
+                            top = 10.dp,
+                            start = 14.dp,
+                        )
+                    )
+                    ItemRow(
+                        leftText = "Budget",
+                        rightText = "Rp. "+(movieDetail?.budget ?: 0).toString(),
+                        modifier = Modifier.padding(
+                            top = 10.dp,
+                            start = 14.dp,
+                        )
+                    )
+                    ItemRow(
+                        leftText = "Revenue",
+                        rightText = "Rp. "+(movieDetail?.revenue ?: 0).toString(),
+                        modifier = Modifier.padding(
+                            top = 10.dp,
+                            start = 14.dp,
+                        )
+                    )
+                }
+                Image(
+                    painter = rememberImagePainter(
+                        data = BuildConfig.IMAGE_BASE_URL+"w342/"+ movieDetail?.posterPath,
+                        builder = {
+                            crossfade(true)
+                        },
+                    ),
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(160.dp)
+                        .padding(
+                            top = 24.dp,
+                            end = 14.dp,
+                        )
+                        .clip(RoundedCornerShape(12.dp))
+                    ,
+                )
+            }
+            Text(
+                "Overview",
+                style = blackText18(FontWeight.Medium),
+                modifier = Modifier.padding(
+                    top = 24.dp,
+                    start = 14.dp,
+                )
+            )
+            Text(
+                movieDetail?.overview ?: "",
+                style = blackText14().copy(color = Color.Black.copy(0.4f)),
+                modifier = Modifier.padding(horizontal = 14.dp)
+            )
         }
     }
 }
