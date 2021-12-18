@@ -2,7 +2,7 @@ package dev.studiocloud.instamovie.data.remote.response.movieDetailResponse
 
 import com.google.gson.annotations.SerializedName
 
-class MovieDetailResponse {
+class MovieDetailData {
     @SerializedName("original_language")
     var originalLanguage: String? = null
 

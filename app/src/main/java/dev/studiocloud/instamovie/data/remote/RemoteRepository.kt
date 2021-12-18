@@ -1,6 +1,7 @@
 package dev.studiocloud.instamovie.data.remote
 
 import dev.studiocloud.instamovie.BuildConfig
+import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
 import retrofit2.Callback
@@ -30,6 +31,13 @@ class RemoteRepository(private val client: ApiService) {
             api_key = BuildConfig.MOVIE_API_KEY,
             page = page,
             language = "id",
+        )?.enqueue(callback);
+    }
+
+    fun getMovieDetail(id: Int, callback: Callback<MovieDetailData?>){
+        client.getDetailMovies(
+            id = id,
+            api_key = BuildConfig.MOVIE_API_KEY,
         )?.enqueue(callback);
     }
 }

@@ -1,13 +1,14 @@
 package dev.studiocloud.instamovie.ui.components
 
-import androidx.compose.animation.*
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
@@ -31,7 +32,10 @@ import kotlin.concurrent.schedule
 
 @ExperimentalAnimationApi
 @Composable
-fun PostView(item: MovieItem){
+fun ItemPost(
+    item: MovieItem,
+    onTapPost: (item: MovieItem) -> Unit,
+){
     var loved by remember { mutableStateOf(item.loved) }
     var saved by remember { mutableStateOf(item.saved) }
     var loveVisibility by remember {(mutableStateOf(false))}
@@ -103,7 +107,10 @@ fun PostView(item: MovieItem){
                                 Timer().schedule(800) {
                                     loveVisibility = !loveVisibility
                                 }
-                            }
+                            },
+                            onTap = {
+                                onTapPost(item)
+                            },
                         )
                     }
 
@@ -169,10 +176,10 @@ fun PostView(item: MovieItem){
                     )
                     .padding(14.dp)
             )
-            Surface(modifier = Modifier
+            Spacer(modifier = Modifier
                 .width(0.dp)
                 .weight(1f)
-            ){}
+            )
             Image(
                 painterResource(if (saved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark),
                 contentDescription = null,

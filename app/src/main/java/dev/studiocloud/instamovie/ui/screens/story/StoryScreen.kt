@@ -1,10 +1,5 @@
-package dev.studiocloud.instamovie.ui.pages
+package dev.studiocloud.instamovie.ui.screens.story
 
-import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -22,13 +16,11 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
-import dev.studiocloud.instamovie.ui.viewmodel.ViewModelFactory
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun StoryScreen(
-    navController: NavController,
     page: Int,
     tvViewModel: TvViewModel,
 ){
@@ -38,6 +30,7 @@ fun StoryScreen(
         darkIcons = true,
         color = Color.White,
     )
+    systemUiController.isSystemBarsVisible = false
 
     HorizontalPager(
         state = pagerState,

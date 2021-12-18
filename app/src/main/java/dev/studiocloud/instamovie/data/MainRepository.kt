@@ -3,6 +3,7 @@ package dev.studiocloud.instamovie.data
 import dev.studiocloud.instamovie.data.models.MovieData
 import dev.studiocloud.instamovie.data.models.TvData
 import dev.studiocloud.instamovie.data.remote.RemoteRepository
+import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
@@ -34,8 +35,8 @@ class MainRepository(
 
     override fun getMovies(page: Int, onFinish : (data: MovieData?) -> Unit) {
         val movies : MutableList<MovieItem> = mutableListOf()
-        var currentPage = 1
-        var currentMaxPage = 1
+        var currentPage: Int
+        var currentMaxPage: Int
 
         remoteRepository.getMovies(page, object: Callback<MovieResponse?>{
             override fun onResponse(
@@ -62,8 +63,8 @@ class MainRepository(
 
     override fun getTvs(page: Int, onFinish : (data: TvData?) -> Unit) {
         val tvs : MutableList<TvItem> = mutableListOf()
-        var currentPage = 1
-        var currentMaxPage = 1
+        var currentPage: Int
+        var currentMaxPage: Int
 
         remoteRepository.getTvs(page, object: Callback<TvResponse?>{
             override fun onResponse(call: Call<TvResponse?>, response: Response<TvResponse?>) {
@@ -83,5 +84,24 @@ class MainRepository(
                 onFinish(null)
             }
         })
+    }
+
+    override fun getMovieDetail(id: Int, onFinish: (data: MovieDetailData?) -> Unit) {
+        remoteRepository.getMovieDetail(id, object: Callback<MovieDetailData?>{
+            override fun onResponse(
+                call: Call<MovieDetailData?>,
+                response: Response<MovieDetailData?>
+            ) {
+                if (response.code() == 200){
+                    onFinish(response.body())
+                } else {
+                    onFinish(null)
+                }
+            }
+
+            override fun onFailure(call: Call<MovieDetailData?>, t: Throwable) {
+                onFinish(null)
+            }
+        });
     }
 }

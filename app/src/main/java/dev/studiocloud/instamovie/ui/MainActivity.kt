@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
@@ -23,6 +24,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         movieViewModel = ViewModelProvider(this,viewModelFactory!!)[MovieViewModel::class.java]
         tvViewModel = ViewModelProvider(this, viewModelFactory)[TvViewModel::class.java]

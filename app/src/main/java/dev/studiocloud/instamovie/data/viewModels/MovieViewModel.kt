@@ -8,10 +8,13 @@ import dev.studiocloud.instamovie.data.MainRepository
 import dev.studiocloud.instamovie.data.remote.ApiClient
 import dev.studiocloud.instamovie.data.remote.ApiService
 import dev.studiocloud.instamovie.data.remote.RemoteRepository
+import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 
 class MovieViewModel : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
+    val loadingDetail: MutableState<Boolean> = mutableStateOf(false);
+    val movieDetail : MutableState<MovieDetailData?> = mutableStateOf(null)
     val movies = mutableStateListOf<MovieItem>()
     var page: Int = 1;
     var maxPage: Int = -1;
@@ -19,6 +22,16 @@ class MovieViewModel : ViewModel() {
     private val client: ApiService = ApiClient.get()
     private val remoteRepository: RemoteRepository? = RemoteRepository.getInstance(client);
     private val repository: MainRepository? = MainRepository.getInstance(remoteRepository!!)
+
+    fun getMovieDetail(id: Int){
+        loadingDetail.value = true;
+        movieDetail.value = null;
+
+        repository?.getMovieDetail(id){
+            loadingDetail.value = false
+            movieDetail.value = it
+        }
+    }
 
     fun getMovies(reset : Boolean = false){
         if(reset){
