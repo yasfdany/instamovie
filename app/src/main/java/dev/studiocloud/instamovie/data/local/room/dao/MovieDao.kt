@@ -9,16 +9,16 @@ interface MovieDao {
     val count: Int
 
     @get:Query("SELECT * FROM Movie")
-    val allData: MutableList<Movie?>?
+    val allData: MutableList<Movie>
 
     @Query("SELECT * FROM Movie WHERE id = :id")
-    fun getData(id: Int): MutableList<Movie?>?
+    fun getData(id: Int): MutableList<Movie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertData(movieRoom: Movie?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllData(movieRooms: MutableList<Movie?>?)
+    fun insertAllData(movieRooms: MutableList<Movie>)
 
     @Delete
     fun deleteData(movieRoom: Movie?)

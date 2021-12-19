@@ -10,7 +10,7 @@ class MovieResponse {
     var totalPages = 0
 
     @SerializedName("results")
-    var results: List<MovieItem>? = null
+    var results: MutableList<MovieItem>? = null
 
     @SerializedName("total_results")
     var totalResults = 0

@@ -21,7 +21,9 @@ class DatabaseClient(context: Context) {
 
     init {
         appDatabase = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "MovieCatalogue")
-            .fallbackToDestructiveMigration().build()
+            .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
+            .build()
     }
 
     fun getAppDatabase(): AppDatabase? {

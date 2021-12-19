@@ -9,16 +9,13 @@ import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
-import dev.studiocloud.instamovie.utils.AppExecutors
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MainRepository(
     private val remoteRepository: RemoteRepository,
     private val localRepository: LocalRepository,
-    private val appExecutors: AppExecutors,
 ) : MainDataSource {
     companion object{
         private var INSTANCE: MainRepository? = null
@@ -26,7 +23,6 @@ class MainRepository(
         fun getInstance(
             remoteRepository: RemoteRepository,
             localRepository: LocalRepository,
-            appExecutors: AppExecutors,
         ): MainRepository? {
             if (INSTANCE == null) {
                 synchronized(RemoteRepository::class.java) {
@@ -34,7 +30,6 @@ class MainRepository(
                         INSTANCE = MainRepository(
                             remoteRepository,
                             localRepository,
-                            appExecutors
                         )
                     }
                 }

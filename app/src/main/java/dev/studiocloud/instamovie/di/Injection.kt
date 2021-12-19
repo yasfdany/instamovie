@@ -6,7 +6,6 @@ import dev.studiocloud.instamovie.data.local.DatabaseClient
 import dev.studiocloud.instamovie.data.local.LocalRepository
 import dev.studiocloud.instamovie.data.remote.ApiClient
 import dev.studiocloud.instamovie.data.remote.RemoteRepository
-import dev.studiocloud.instamovie.utils.AppExecutors
 
 
 class Injection {
@@ -20,9 +19,8 @@ class Injection {
                 database.getAppDatabase()!!.movieDetailDao(),
             )
             val remoteRepository = RemoteRepository.getInstance(client)
-            val appExecutors = AppExecutors()
 
-            return MainRepository.getInstance(remoteRepository!!, localRepository!!, appExecutors)
+            return MainRepository.getInstance(remoteRepository!!, localRepository!!)
         }
     }
 }

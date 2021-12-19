@@ -10,16 +10,16 @@ interface TvDao {
     val count: Int
 
     @get:Query("SELECT * FROM Tv")
-    val allData: MutableList<Tv?>?
+    val allData: MutableList<Tv>
 
     @Query("SELECT * FROM Tv WHERE id = :id")
-    fun getData(id: Int): MutableList<Tv?>?
+    fun getData(id: Int): MutableList<Tv>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertData(tvRoom: Tv?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllData(tvRooms: List<Tv?>?)
+    fun insertAllData(tvRooms: MutableList<Tv>)
 
     @Delete
     fun deleteData(tvRoom: Tv?)

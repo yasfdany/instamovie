@@ -66,4 +66,7 @@ class MovieDetail {
 
     @ColumnInfo(name = "status")
     var status: String? = null
+
+    @ColumnInfo(name = "genres")
+    var genres: String? = null
 }

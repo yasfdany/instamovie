@@ -7,13 +7,6 @@ import dev.studiocloud.instamovie.data.local.room.dao.MovieDao
 import dev.studiocloud.instamovie.data.local.room.dao.MovieDetailDao
 import dev.studiocloud.instamovie.data.local.room.dao.TvDao
 
-
-
-
-
-
-
-
 class LocalRepository(
     private val movieDao: MovieDao,
     private val tvDao: TvDao,
@@ -35,7 +28,7 @@ class LocalRepository(
         }
     }
 
-    fun getAllMovie(): MutableList<Movie?>? {
+    fun getAllMovie(): MutableList<Movie> {
         return movieDao.allData
     }
 
@@ -43,7 +36,7 @@ class LocalRepository(
         movieDao.insertData(movie)
     }
 
-    fun insertAllMovie(movies: MutableList<Movie?>?) {
+    fun insertAllMovie(movies: MutableList<Movie>) {
         movieDao.insertAllData(movies)
     }
 
@@ -55,7 +48,7 @@ class LocalRepository(
         movieDao.updateData(movie)
     }
 
-    fun getAllTv(): MutableList<Tv?>? {
+    fun getAllTv(): MutableList<Tv> {
         return tvDao.allData
     }
 
@@ -63,7 +56,7 @@ class LocalRepository(
         tvDao.insertData(tv)
     }
 
-    fun insertAllTv(tvs: List<Tv?>?) {
+    fun insertAllTv(tvs: MutableList<Tv>) {
         tvDao.insertAllData(tvs)
     }
 
@@ -75,7 +68,7 @@ class LocalRepository(
         tvDao.updateData(tv)
     }
 
-    fun getMovieDetailById(id: Int): MutableList<MovieDetail?>? {
+    fun getMovieDetailById(id: Int): MutableList<MovieDetail> {
         return movieDetailDao.getData(id)
     }
 
