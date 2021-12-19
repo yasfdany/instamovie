@@ -7,6 +7,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
@@ -32,7 +33,9 @@ class MainActivity : ComponentActivity() {
         tvViewModel.getTvs(reset = true)
 
         setContent {
-            AppNavigation(movieViewModel = movieViewModel, tvViewModel = tvViewModel);
+            ProvideWindowInsets {
+                AppNavigation(movieViewModel = movieViewModel, tvViewModel = tvViewModel);
+            }
         }
     }
 }

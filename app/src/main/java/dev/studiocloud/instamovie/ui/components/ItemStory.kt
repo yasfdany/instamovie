@@ -22,7 +22,7 @@ fun ItemStory(
 ) {
     Image(
         painter = rememberImagePainter(
-            BuildConfig.IMAGE_BASE_URL+"w342/"+tvItem.posterPath,
+            BuildConfig.IMAGE_BASE_URL+"w780/"+tvItem.posterPath,
             builder = {
                 crossfade(true)
             },

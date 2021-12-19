@@ -61,6 +61,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
     implementation 'androidx.activity:activity-compose:1.4.0'
     implementation("io.coil-kt:coil-compose:1.4.0")
+    implementation "com.github.skydoves:landscapist-glide:1.4.4"
 
     //Room Database
     implementation "androidx.room:room-runtime:$room_version"
@@ -71,6 +72,8 @@ dependencies {
 
     //Accompanist
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
 
     //Network Libs
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'

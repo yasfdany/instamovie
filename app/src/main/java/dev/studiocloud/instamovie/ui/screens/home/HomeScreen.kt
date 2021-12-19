@@ -1,5 +1,6 @@
 package dev.studiocloud.instamovie.ui.screens.home
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -7,15 +8,16 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.google.accompanist.insets.systemBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
@@ -31,6 +33,10 @@ fun HomeScreen(
     movieViewModel: MovieViewModel,
     tvViewModel: TvViewModel,
 ){
+    var visibleStory by remember { mutableStateOf(true) }
+
+    val scrollState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
         darkIcons = true,
@@ -43,8 +49,10 @@ fun HomeScreen(
         color = Color.White,
         modifier = Modifier
             .fillMaxHeight()
-            .padding(top = 25.dp)
+            .systemBarsPadding()
     ){
+        visibleStory = scrollState.firstVisibleItemIndex == 0
+
         Column {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -77,15 +85,18 @@ fun HomeScreen(
                         .padding(14.dp)
                 )
             }
-            StoryView(
-                tvs = tvViewModel.tvs,
-                onTapStory = { index, _ ->
-                    navController.navigate(Screen.Story.route+"/page=$index")
-                }
-            )
+            AnimatedVisibility(visible = visibleStory) {
+                StoryView(
+                    tvs = tvViewModel.tvs,
+                    onTapStory = { index, _ ->
+                        navController.navigate(Screen.Story.route+"/page=$index")
+                    }
+                )
+            }
             Line()
             LazyColumn(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                state = scrollState,
             ){
                 itemsIndexed( movieViewModel.movies){ index, movie ->
                     if (index == movieViewModel.movies.count() - 2 && movieViewModel.page <= movieViewModel.maxPage){

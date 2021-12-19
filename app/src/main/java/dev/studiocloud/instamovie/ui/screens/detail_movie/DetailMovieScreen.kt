@@ -23,7 +23,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.skydoves.landscapist.CircularReveal
+import com.skydoves.landscapist.ShimmerParams
+import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
@@ -46,16 +50,23 @@ fun DetailMovieScreen(
 
     Surface(
         color = Color.White,
-        modifier = Modifier.fillMaxHeight()
+        modifier = Modifier
+            .fillMaxHeight()
+            .navigationBarsPadding()
     ) {
         Column {
             Box {
-                Image(
-                    painter = rememberImagePainter(
-                        BuildConfig.IMAGE_BASE_URL+"w780/"+ movieDetail?.backdropPath,
-                    ),
-                    contentDescription = null,
+                GlideImage(
+                    BuildConfig.IMAGE_BASE_URL+"w780/"+ movieDetail?.backdropPath,
+                    circularReveal = CircularReveal(duration = 800),
                     contentScale = ContentScale.Crop,
+                    shimmerParams = ShimmerParams(
+                        baseColor = Color.White,
+                        highlightColor = Color(0xFFDBDBDB),
+                        durationMillis = 1000,
+                        dropOff = 0.65f,
+                        tilt = 20f
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(360.dp)
