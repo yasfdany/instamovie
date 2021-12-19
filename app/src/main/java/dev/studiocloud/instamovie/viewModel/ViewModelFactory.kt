@@ -1,17 +1,18 @@
-package dev.studiocloud.instamovie.ui.viewmodel
+package dev.studiocloud.instamovie.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import dev.studiocloud.instamovie.data.MainRepository
 import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 
-class ViewModelFactory : ViewModelProvider.Factory {
+class ViewModelFactory(private val mainRepository: MainRepository?) : ViewModelProvider.Factory {
     companion object{
         private var INSTANCE: ViewModelFactory? = null
 
-        fun getInstance(): ViewModelFactory? {
+        fun getInstance(mainRepository: MainRepository?): ViewModelFactory? {
             if (INSTANCE == null) {
-                INSTANCE = ViewModelFactory()
+                INSTANCE = ViewModelFactory(mainRepository)
             }
             return INSTANCE
         }
@@ -19,9 +20,9 @@ class ViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(MovieViewModel::class.java)){
-            return MovieViewModel() as T
+            return MovieViewModel(mainRepository) as T
         } else if(modelClass.isAssignableFrom(TvViewModel::class.java)){
-            return TvViewModel() as T
+            return TvViewModel(mainRepository) as T
         }
         throw IllegalArgumentException("Unknown class")
     }

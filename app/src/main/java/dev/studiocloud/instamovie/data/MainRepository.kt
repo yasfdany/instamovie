@@ -1,5 +1,6 @@
 package dev.studiocloud.instamovie.data
 
+import dev.studiocloud.instamovie.data.local.LocalRepository
 import dev.studiocloud.instamovie.data.models.MovieData
 import dev.studiocloud.instamovie.data.models.TvData
 import dev.studiocloud.instamovie.data.remote.RemoteRepository
@@ -8,23 +9,33 @@ import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
+import dev.studiocloud.instamovie.utils.AppExecutors
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MainRepository(
     private val remoteRepository: RemoteRepository,
+    private val localRepository: LocalRepository,
+    private val appExecutors: AppExecutors,
 ) : MainDataSource {
     companion object{
         private var INSTANCE: MainRepository? = null
 
         fun getInstance(
-            remoteData: RemoteRepository,
+            remoteRepository: RemoteRepository,
+            localRepository: LocalRepository,
+            appExecutors: AppExecutors,
         ): MainRepository? {
             if (INSTANCE == null) {
                 synchronized(RemoteRepository::class.java) {
                     if (INSTANCE == null) {
-                        INSTANCE = MainRepository(remoteData)
+                        INSTANCE = MainRepository(
+                            remoteRepository,
+                            localRepository,
+                            appExecutors
+                        )
                     }
                 }
             }

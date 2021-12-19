@@ -5,13 +5,10 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dev.studiocloud.instamovie.data.MainRepository
-import dev.studiocloud.instamovie.data.remote.ApiClient
-import dev.studiocloud.instamovie.data.remote.ApiService
-import dev.studiocloud.instamovie.data.remote.RemoteRepository
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(private val mainRepository: MainRepository?) : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
     val loadingDetail: MutableState<Boolean> = mutableStateOf(false);
     val movieDetail : MutableState<MovieDetailData?> = mutableStateOf(null)
@@ -19,15 +16,11 @@ class MovieViewModel : ViewModel() {
     var page: Int = 1;
     var maxPage: Int = -1;
 
-    private val client: ApiService = ApiClient.get()
-    private val remoteRepository: RemoteRepository? = RemoteRepository.getInstance(client);
-    private val repository: MainRepository? = MainRepository.getInstance(remoteRepository!!)
-
     fun getMovieDetail(id: Int){
         loadingDetail.value = true;
         movieDetail.value = null;
 
-        repository?.getMovieDetail(id){
+        mainRepository?.getMovieDetail(id){
             loadingDetail.value = false
             movieDetail.value = it
         }
@@ -40,7 +33,7 @@ class MovieViewModel : ViewModel() {
             movies.clear()
         }
 
-        repository?.getMovies(page) {
+        mainRepository?.getMovies(page) {
             loading.value = false
             movies.addAll(it?.data ?: mutableStateListOf())
             maxPage = it?.maxPage ?: 1

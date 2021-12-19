@@ -6,9 +6,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavGraphBuilder
+import androidx.navigation.*
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -77,6 +75,9 @@ fun AppNavigation (
         }
         animatedComposable(
             route = Screen.Story.route + "/page={page}",
+            arguments = listOf(
+                navArgument("page"){type = NavType.IntType}
+            ),
             navGraphBuilder = this,
         ) {
             it.arguments?.getInt("page").let { page ->
