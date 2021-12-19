@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
@@ -49,8 +50,8 @@ fun ItemPost(
                 .padding(14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = rememberImagePainter(BuildConfig.IMAGE_BASE_URL+"w342/"+item.backdropPath),
+            GlideImage(
+                BuildConfig.IMAGE_BASE_URL+"w342/"+item.backdropPath,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

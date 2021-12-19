@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
@@ -25,6 +26,24 @@ import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.Screen
 import dev.studiocloud.instamovie.ui.components.ItemPost
 import dev.studiocloud.instamovie.ui.components.Line
+
+@Composable
+private fun LazyListState.isScrollingUp(): Boolean {
+    var previousIndex by remember(this) { mutableStateOf(firstVisibleItemIndex) }
+    var previousScrollOffset by remember(this) { mutableStateOf(firstVisibleItemScrollOffset) }
+    return remember(this) {
+        derivedStateOf {
+            if (previousIndex != firstVisibleItemIndex) {
+                previousIndex > firstVisibleItemIndex
+            } else {
+                previousScrollOffset >= firstVisibleItemScrollOffset
+            }.also {
+                previousIndex = firstVisibleItemIndex
+                previousScrollOffset = firstVisibleItemScrollOffset
+            }
+        }
+    }.value
+}
 
 @ExperimentalAnimationApi
 @Composable
@@ -51,7 +70,7 @@ fun HomeScreen(
             .fillMaxHeight()
             .systemBarsPadding()
     ){
-        visibleStory = scrollState.firstVisibleItemIndex == 0
+        visibleStory = scrollState.isScrollingUp()
 
         Column {
             Row(
@@ -99,7 +118,7 @@ fun HomeScreen(
                 state = scrollState,
             ){
                 itemsIndexed( movieViewModel.movies){ index, movie ->
-                    if (index == movieViewModel.movies.count() - 2 && movieViewModel.page <= movieViewModel.maxPage){
+                    if (index == movieViewModel.movies.count() - 2 && movieViewModel.page < movieViewModel.maxPage){
                         movieViewModel.getMovies()
                     }
                     ItemPost(

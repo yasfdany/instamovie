@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -8,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "dev.studiocloud.meditation"
-        minSdk 21
+        minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -62,10 +63,11 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.4.0'
     implementation("io.coil-kt:coil-compose:1.4.0")
     implementation "com.github.skydoves:landscapist-glide:1.4.4"
+    implementation 'com.google.code.gson:gson:2.8.8'
 
     //Room Database
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     //Navigation
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
