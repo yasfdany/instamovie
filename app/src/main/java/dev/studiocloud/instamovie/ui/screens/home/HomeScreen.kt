@@ -118,7 +118,7 @@ fun HomeScreen(
                 state = scrollState,
             ){
                 itemsIndexed( movieViewModel.movies){ index, movie ->
-                    if (index == movieViewModel.movies.count() - 2 && movieViewModel.page <= movieViewModel.maxPage){
+                    if (index == movieViewModel.movies.count() - 2 && movieViewModel.page < movieViewModel.maxPage){
                         movieViewModel.getMovies()
                     }
                     ItemPost(
