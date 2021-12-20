@@ -33,7 +33,7 @@ import kotlin.concurrent.schedule
 
 @ExperimentalAnimationApi
 @Composable
-fun ItemPost(
+fun ItemMovie(
     item: MovieItem,
     onTapPost: (item: MovieItem) -> Unit,
 ){

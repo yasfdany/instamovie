@@ -19,8 +19,10 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2462962962962963" />
         <entry key="app/src/main/res/drawable/ic_love.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/drawable/ic_love_filled.xml" value="0.2462962962962963" />
+        <entry key="app/src/main/res/drawable/ic_movie.xml" value="0.2462962962962963" />
         <entry key="app/src/main/res/drawable/ic_option.xml" value="0.34615384615384615" />
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.34074074074074073" />
+        <entry key="app/src/main/res/drawable/ic_tv.xml" value="0.2462962962962963" />
       </map>
     </option>
   </component>

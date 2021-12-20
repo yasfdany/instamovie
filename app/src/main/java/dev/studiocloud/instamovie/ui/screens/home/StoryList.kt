@@ -14,10 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
+import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.components.ItemStory
 
 @Composable
-fun StoryView(
+fun StoryList(
+    tvViewModel: TvViewModel,
     tvs: SnapshotStateList<TvItem>,
     onTapStory: (index: Int, selected: TvItem) -> Unit
 ){
@@ -30,6 +32,9 @@ fun StoryView(
         contentPadding = PaddingValues(horizontal = 14.dp)
     ) {
         itemsIndexed(tvs){ index, tv ->
+            if (index == tvViewModel.tvs.count() - 2 && tvViewModel.page < tvViewModel.maxPage){
+                tvViewModel.getTvs()
+            }
             Surface(
                 modifier = Modifier
                     .padding(end = 12.dp)

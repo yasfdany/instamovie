@@ -52,17 +52,22 @@ android {
 }
 
 dependencies {
-    implementation "com.google.accompanist:accompanist-pager:0.21.4-beta"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+    implementation 'androidx.activity:activity-compose:1.4.0'
+
+    //Compose Library
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
-    implementation 'androidx.activity:activity-compose:1.4.0'
+
+    //Image Networking
     implementation("io.coil-kt:coil-compose:1.4.0")
     implementation "com.github.skydoves:landscapist-glide:1.4.4"
+
+    //Serialization
     implementation 'com.google.code.gson:gson:2.8.8'
 
     //Room Database
@@ -72,17 +77,17 @@ dependencies {
     //Navigation
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
 
-    //Accompanist
+    //Accompanist UI utility
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
     implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
     implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
 
     //Network Libs
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
-
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

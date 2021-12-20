@@ -90,12 +90,14 @@ fun DetailMovieScreen(
                                 )
                         ) {
                             Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
                                 modifier = Modifier.padding(14.dp)
                             ) {
                                 Text(
                                     text = movieDetail?.title ?: "",
                                     style = blackText18(FontWeight.Medium),
+                                    modifier = Modifier
+                                        .width(0.dp)
+                                        .weight(1f)
                                 )
                                 Surface(
                                     color = Purple200,
