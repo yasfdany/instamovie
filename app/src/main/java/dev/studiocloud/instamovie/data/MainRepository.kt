@@ -87,12 +87,12 @@ class MainRepository(
         });
     }
 
-    override fun getTvs(page: Int, onFinish : (data: TvData?) -> Unit) {
+    override fun getTvs(page: Int, search : String, onFinish : (data: TvData?) -> Unit) {
         val tvs : MutableList<TvItem> = mutableListOf()
         var currentPage: Int
         var currentMaxPage: Int
 
-        remoteRepository.getTvs(page, object: Callback<TvResponse?>{
+        remoteRepository.getTvs(page, search, object: Callback<TvResponse?>{
             override fun onResponse(call: Call<TvResponse?>, response: Response<TvResponse?>) {
                 if(response.code() == 200){
                     currentMaxPage = response.body()?.totalPages!!

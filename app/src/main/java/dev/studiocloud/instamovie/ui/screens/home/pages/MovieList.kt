@@ -1,4 +1,4 @@
-package dev.studiocloud.instamovie.ui.screens.home
+package dev.studiocloud.instamovie.ui.screens.home.pages
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -19,9 +19,10 @@ import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.Screen
 import dev.studiocloud.instamovie.ui.components.ItemMovie
 import dev.studiocloud.instamovie.ui.components.Line
+import dev.studiocloud.instamovie.ui.screens.home.StoryList
 
 @Composable
-private fun LazyListState.isScrollingUp(): Boolean {
+fun LazyListState.isScrollingUp(): Boolean {
     var previousIndex by remember(this) { mutableStateOf(firstVisibleItemIndex) }
     var previousScrollOffset by remember(this) { mutableStateOf(firstVisibleItemScrollOffset) }
     return remember(this) {

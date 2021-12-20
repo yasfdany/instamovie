@@ -45,7 +45,7 @@ interface ApiService {
         @Query("page") page: Int
     ): Call<TvResponse?>?
 
-    @GET("search/tv")
+    @GET("search/tv/")
     fun getSearchTv(
         @Query("api_key") api_key: String?,
         @Query("language") language: String?,

@@ -16,13 +16,15 @@ class TvViewModel(private val mainRepository: MainRepository?) : ViewModel() {
     fun getTvs(
         reset: Boolean = false,
         onFinish: () -> Unit = {},
+        search: String = "",
     ){
         if(reset){
+            page = 1
             loading.value = true
             tvs.clear()
         }
 
-        mainRepository?.getTvs(page){
+        mainRepository?.getTvs(page, search){
             loading.value = false
             tvs.addAll(it?.data ?: mutableStateListOf())
             maxPage = it?.maxPage ?: 1

@@ -1,6 +1,7 @@
 package dev.studiocloud.instamovie.ui.screens.home
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -16,12 +17,14 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.insets.systemBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.components.Line
+import dev.studiocloud.instamovie.ui.screens.home.pages.MovieList
+import dev.studiocloud.instamovie.ui.screens.home.pages.TvList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -61,6 +64,8 @@ fun HeaderHome(){
     }
 }
 
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalAnimationApi
 @Composable
@@ -70,7 +75,7 @@ fun HomeScreen(
     tvViewModel: TvViewModel,
 ){
     var selectedTab by remember { mutableStateOf("movie") }
-    val pagerState = PagerState(currentPage = 0)
+    val pagerState = rememberPagerState(initialPage = 0)
     val coroutineScope = rememberCoroutineScope()
 
     val systemUiController = rememberSystemUiController()
@@ -117,9 +122,10 @@ fun HomeScreen(
                         )
                     }
                     1 -> {
-                        Surface {
-
-                        }
+                        TvList(
+                            navController = navController,
+                            tvViewModel = tvViewModel,
+                        )
                     }
                 }
             }
