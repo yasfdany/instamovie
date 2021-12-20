@@ -114,14 +114,26 @@ class MainRepository(
             }
 
             override fun onFailure(call: Call<TvResponse?>, t: Throwable) {
-                val localTvs = localRepository.getAllTv()
-                for(tv in localTvs){
-                    val tvJson = Gson().toJson(tv)
-                    val convertedTv = Gson().fromJson(tvJson, TvItem::class.java)
-                    tvs.add(convertedTv)
-                }
+                if (search.isEmpty()){
+                    val localTvs = localRepository.getAllTv()
+                    for(tv in localTvs){
+                        val tvJson = Gson().toJson(tv)
+                        val convertedTv = Gson().fromJson(tvJson, TvItem::class.java)
+                        tvs.add(convertedTv)
+                    }
 
-                onFinish(TvData(1,1, tvs))
+                    onFinish(TvData(1,1, tvs))
+                } else {
+                    val localTvs = localRepository.searchTv(search)
+                    for(tv in localTvs){
+                        val tvJson = Gson().toJson(tv)
+                        val convertedTv = Gson().fromJson(tvJson, TvItem::class.java)
+                        tvs.add(convertedTv)
+                    }
+
+                    onFinish(TvData(1,1, tvs))
+
+                }
             }
         })
     }

@@ -10,13 +10,13 @@ import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 class TvViewModel(private val mainRepository: MainRepository?) : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
     val tvs = mutableStateListOf<TvItem>();
+    val tvExplore = mutableStateListOf<TvItem>();
     var page: Int = 1;
     var maxPage: Int = -1;
 
     fun getTvs(
         reset: Boolean = false,
         onFinish: () -> Unit = {},
-        search: String = "",
     ){
         if(reset){
             page = 1
@@ -24,9 +24,27 @@ class TvViewModel(private val mainRepository: MainRepository?) : ViewModel() {
             tvs.clear()
         }
 
-        mainRepository?.getTvs(page, search){
+        mainRepository?.getTvs(page, ""){
             loading.value = false
             tvs.addAll(it?.data ?: mutableStateListOf())
+            onFinish()
+        }
+    }
+
+    fun searchTv(
+        reset: Boolean = false,
+        onFinish: () -> Unit = {},
+        search: String = "",
+    ){
+        if(reset){
+            page = 1
+            loading.value = true
+            tvExplore.clear()
+        }
+
+        mainRepository?.getTvs(page, search){
+            loading.value = false
+            tvExplore.addAll(it?.data ?: mutableStateListOf())
             maxPage = it?.maxPage ?: 1
             page = it?.page ?: 1
             onFinish()

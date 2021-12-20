@@ -40,6 +40,10 @@ class MainActivity : ComponentActivity() {
         tvViewModel = ViewModelProvider(this, viewModelFactory!!)[TvViewModel::class.java]
         movieViewModel.getMovies(reset = true)
         tvViewModel.getTvs(reset = true)
+        tvViewModel.searchTv(
+            reset = true,
+            search = "",
+        )
 
         setContent {
             ProvideWindowInsets {

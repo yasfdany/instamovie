@@ -4,6 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -96,6 +97,7 @@ fun ItemMovie(
                 contentScale = ContentScale.Crop,
                 contentDescription = null,
                 modifier = Modifier
+                    .background(color = Color(0xFFF1F1F1))
                     .fillMaxWidth()
                     .height(360.dp)
                     .pointerInput(Unit) {

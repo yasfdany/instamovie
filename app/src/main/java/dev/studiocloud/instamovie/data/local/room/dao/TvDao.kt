@@ -15,6 +15,9 @@ interface TvDao {
     @Query("SELECT * FROM Tv WHERE id = :id")
     fun getData(id: Int): MutableList<Tv>
 
+    @Query("SELECT * FROM Tv WHERE name LIKE '%' || :title || '%'")
+    fun searchData(title: String): MutableList<Tv>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertData(tvRoom: Tv?)
 

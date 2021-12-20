@@ -32,9 +32,6 @@ fun StoryList(
         contentPadding = PaddingValues(horizontal = 14.dp)
     ) {
         itemsIndexed(tvs){ index, tv ->
-            if (index == tvViewModel.tvs.count() - 2 && tvViewModel.page < tvViewModel.maxPage){
-                tvViewModel.getTvs()
-            }
             Surface(
                 modifier = Modifier
                     .padding(end = 12.dp)

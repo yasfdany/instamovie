@@ -2,10 +2,7 @@ package dev.studiocloud.instamovie.ui.screens.home.pages
 
 import android.os.CountDownTimer
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
@@ -30,8 +27,8 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
+import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
-import dev.studiocloud.instamovie.ui.Screen
 import dev.studiocloud.instamovie.ui.components.Line
 import dev.studiocloud.instamovie.ui.components.TextArea
 import dev.studiocloud.instamovie.ui.theme.blackText14
@@ -46,14 +43,13 @@ fun TvList(
     val scrollState = rememberLazyListState()
     var visibleSearch by remember { mutableStateOf(true) }
     var searchValue by remember { mutableStateOf("") }
-    val configuration = LocalConfiguration.current
     val timer = object: CountDownTimer(500, 1000) {
         override fun onTick(millisUntilFinished: Long) {
 
         }
 
         override fun onFinish() {
-            tvViewModel?.getTvs(
+            tvViewModel?.searchTv(
                 reset = true,
                 search = searchValue,
             )
@@ -96,7 +92,7 @@ fun TvList(
                                         indication = rememberRipple(bounded = false),
                                         onClick = {
                                             searchValue = ""
-                                            tvViewModel?.getTvs(
+                                            tvViewModel?.searchTv(
                                                 reset = true,
                                                 search = searchValue,
                                             )
@@ -133,42 +129,49 @@ fun TvList(
                     cells = GridCells.Fixed(3),
                     state = scrollState,
                 ) {
-                    itemsIndexed(tvViewModel.tvs) { index, tv ->
-                        if (index == tvViewModel.tvs.count() - 2 && tvViewModel.page < tvViewModel.maxPage){
-                            tvViewModel.getTvs(
+                    itemsIndexed(tvViewModel.tvExplore) { index, tv ->
+                        if (index == tvViewModel.tvExplore.count() - 2 && tvViewModel.page < tvViewModel.maxPage){
+                            tvViewModel.searchTv(
                                 search = searchValue,
                             )
                         }
 
-                        Image(
-                            painter = rememberImagePainter(
-                                data = BuildConfig.IMAGE_BASE_URL+"w500/"+tv.posterPath,
-                                builder = {
-                                    crossfade(true)
-                                },
-                            ),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .height(configuration.screenWidthDp.dp / 3)
-                                .border(
-                                    width = 1.dp,
-                                    color = Color.White,
-                                )
-                                .clickable(
-                                    interactionSource = remember { MutableInteractionSource() },
-                                    indication = rememberRipple(bounded = true),
-                                    onClick = {
-                                        navController?.navigate(Screen.Story.route + "/page=$index")
-                                    },
-                                )
-                        )
+                        ItemTv(tv)
                     }
                 }
 
             }
         }
     }
+}
+
+@Composable
+fun ItemTv(tvItem: TvItem){
+    val configuration = LocalConfiguration.current
+
+    Image(
+        painter = rememberImagePainter(
+            data = BuildConfig.IMAGE_BASE_URL+"w500/"+tvItem.posterPath,
+            builder = {
+                crossfade(true)
+            },
+        ),
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .background(color = Color(0xFFF1F1F1))
+            .height(configuration.screenWidthDp.dp / 3)
+            .border(
+                width = 1.dp,
+                color = Color.White,
+            )
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = true),
+                onClick = {
+                },
+            )
+    )
 }
 
 @ExperimentalFoundationApi
