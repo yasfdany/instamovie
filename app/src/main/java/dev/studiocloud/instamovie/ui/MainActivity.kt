@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
@@ -17,8 +18,6 @@ import dev.studiocloud.instamovie.viewModel.ViewModelFactory
 import kotlinx.coroutines.InternalCoroutinesApi
 
 
-
-
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @InternalCoroutinesApi
@@ -29,6 +28,7 @@ class MainActivity : ComponentActivity() {
     private var mainRepository: MainRepository? = null
     private var viewModelFactory: ViewModelFactory? = null
 
+    @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)

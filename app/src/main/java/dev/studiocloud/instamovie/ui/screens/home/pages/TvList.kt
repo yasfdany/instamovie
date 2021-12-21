@@ -130,7 +130,11 @@ fun TvList(
                     state = scrollState,
                 ) {
                     itemsIndexed(tvViewModel.tvExplore) { index, tv ->
-                        if (index == tvViewModel.tvExplore.count() - 2 && tvViewModel.page < tvViewModel.maxPage){
+                        if (index == tvViewModel.tvExplore.count() - 2
+                            && tvViewModel.page < tvViewModel.maxPage
+                            && !tvViewModel.loading.value
+                        ){
+                            tvViewModel.loading.value = true
                             tvViewModel.searchTv(
                                 search = searchValue,
                             )
