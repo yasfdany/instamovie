@@ -18,12 +18,21 @@ class RemoteRepository(private val client: ApiService) {
         }
     }
 
-    fun getTvs(page: Int, callback: Callback<TvResponse?>){
-        client.getTv(
-            api_key = BuildConfig.MOVIE_API_KEY,
-            page = page,
-            language = "id",
-        )?.enqueue(callback);
+    fun getTvs(page: Int, search: String, callback: Callback<TvResponse?>){
+        if(search.isEmpty()){
+            client.getTv(
+                api_key = BuildConfig.MOVIE_API_KEY,
+                page = page,
+                language = "id",
+            )?.enqueue(callback);
+        } else {
+            client.getSearchTv(
+                api_key = BuildConfig.MOVIE_API_KEY,
+                page = page,
+                language = "id",
+                query = search,
+            )?.enqueue(callback);
+        }
     }
 
     fun getMovies(page: Int, callback: Callback<MovieResponse?>){

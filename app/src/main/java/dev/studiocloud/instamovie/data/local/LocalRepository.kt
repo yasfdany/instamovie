@@ -48,6 +48,10 @@ class LocalRepository(
         movieDao.updateData(movie)
     }
 
+    fun searchTv(query: String): MutableList<Tv> {
+        return tvDao.searchData(query)
+    }
+
     fun getAllTv(): MutableList<Tv> {
         return tvDao.allData
     }

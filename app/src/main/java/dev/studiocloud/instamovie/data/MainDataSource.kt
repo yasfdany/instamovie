@@ -12,6 +12,7 @@ interface MainDataSource {
 
     fun getTvs(
         page: Int,
+        search: String,
         onFinish : (data: TvData?) -> Unit
     );
 

@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
@@ -49,6 +50,7 @@ fun animatedComposable(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalAnimationApi
 @InternalCoroutinesApi
 @ExperimentalPagerApi

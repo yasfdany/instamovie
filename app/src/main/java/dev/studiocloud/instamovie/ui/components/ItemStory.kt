@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
@@ -23,6 +24,7 @@ fun ItemStory(
         BuildConfig.IMAGE_BASE_URL + "w780/" + tvItem.posterPath,
         contentDescription = null,
         contentScale = ContentScale.Crop,
+        circularReveal = CircularReveal(),
         modifier = Modifier
             .padding(4.dp)
             .size(54.dp)

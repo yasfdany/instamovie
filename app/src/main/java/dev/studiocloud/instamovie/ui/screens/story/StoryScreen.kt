@@ -11,6 +11,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
@@ -40,8 +41,9 @@ fun StoryScreen(
         val item = tvViewModel.tvs[index]
 
         GlideImage(
-            BuildConfig.IMAGE_BASE_URL + "w342/" + item.posterPath,
+            BuildConfig.IMAGE_BASE_URL + "w780/" + item.posterPath,
             contentScale = ContentScale.Crop,
+            circularReveal = CircularReveal(),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()

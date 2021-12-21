@@ -23,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.skydoves.landscapist.CircularReveal
@@ -91,12 +90,14 @@ fun DetailMovieScreen(
                                 )
                         ) {
                             Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
                                 modifier = Modifier.padding(14.dp)
                             ) {
                                 Text(
                                     text = movieDetail?.title ?: "",
                                     style = blackText18(FontWeight.Medium),
+                                    modifier = Modifier
+                                        .width(0.dp)
+                                        .weight(1f)
                                 )
                                 Surface(
                                     color = Purple200,
@@ -212,13 +213,8 @@ fun DetailMovieScreen(
                             )
                         )
                     }
-                    Image(
-                        painter = rememberImagePainter(
-                            data = BuildConfig.IMAGE_BASE_URL+"w342/"+ movieDetail?.posterPath,
-                            builder = {
-                                crossfade(true)
-                            },
-                        ),
+                    GlideImage(
+                        BuildConfig.IMAGE_BASE_URL+"w342/"+ movieDetail?.posterPath,
                         contentScale = ContentScale.Crop,
                         contentDescription = null,
                         modifier = Modifier
