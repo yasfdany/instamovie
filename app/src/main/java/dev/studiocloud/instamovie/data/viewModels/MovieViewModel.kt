@@ -12,7 +12,10 @@ class MovieViewModel(private val mainRepository: MainRepository?) : ViewModel() 
     val loading: MutableState<Boolean> = mutableStateOf(false);
     val loadingDetail: MutableState<Boolean> = mutableStateOf(false);
     val movieDetail : MutableState<MovieDetailData?> = mutableStateOf(null)
+
     val movies = mutableStateListOf<MovieItem>()
+    val similarMovies = mutableStateListOf<MovieItem>()
+
     var page: Int = 1;
     var maxPage: Int = -1;
 
@@ -23,6 +26,14 @@ class MovieViewModel(private val mainRepository: MainRepository?) : ViewModel() 
         mainRepository?.getMovieDetail(id){
             loadingDetail.value = false
             movieDetail.value = it
+        }
+    }
+
+    fun getSimilarMovies(id: Int){
+        similarMovies.clear()
+
+        mainRepository?.getSimilarMovies(id){
+            similarMovies.addAll(it ?: mutableStateListOf())
         }
     }
 

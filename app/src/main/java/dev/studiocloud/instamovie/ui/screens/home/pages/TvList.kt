@@ -154,7 +154,7 @@ fun ItemTv(tvItem: TvItem){
 
     Image(
         painter = rememberImagePainter(
-            data = BuildConfig.IMAGE_BASE_URL+"w500/"+tvItem.posterPath,
+            data = BuildConfig.IMAGE_BASE_URL+"w342/"+tvItem.posterPath,
             builder = {
                 crossfade(true)
             },
