@@ -2,6 +2,7 @@ package dev.studiocloud.instamovie.data.remote
 
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvDetailResponse.TvDetailResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
 import retrofit2.Call
@@ -52,4 +53,11 @@ interface ApiService {
         @Query("query") query: String?,
         @Query("page") page: Int
     ): Call<TvResponse?>?
+
+    @GET("movie/{id}/similar")
+    fun getSimilarMovies(
+        @Path("id") id: Int,
+        @Query("api_key") api_key: String?,
+        @Query("language") language: String?,
+    ): Call<SimilarMovieResponse?>?
 }

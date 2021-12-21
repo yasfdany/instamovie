@@ -1,13 +1,13 @@
 package dev.studiocloud.instamovie.ui.screens.detail_movie
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -31,22 +32,37 @@ import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
+import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
 import dev.studiocloud.instamovie.ui.components.GradientBox
 import dev.studiocloud.instamovie.ui.components.ItemRow
 import dev.studiocloud.instamovie.ui.theme.*
 
+@ExperimentalMaterialApi
 @Composable
 fun DetailMovieScreen(
     navController: NavHostController,
     movieViewModel: MovieViewModel,
 ) {
-    val movieDetail : MovieDetailData? = movieViewModel.movieDetail.value
+    val historyIds = remember { mutableListOf<Int>() }
+    val movieDetail: MovieDetailData? =  movieViewModel.movieDetail.value
+    val similarMovies: MutableList<MovieItem> =  movieViewModel.similarMovies
+
     val systemUiController = rememberSystemUiController()
     systemUiController.setStatusBarColor(
         color = Color.Transparent,
         darkIcons = false,
     )
+
+    BackHandler {
+        if (historyIds.isEmpty()){
+            navController.popBackStack()
+        } else {
+            movieViewModel.getMovieDetail(historyIds.last())
+            movieViewModel.getSimilarMovies(historyIds.last())
+            historyIds.removeLast()
+        }
+    }
 
     Surface(
         color = Color.White,
@@ -55,7 +71,9 @@ fun DetailMovieScreen(
             .navigationBarsPadding()
     ) {
         if(movieViewModel.loadingDetail.value || movieDetail != null){
-            Column {
+            Column(modifier = Modifier
+                .verticalScroll(rememberScrollState())
+            ) {
                 Box {
                     GlideImage(
                         BuildConfig.IMAGE_BASE_URL+"w780/"+ movieDetail?.backdropPath,
@@ -99,24 +117,7 @@ fun DetailMovieScreen(
                                         .width(0.dp)
                                         .weight(1f)
                                 )
-                                Surface(
-                                    color = Purple200,
-                                    modifier = Modifier
-                                        .clip(
-                                            RoundedCornerShape(
-                                            12.dp
-                                        )
-                                        )
-                                ) {
-                                    Text(
-                                        text = movieDetail?.voteAverage.toString(),
-                                        modifier = Modifier.padding(
-                                            vertical = 4.dp,
-                                            horizontal = 8.dp,
-                                        ),
-                                        style = whiteText12()
-                                    )
-                                }
+                                ChipRating(movieDetail?.voteAverage.toString())
                             }
                         }
                     }
@@ -134,7 +135,13 @@ fun DetailMovieScreen(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = rememberRipple(bounded = false),
                                 onClick = {
-                                    navController.popBackStack()
+                                    if (historyIds.isEmpty()){
+                                        navController.popBackStack()
+                                    } else {
+                                        movieViewModel.getMovieDetail(historyIds.last())
+                                        movieViewModel.getSimilarMovies(historyIds.last())
+                                        historyIds.removeLast()
+                                    }
                                 },
                             )
                             .width(32.dp)
@@ -221,7 +228,6 @@ fun DetailMovieScreen(
                             .width(120.dp)
                             .height(160.dp)
                             .padding(
-                                top = 24.dp,
                                 end = 14.dp,
                             )
                             .clip(RoundedCornerShape(12.dp))
@@ -241,6 +247,32 @@ fun DetailMovieScreen(
                     style = blackText14().copy(color = Color.Black.copy(0.4f)),
                     modifier = Modifier.padding(horizontal = 14.dp)
                 )
+                Text(
+                    "Similar Movies",
+                    style = blackText18(FontWeight.Medium),
+                    modifier = Modifier.padding(
+                        top = 24.dp,
+                        start = 14.dp,
+                    )
+                )
+                LazyRow(
+                    contentPadding = PaddingValues(
+                        top = 24.dp,
+                        start = 14.dp,
+                        bottom = 14.dp
+                    )
+                ){
+                    itemsIndexed(similarMovies){ _, movie ->
+                        ItemSimilarMovie(
+                            movie = movie,
+                            onTap = {
+                                historyIds.add(movieDetail?.id!!)
+                                movieViewModel.getMovieDetail(movie.id)
+                                movieViewModel.getSimilarMovies(movie.id)
+                            }
+                        )
+                    }
+                }
             }
         } else {
             Column(
@@ -263,6 +295,84 @@ fun DetailMovieScreen(
                     modifier = Modifier.padding(top = 12.dp)
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun ItemSimilarMovie(
+    movie: MovieItem,
+    onTap: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .padding(
+                end = 14.dp,
+            )
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = false),
+                onClick = {
+                    onTap()
+                }
+            )
+    ) {
+        Column {
+            GlideImage(
+                BuildConfig.IMAGE_BASE_URL+"w342/"+ movie.posterPath,
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                circularReveal = CircularReveal(),
+                modifier = Modifier
+                    .width(120.dp)
+                    .height(160.dp)
+                    .shadow(
+                        elevation = 6.dp,
+                        shape = RoundedCornerShape(12.dp),
+                        clip = true,
+                    )
+                    .background(color = Color.White)
+                ,
+            )
+            Text(
+                text = movie.title ?: "",
+                style = blackText12(),
+                modifier = Modifier
+                    .width(120.dp)
+                    .padding(
+                        top = 6.dp,
+                        end = 14.dp,
+                    )
+            )
+        }
+    }
+}
+
+@Composable
+fun ChipRating(
+    rating: String,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        modifier = modifier
+    ) {
+        Surface(
+            color = Purple200,
+            modifier = Modifier
+                .clip(
+                    RoundedCornerShape(
+                        12.dp
+                    )
+                )
+        ) {
+            Text(
+                text = rating,
+                modifier = Modifier.padding(
+                    vertical = 4.dp,
+                    horizontal = 8.dp,
+                ),
+                style = whiteText12()
+            )
         }
     }
 }

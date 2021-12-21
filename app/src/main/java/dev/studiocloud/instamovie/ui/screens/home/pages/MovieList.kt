@@ -85,6 +85,7 @@ fun MovieList(
                         item =  movie,
                         onTapPost = {
                             movieViewModel.getMovieDetail(it.id)
+                            movieViewModel.getSimilarMovies(it.id)
                             navController.navigate(Screen.DetailMovie.route)
                         }
                     )

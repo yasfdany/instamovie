@@ -13,6 +13,7 @@ import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.Genre
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
 import retrofit2.Call
@@ -160,7 +161,6 @@ class MainRepository(
             }
 
             override fun onFailure(call: Call<MovieDetailData?>, t: Throwable) {
-                Log.d("id",id.toString())
                 val localDetails = localRepository.getMovieDetailById(id)
                 if(localDetails.isNotEmpty()){
                     val jsonDetail = Gson().toJson(localDetails[0])
@@ -179,5 +179,21 @@ class MainRepository(
                 }
             }
         });
+    }
+
+    override fun getSimilarMovies(id: Int, onFinish: (data: MutableList<MovieItem>?) -> Unit) {
+        remoteRepository.getSimilarMovies(id, object: Callback<SimilarMovieResponse?>{
+            override fun onResponse(
+                call: Call<SimilarMovieResponse?>,
+                response: Response<SimilarMovieResponse?>
+            ) {
+                if (response.code() == 200){
+                    onFinish(response.body()?.results)
+                }
+            }
+
+            override fun onFailure(call: Call<SimilarMovieResponse?>, t: Throwable) {
+            }
+        })
     }
 }
