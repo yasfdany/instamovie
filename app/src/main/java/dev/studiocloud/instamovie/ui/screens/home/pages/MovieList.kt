@@ -13,13 +13,15 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.booleanResource
 import androidx.navigation.NavHostController
+import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.Screen
 import dev.studiocloud.instamovie.ui.components.ItemMovie
 import dev.studiocloud.instamovie.ui.components.Line
-import dev.studiocloud.instamovie.ui.screens.home.StoryList
+import dev.studiocloud.instamovie.ui.screens.home.StoryMobileList
 
 @Composable
 fun LazyListState.isScrollingUp(): Boolean {
@@ -54,16 +56,17 @@ fun MovieList(
         color = Color.White
     ) {
         Column {
-            AnimatedVisibility(
-                visible = visibleStory,
-            ) {
-                StoryList(
-                    tvViewModel = tvViewModel,
-                    tvs = tvViewModel.tvs,
-                    onTapStory = { index, _ ->
-                        navController.navigate(Screen.Story.route + "/page=$index")
-                    },
-                )
+            if(!booleanResource(id = R.bool.isTablet)){
+                AnimatedVisibility(
+                    visible = visibleStory,
+                ) {
+                    StoryMobileList(
+                        tvViewModel = tvViewModel,
+                        onTapStory = { index, _ ->
+                            navController.navigate(Screen.Story.route + "/page=$index")
+                        },
+                    )
+                }
             }
             Line()
             LazyColumn(
