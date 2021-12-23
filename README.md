@@ -2,14 +2,18 @@
 Jetpack compose exploration instagram clone
 
 # Screenshot Mobile
-<img src="screenshot/1.png" width="200px">
-<img src="screenshot/2.png" width="200px">
-<img src="screenshot/3.png" width="200px">
+<p float="left">
+    <img src="screenshot/1.png" width="200px">
+    <img src="screenshot/2.png" width="200px">
+    <img src="screenshot/3.png" width="200px">
+</p>
 
 # Screenshot Tablet
-<img src="screenshot/4.png" width="200px">
-<img src="screenshot/5.png" width="200px">
-<img src="screenshot/6.png" width="200px">
+<p float="left">
+    <img src="screenshot/4.png" width="200px">
+    <img src="screenshot/5.png" width="200px">
+    <img src="screenshot/6.png" width="200px">
+</p>
 
 # Library used in this project
 [Retrofit](https://github.com/square/retrofit)
