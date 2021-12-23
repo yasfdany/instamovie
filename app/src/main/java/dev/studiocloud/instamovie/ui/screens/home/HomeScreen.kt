@@ -137,7 +137,12 @@ fun HomeScreen(
             ) {
                 navigationItems.forEach { item ->
                     BottomNavigationItem(
-                        icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
+                        icon = {
+                            Icon(
+                                painterResource(id = item.icon),
+                                contentDescription = item.title,
+                            )
+                        },
                         label = { Text(text = item.title) },
                         selectedContentColor = Color.Black,
                         unselectedContentColor = Color.Black.copy(0.4f),
@@ -148,7 +153,7 @@ fun HomeScreen(
                             coroutineScope.launch(Dispatchers.Main) {
                                 pagerState.animateScrollToPage(if(item.route == "movie") 0 else 1)
                             }
-                        }
+                        },
                     )
                 }
             }

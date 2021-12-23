@@ -1,6 +1,7 @@
 package dev.studiocloud.instamovie.ui.components
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
@@ -16,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.pointerInput
@@ -41,6 +43,7 @@ fun ItemMovie(
     var loved by remember { mutableStateOf(item.loved) }
     var saved by remember { mutableStateOf(item.saved) }
     var loveVisibility by remember {(mutableStateOf(false))}
+    val scale = animateFloatAsState(if (loveVisibility) 1f else 0f)
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -128,6 +131,7 @@ fun ItemMovie(
                     contentDescription = null,
                     colorFilter = ColorFilter.tint(color = Color.White),
                     modifier = Modifier
+                        .scale(scale.value)
                         .width(120.dp)
                         .height(120.dp)
                 )

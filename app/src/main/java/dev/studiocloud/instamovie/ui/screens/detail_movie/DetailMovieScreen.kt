@@ -228,6 +228,7 @@ fun DetailMovieScreen(
                             .width(120.dp)
                             .height(160.dp)
                             .padding(
+                                top = 24.dp,
                                 end = 14.dp,
                             )
                             .clip(RoundedCornerShape(12.dp))
