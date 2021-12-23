@@ -332,7 +332,7 @@ fun ItemSimilarMovie(
                         shape = RoundedCornerShape(12.dp),
                         clip = true,
                     )
-                    .background(color = Color.White)
+                    .background(color = Color(0xFFF1F1F1))
                 ,
             )
             Text(

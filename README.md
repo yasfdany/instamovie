@@ -1,26 +1,27 @@
 # instamovie
 Jetpack compose exploration instagram clone
 
-# Screenshoot
-<img src="screenshoot/1.png" width="200px">
+# Screenshot Mobile
+<img src="screenshot/1.png" width="200px">
+<img src="screenshot/2.png" width="200px">
+<img src="screenshot/3.png" width="200px">
+
+# Screenshot Tablet
+<img src="screenshot/4.png" width="200px">
+<img src="screenshot/5.png" width="200px">
+<img src="screenshot/6.png" width="200px">
 
 # Library used in this project
-## Retrofit
-- com.squareup.retrofit2:retrofit:2.6.1'
-- com.squareup.retrofit2:converter-gson:2.6.1'
-
-## Okhttp
-- com.squareup.okhttp3:okhttp:4.9.0'
-- com.squareup.okhttp3:logging-interceptor:4.9.0'
-
-## Coil-Compose
-- io.coil-kt:coil-compose:1.4.0
-
-## Systemuicontroller
-- com.google.accompanist:accompanist-systemuicontroller:0.17.0
-
-## Accompanist Pager
-- com.google.accompanist:accompanist-pager:0.21.4-beta
+[Retrofit](https://github.com/square/retrofit)
+[Okhttp](https://github.com/square/okhttp)
+[Coil](https://github.com/coil-kt/coil)
+[Landscapist](https://github.com/skydoves/Landscapist)
+[System UI Controller](https://github.com/google/accompanist/tree/main/systemuicontroller)
+[Pager](https://github.com/google/accompanist/blob/main/pager)
+[Insets](https://github.com/google/accompanist/tree/main/insets)
+[Navigation Animation](https://github.com/google/accompanist/tree/main/navigation-animation)
+[Gson](https://github.com/google/gson)
+[Room Database](https://developer.android.com/jetpack/androidx/releases/room)
 
 # REST API Source
 [The Movie DB API](https://www.themoviedb.org/documentation/api)

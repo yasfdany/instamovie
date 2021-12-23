@@ -11,12 +11,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun Line(
     color: Color = Color(0xFFE0E0E0),
+    modifier: Modifier? = null,
 ) {
-    val modifier = Modifier.fillMaxWidth().height(1.dp)
-
     Surface(
         color = color,
-        modifier = modifier,
+        modifier = modifier ?: Modifier.fillMaxWidth().height(1.dp),
         content = {},
     )
 }

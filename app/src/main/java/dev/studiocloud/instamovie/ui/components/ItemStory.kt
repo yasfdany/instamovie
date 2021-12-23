@@ -8,12 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
-import dev.studiocloud.instamovie.R
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 
 @Composable
@@ -29,7 +27,7 @@ fun ItemStory(
         circularReveal = CircularReveal(),
         modifier = Modifier
             .padding(4.dp)
-            .size(dimensionResource(id = R.dimen._38sdp))
+            .size(46.dp)
             .clip(CircleShape)
             .clickable {
                 onTapStory(index, tvItem)

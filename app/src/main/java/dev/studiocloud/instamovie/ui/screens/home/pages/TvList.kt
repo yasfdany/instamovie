@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.booleanResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,6 +56,7 @@ fun TvList(
             )
         }
     }
+    val isTablet = booleanResource(id = R.bool.isTablet)
 
     visibleSearch = scrollState.isScrollingUp()
 
@@ -126,7 +128,7 @@ fun TvList(
                 }
             } else {
                 LazyVerticalGrid(
-                    cells = GridCells.Fixed(3),
+                    cells = GridCells.Fixed(if(isTablet) 4 else 3),
                     state = scrollState,
                 ) {
                     itemsIndexed(tvViewModel.tvExplore) { index, tv ->
@@ -151,6 +153,7 @@ fun TvList(
 @Composable
 fun ItemTv(tvItem: TvItem){
     val configuration = LocalConfiguration.current
+    val isTablet = booleanResource(id = R.bool.isTablet)
 
     Image(
         painter = rememberImagePainter(
@@ -163,7 +166,7 @@ fun ItemTv(tvItem: TvItem){
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .background(color = Color(0xFFF1F1F1))
-            .height(configuration.screenWidthDp.dp / 3)
+            .height(configuration.screenWidthDp.dp / (if(isTablet) 4 else 3))
             .border(
                 width = 1.dp,
                 color = Color.White,
