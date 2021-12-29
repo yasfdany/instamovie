@@ -13,6 +13,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 import dev.studiocloud.instamovie.data.viewModels.TvViewModel
@@ -55,7 +56,8 @@ fun StoryMobileList(
             .fillMaxWidth()
             .padding(
                 vertical = 14.dp,
-            ),
+            )
+            .testTag("story_list"),
         contentPadding = PaddingValues(horizontal = 14.dp)
     ) {
         itemsIndexed(tvViewModel.tvs){ index, tv ->

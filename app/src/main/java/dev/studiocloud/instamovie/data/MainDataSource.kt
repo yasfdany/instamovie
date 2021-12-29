@@ -1,9 +1,11 @@
 package dev.studiocloud.instamovie.data
 
+import androidx.lifecycle.LiveData
 import dev.studiocloud.instamovie.data.models.MovieData
 import dev.studiocloud.instamovie.data.models.TvData
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
+import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
 
 interface MainDataSource {
     fun getMovies(

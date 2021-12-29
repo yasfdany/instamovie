@@ -7,7 +7,7 @@ import dev.studiocloud.instamovie.data.local.room.dao.MovieDao
 import dev.studiocloud.instamovie.data.local.room.dao.MovieDetailDao
 import dev.studiocloud.instamovie.data.local.room.dao.TvDao
 
-class LocalRepository(
+open class LocalRepository(
     private val movieDao: MovieDao,
     private val tvDao: TvDao,
     private val movieDetailDao: MovieDetailDao,

@@ -1,7 +1,8 @@
-package dev.studiocloud.instamovie.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.google.gson.Gson
+import dev.studiocloud.instamovie.data.MainDataSource
 import dev.studiocloud.instamovie.data.local.LocalRepository
 import dev.studiocloud.instamovie.data.local.entity.Movie
 import dev.studiocloud.instamovie.data.local.entity.MovieDetail
@@ -20,21 +21,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainRepository(
+class FakeMainRepository(
     private val remoteRepository: RemoteRepository,
     private val localRepository: LocalRepository,
 ) : MainDataSource {
     companion object{
-        private var INSTANCE: MainRepository? = null
+        private var INSTANCE: FakeMainRepository? = null
 
         fun getInstance(
             remoteRepository: RemoteRepository,
             localRepository: LocalRepository,
-        ): MainRepository? {
+        ): FakeMainRepository? {
             if (INSTANCE == null) {
                 synchronized(RemoteRepository::class.java) {
                     if (INSTANCE == null) {
-                        INSTANCE = MainRepository(
+                        INSTANCE = FakeMainRepository(
                             remoteRepository,
                             localRepository,
                         )
@@ -46,12 +47,12 @@ class MainRepository(
         }
     }
 
-    override fun getMovies(page: Int, onFinish : (data: MovieData?) -> Unit) {
+    override fun getMovies(page: Int, onFinish : (data: MovieData?) -> Unit) : LiveData<MovieResponse> {
         val movies : MutableList<MovieItem> = mutableListOf()
         var currentPage: Int
         var currentMaxPage: Int
 
-        remoteRepository.getMovies(page, object: RemoteRepository.LoadMovieCallback{
+        return remoteRepository.getMovies(page, object: RemoteRepository.LoadMovieCallback{
             override fun onAllMovieReceived(movieResponse: MovieResponse?) {
                 currentMaxPage = movieResponse?.totalPages!!
                 movies.addAll(movieResponse.results!!.toMutableList())

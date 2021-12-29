@@ -13,6 +13,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.booleanResource
 import androidx.navigation.NavHostController
 import dev.studiocloud.instamovie.R
@@ -72,7 +73,8 @@ fun MovieList(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(),
+                    .fillMaxHeight()
+                    .testTag("movie_list"),
                 state = scrollState,
             ){
                 itemsIndexed( movieViewModel.movies){ index, movie ->

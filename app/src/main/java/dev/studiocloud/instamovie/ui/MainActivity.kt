@@ -38,6 +38,8 @@ class MainActivity : ComponentActivity() {
 
         movieViewModel = ViewModelProvider(this,viewModelFactory!!)[MovieViewModel::class.java]
         tvViewModel = ViewModelProvider(this, viewModelFactory!!)[TvViewModel::class.java]
+
+
         movieViewModel.getMovies(reset = true)
         tvViewModel.getTvs(reset = true)
         tvViewModel.searchTv(

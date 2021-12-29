@@ -157,7 +157,7 @@ fun HomeScreen(
                             icon = {
                                 Icon(
                                     painterResource(id = item.icon),
-                                    contentDescription = item.title,
+                                    contentDescription = item.route,
                                 )
                             },
                             label = { Text(text = item.title) },

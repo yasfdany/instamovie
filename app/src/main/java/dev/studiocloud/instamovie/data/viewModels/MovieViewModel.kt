@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dev.studiocloud.instamovie.data.MainRepository
+import dev.studiocloud.instamovie.data.models.MovieData
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 
@@ -19,25 +20,36 @@ class MovieViewModel(private val mainRepository: MainRepository?) : ViewModel() 
     var page: Int = 1;
     var maxPage: Int = -1;
 
-    fun getMovieDetail(id: Int){
+    fun getMovieDetail(
+        id: Int,
+        onFinish : (data: MovieDetailData?) -> Unit = {},
+    ){
         loadingDetail.value = true;
         movieDetail.value = null;
 
         mainRepository?.getMovieDetail(id){
             loadingDetail.value = false
             movieDetail.value = it
+            onFinish(it)
         }
     }
 
-    fun getSimilarMovies(id: Int){
+    fun getSimilarMovies(
+        id: Int,
+        onFinish : (data: MutableList<MovieItem>?) -> Unit = {},
+    ){
         similarMovies.clear()
 
         mainRepository?.getSimilarMovies(id){
             similarMovies.addAll(it ?: mutableStateListOf())
+            onFinish(it)
         }
     }
 
-    fun getMovies(reset : Boolean = false){
+    fun getMovies(
+        reset : Boolean = false,
+        onFinish : (data: MovieData?) -> Unit = {},
+    ){
         if(reset){
             page = 1
             loading.value = true
@@ -49,6 +61,7 @@ class MovieViewModel(private val mainRepository: MainRepository?) : ViewModel() 
             movies.addAll(it?.data ?: mutableStateListOf())
             maxPage = it?.maxPage ?: 1
             page = it?.page ?: 1
+            onFinish(it)
         }
     }
 }
