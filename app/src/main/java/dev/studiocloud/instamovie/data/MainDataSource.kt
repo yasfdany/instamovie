@@ -11,7 +11,7 @@ interface MainDataSource {
     fun getMovies(
         page: Int,
         onFinish : (data: MovieData?) -> Unit
-    );
+    ): LiveData<MovieResponse>;
 
     fun getTvs(
         page: Int,

@@ -81,7 +81,7 @@ class HomeScreenKtTest {
         Thread.sleep(1000)
         tvList.performScrollToIndex(18)
 
-        Thread.sleep(1000)
+        Thread.sleep(1000)  
         tvList.performScrollToIndex(24)
         Thread.sleep(1000)
         //End scrolling tv

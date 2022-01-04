@@ -1,6 +1,8 @@
 package dev.studiocloud.instamovie.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import dev.studiocloud.instamovie.data.local.LocalRepository
 import dev.studiocloud.instamovie.data.local.entity.Movie
@@ -20,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainRepository(
+open class MainRepository(
     private val remoteRepository: RemoteRepository,
     private val localRepository: LocalRepository,
 ) : MainDataSource {
@@ -46,13 +48,15 @@ class MainRepository(
         }
     }
 
-    override fun getMovies(page: Int, onFinish : (data: MovieData?) -> Unit) {
+    override fun getMovies(page: Int, onFinish : (data: MovieData?) -> Unit): LiveData<MovieResponse> {
+        val response: MutableLiveData<MovieResponse> = MutableLiveData()
         val movies : MutableList<MovieItem> = mutableListOf()
         var currentPage: Int
         var currentMaxPage: Int
 
         remoteRepository.getMovies(page, object: RemoteRepository.LoadMovieCallback{
             override fun onAllMovieReceived(movieResponse: MovieResponse?) {
+                response.value = movieResponse
                 currentMaxPage = movieResponse?.totalPages!!
                 movies.addAll(movieResponse.results!!.toMutableList())
 
@@ -79,6 +83,8 @@ class MainRepository(
                 onFinish(MovieData(1,1, movies))
             }
         })
+
+        return response
     }
 
     override fun getTvs(page: Int, search : String, onFinish : (data: TvData?) -> Unit) {

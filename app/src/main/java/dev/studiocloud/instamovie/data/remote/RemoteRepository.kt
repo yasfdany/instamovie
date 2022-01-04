@@ -13,8 +13,6 @@ import retrofit2.Response
 
 
 open class RemoteRepository() {
-    private val client = ApiClient.get()
-
     companion object{
         private var INSTANCE: RemoteRepository? = null
 
@@ -28,13 +26,13 @@ open class RemoteRepository() {
 
     fun getTvs(page: Int, search: String, callback: Callback<TvResponse?>){
         if(search.isEmpty()){
-            client.getTv(
+            ApiClient.get().getTv(
                 api_key = BuildConfig.MOVIE_API_KEY,
                 page = page,
                 language = "id",
             )?.enqueue(callback);
         } else {
-            client.getSearchTv(
+            ApiClient.get().getSearchTv(
                 api_key = BuildConfig.MOVIE_API_KEY,
                 page = page,
                 language = "id",
@@ -46,7 +44,7 @@ open class RemoteRepository() {
     fun getMovies(page: Int, callback: LoadMovieCallback?) : LiveData<MovieResponse> {
         val data: MutableLiveData<MovieResponse> = MutableLiveData()
 
-        client.getMovies(
+        ApiClient.get().getMovies(
             api_key = BuildConfig.MOVIE_API_KEY,
             page = page,
             language = "id",
@@ -72,14 +70,14 @@ open class RemoteRepository() {
     }
 
     fun getMovieDetail(id: Int, callback: Callback<MovieDetailData?>){
-        client.getDetailMovies(
+        ApiClient.get().getDetailMovies(
             id = id,
             api_key = BuildConfig.MOVIE_API_KEY,
         )?.enqueue(callback);
     }
 
     fun getSimilarMovies(id: Int, callback: Callback<SimilarMovieResponse?>){
-        client.getSimilarMovies(
+        ApiClient.get().getSimilarMovies(
             id = id,
             api_key = BuildConfig.MOVIE_API_KEY,
             language = "id",
