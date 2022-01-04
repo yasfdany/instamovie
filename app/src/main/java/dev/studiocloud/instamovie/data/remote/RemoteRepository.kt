@@ -24,21 +24,39 @@ open class RemoteRepository() {
         }
     }
 
-    fun getTvs(page: Int, search: String, callback: Callback<TvResponse?>){
+    fun getTvs(page: Int, search: String, callback: LoadTvCallback?) : LiveData<TvResponse>{
+        val data: MutableLiveData<TvResponse> = MutableLiveData()
+        val listener = object : Callback<TvResponse?>{
+            override fun onResponse(call: Call<TvResponse?>, response: Response<TvResponse?>) {
+                if (response.code() == 200) {
+                    data.value = response.body()
+                    callback?.onAllTvReceived(response.body())
+                } else {
+                    callback?.onDataNotAvailable()
+                }
+            }
+
+            override fun onFailure(call: Call<TvResponse?>, t: Throwable) {
+                callback?.onDataNotAvailable()
+            }
+        }
+
         if(search.isEmpty()){
             ApiClient.get().getTv(
                 api_key = BuildConfig.MOVIE_API_KEY,
                 page = page,
                 language = "id",
-            )?.enqueue(callback);
+            )?.enqueue(listener);
         } else {
             ApiClient.get().getSearchTv(
                 api_key = BuildConfig.MOVIE_API_KEY,
                 page = page,
                 language = "id",
                 query = search,
-            )?.enqueue(callback);
+            )?.enqueue(listener);
         }
+
+        return data
     }
 
     fun getMovies(page: Int, callback: LoadMovieCallback?) : LiveData<MovieResponse> {
@@ -82,6 +100,11 @@ open class RemoteRepository() {
             api_key = BuildConfig.MOVIE_API_KEY,
             language = "id",
         )?.enqueue(callback);
+    }
+
+    interface LoadTvCallback {
+        fun onAllTvReceived(tvResponse: TvResponse?)
+        fun onDataNotAvailable()
     }
 
     interface LoadMovieCallback {

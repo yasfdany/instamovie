@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import dev.studiocloud.instamovie.data.local.LocalRepository
 import dev.studiocloud.instamovie.data.local.entity.MovieDetail
-import dev.studiocloud.instamovie.data.local.entity.Tv
 import dev.studiocloud.instamovie.data.models.MovieData
 import dev.studiocloud.instamovie.data.models.TvData
 import dev.studiocloud.instamovie.data.remote.RemoteRepository
@@ -74,55 +73,32 @@ open class FakeMainRepository(
         return response
     }
 
-    override fun getTvs(page: Int, search: String, onFinish: (data: TvData?) -> Unit) {
+    override fun getTvs(
+        page: Int,
+        search: String,
+        onFinish: (data: TvData?) -> Unit
+    ): LiveData<TvResponse> {
+        val response: MutableLiveData<TvResponse> = MutableLiveData()
         val tvs: MutableList<TvItem> = mutableListOf()
         var currentPage: Int
         var currentMaxPage: Int
 
-        remoteRepository.getTvs(page, search, object : Callback<TvResponse?> {
-            override fun onResponse(call: Call<TvResponse?>, response: Response<TvResponse?>) {
-                if (response.code() == 200) {
-                    currentMaxPage = response.body()?.totalPages!!
-                    tvs.addAll(response.body()?.results!!.toMutableList())
+        remoteRepository.getTvs(page, search, object : RemoteRepository.LoadTvCallback{
+            override fun onAllTvReceived(tvResponse: TvResponse?) {
+                response.value = tvResponse
+                currentMaxPage = tvResponse?.totalPages!!
+                tvs.addAll(tvResponse.results!!.toMutableList())
 
-                    currentPage = page + 1
+                currentPage = page + 1
 
-                    onFinish(TvData(currentPage, currentMaxPage, tvs))
-
-                    for (tvItem in tvs) {
-                        val jsonTv = Gson().toJson(tvItem)
-                        val convertedTv = Gson().fromJson(jsonTv, Tv::class.java)
-
-                        localRepository.insertTv(convertedTv)
-                    }
-                } else {
-                    onFinish(null)
-                }
+                onFinish(TvData(currentPage, currentMaxPage, tvs))
             }
 
-            override fun onFailure(call: Call<TvResponse?>, t: Throwable) {
-                if (search.isEmpty()) {
-                    val localTvs = localRepository.getAllTv()
-                    for (tv in localTvs) {
-                        val tvJson = Gson().toJson(tv)
-                        val convertedTv = Gson().fromJson(tvJson, TvItem::class.java)
-                        tvs.add(convertedTv)
-                    }
-
-                    onFinish(TvData(1, 1, tvs))
-                } else {
-                    val localTvs = localRepository.searchTv(search)
-                    for (tv in localTvs) {
-                        val tvJson = Gson().toJson(tv)
-                        val convertedTv = Gson().fromJson(tvJson, TvItem::class.java)
-                        tvs.add(convertedTv)
-                    }
-
-                    onFinish(TvData(1, 1, tvs))
-
-                }
+            override fun onDataNotAvailable() {
             }
         })
+
+        return response
     }
 
     override fun getMovieDetail(id: Int, onFinish: (data: MovieDetailData?) -> Unit) {

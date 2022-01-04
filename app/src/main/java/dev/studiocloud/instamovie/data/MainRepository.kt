@@ -87,33 +87,32 @@ open class MainRepository(
         return response
     }
 
-    override fun getTvs(page: Int, search : String, onFinish : (data: TvData?) -> Unit) {
+    override fun getTvs(page: Int, search: String, onFinish: (data: TvData?) -> Unit): LiveData<TvResponse> {
+        val response: MutableLiveData<TvResponse> = MutableLiveData()
         val tvs : MutableList<TvItem> = mutableListOf()
         var currentPage: Int
         var currentMaxPage: Int
 
-        remoteRepository.getTvs(page, search, object: Callback<TvResponse?>{
-            override fun onResponse(call: Call<TvResponse?>, response: Response<TvResponse?>) {
-                if(response.code() == 200){
-                    currentMaxPage = response.body()?.totalPages!!
-                    tvs.addAll(response.body()?.results!!.toMutableList())
+        remoteRepository.getTvs(page, search, object : RemoteRepository.LoadTvCallback{
+            override fun onAllTvReceived(tvResponse: TvResponse?) {
+                response.value = tvResponse
 
-                    currentPage = page + 1
+                currentMaxPage = tvResponse?.totalPages!!
+                tvs.addAll(tvResponse.results!!.toMutableList())
 
-                    onFinish(TvData(currentPage, currentMaxPage, tvs))
+                currentPage = page + 1
 
-                    for(tvItem in tvs){
-                        val jsonTv = Gson().toJson(tvItem)
-                        val convertedTv = Gson().fromJson(jsonTv, Tv::class.java)
+                onFinish(TvData(currentPage, currentMaxPage, tvs))
 
-                        localRepository.insertTv(convertedTv)
-                    }
-                } else {
-                    onFinish(null)
+                for(tvItem in tvs){
+                    val jsonTv = Gson().toJson(tvItem)
+                    val convertedTv = Gson().fromJson(jsonTv, Tv::class.java)
+
+                    localRepository.insertTv(convertedTv)
                 }
             }
 
-            override fun onFailure(call: Call<TvResponse?>, t: Throwable) {
+            override fun onDataNotAvailable() {
                 if (search.isEmpty()){
                     val localTvs = localRepository.getAllTv()
                     for(tv in localTvs){
@@ -132,10 +131,11 @@ open class MainRepository(
                     }
 
                     onFinish(TvData(1,1, tvs))
-
                 }
             }
         })
+
+        return response
     }
 
     override fun getMovieDetail(id: Int, onFinish: (data: MovieDetailData?) -> Unit) {

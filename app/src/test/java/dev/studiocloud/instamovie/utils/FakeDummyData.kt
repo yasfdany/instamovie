@@ -2,418 +2,829 @@ package dev.studiocloud.instamovie.utils
 
 class FakeDummyData {
     companion object{
-        val jsonMovies = "{\n" +
-                "    \"page\": 1,\n" +
-                "    \"results\": [\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                12,\n" +
-                "                878\n" +
-                "            ],\n" +
-                "            \"id\": 634649,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Spider-Man: No Way Home\",\n" +
-                "            \"overview\": \"Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.\",\n" +
-                "            \"popularity\": 14959.911,\n" +
-                "            \"poster_path\": \"/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg\",\n" +
-                "            \"release_date\": \"2021-12-15\",\n" +
-                "            \"title\": \"Spider-Man: No Way Home\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 8.5,\n" +
-                "            \"vote_count\": 2536\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/eENEf62tMXbhyVvdcXlnQz2wcuT.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                878,\n" +
-                "                28,\n" +
-                "                12,\n" +
-                "                10749,\n" +
-                "                35\n" +
-                "            ],\n" +
-                "            \"id\": 580489,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Venom: Let There Be Carnage\",\n" +
-                "            \"overview\": \"After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.\",\n" +
-                "            \"popularity\": 8514.355,\n" +
-                "            \"poster_path\": \"/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg\",\n" +
-                "            \"release_date\": \"2021-09-30\",\n" +
-                "            \"title\": \"Venom: Let There Be Carnage\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.2,\n" +
-                "            \"vote_count\": 5131\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/3G1Q5xF40HkUBJXxt2DQgQzKTp5.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                16,\n" +
-                "                35,\n" +
-                "                10751,\n" +
-                "                14\n" +
-                "            ],\n" +
-                "            \"id\": 568124,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Encanto\",\n" +
-                "            \"overview\": \"The tale of an extraordinary family, the Madrigals, who live hidden in the mountains of Colombia, in a magical house, in a vibrant town, in a wondrous, charmed place called an Encanto. The magic of the Encanto has blessed every child in the family with a unique gift from super strength to the power to heal—every child except one, Mirabel. But when she discovers that the magic surrounding the Encanto is in danger, Mirabel decides that she, the only ordinary Madrigal, might just be her exceptional family's last hope.\",\n" +
-                "            \"popularity\": 6188.055,\n" +
-                "            \"poster_path\": \"/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg\",\n" +
-                "            \"release_date\": \"2021-11-24\",\n" +
-                "            \"title\": \"Encanto\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.7,\n" +
-                "            \"vote_count\": 935\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/hv7o3VgfsairBoQFAawgaQ4cR1m.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                878\n" +
-                "            ],\n" +
-                "            \"id\": 624860,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"The Matrix Resurrections\",\n" +
-                "            \"overview\": \"Plagued by strange memories, Neo's life takes an unexpected turn when he finds himself back inside the Matrix.\",\n" +
-                "            \"popularity\": 5697.236,\n" +
-                "            \"poster_path\": \"/8c4a8kE7PizaGQQnditMmI1xbRp.jpg\",\n" +
-                "            \"release_date\": \"2021-12-16\",\n" +
-                "            \"title\": \"The Matrix Resurrections\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.5,\n" +
-                "            \"vote_count\": 916\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/dK12GIdhGP6NPGFssK2Fh265jyr.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                35,\n" +
-                "                80,\n" +
-                "                53\n" +
-                "            ],\n" +
-                "            \"id\": 512195,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Red Notice\",\n" +
-                "            \"overview\": \"An Interpol-issued Red Notice is a global alert to hunt and capture the world's most wanted. But when a daring heist brings together the FBI's top profiler and two rival criminals, there's no telling what will happen.\",\n" +
-                "            \"popularity\": 3973.968,\n" +
-                "            \"poster_path\": \"/lAXONuqg41NwUMuzMiFvicDET9Y.jpg\",\n" +
-                "            \"release_date\": \"2021-11-04\",\n" +
-                "            \"title\": \"Red Notice\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 6.8,\n" +
-                "            \"vote_count\": 2263\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/cinER0ESG0eJ49kXlExM0MEWGxW.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                12,\n" +
-                "                14\n" +
-                "            ],\n" +
-                "            \"id\": 566525,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Shang-Chi and the Legend of the Ten Rings\",\n" +
-                "            \"overview\": \"Shang-Chi must confront the past he thought he left behind when he is drawn into the web of the mysterious Ten Rings organization.\",\n" +
-                "            \"popularity\": 3222.421,\n" +
-                "            \"poster_path\": \"/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg\",\n" +
-                "            \"release_date\": \"2021-09-01\",\n" +
-                "            \"title\": \"Shang-Chi and the Legend of the Ten Rings\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.8,\n" +
-                "            \"vote_count\": 4569\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/gg2w8QYf6o5elN95RHtikQaVIsc.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                18,\n" +
-                "                80\n" +
-                "            ],\n" +
-                "            \"id\": 592508,\n" +
-                "            \"original_language\": \"hi\",\n" +
-                "            \"original_title\": \"Sooryavanshi\",\n" +
-                "            \"overview\": \"A fearless, faithful albeit slightly forgetful Mumbai cop, Veer Sooryavanshi, the chief of the Anti-Terrorism Squad in India pulls out all the stops and stunts to thwart a major conspiracy to attack his city.\",\n" +
-                "            \"popularity\": 3232.795,\n" +
-                "            \"poster_path\": \"/1vuix8r1CJ2M6IldR27Z95hWm7e.jpg\",\n" +
-                "            \"release_date\": \"2021-11-05\",\n" +
-                "            \"title\": \"Sooryavanshi\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 5.5,\n" +
-                "            \"vote_count\": 42\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/o76ZDm8PS9791XiuieNB93UZcRV.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                27,\n" +
-                "                28,\n" +
-                "                878\n" +
-                "            ],\n" +
-                "            \"id\": 460458,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Resident Evil: Welcome to Raccoon City\",\n" +
-                "            \"overview\": \"Once the booming home of pharmaceutical giant Umbrella Corporation, Raccoon City is now a dying Midwestern town. The company’s exodus left the city a wasteland…with great evil brewing below the surface. When that evil is unleashed, the townspeople are forever…changed…and a small group of survivors must work together to uncover the truth behind Umbrella and make it through the night.\",\n" +
-                "            \"popularity\": 3552.692,\n" +
-                "            \"poster_path\": \"/3eVpNCMoi3C8lA0F0n2retnwvCK.jpg\",\n" +
-                "            \"release_date\": \"2021-11-24\",\n" +
-                "            \"title\": \"Resident Evil: Welcome to Raccoon City\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 6.2,\n" +
-                "            \"vote_count\": 428\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/sLWUtbrpiLp23a0XDSiUiltdFPJ.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                12,\n" +
-                "                14\n" +
-                "            ],\n" +
-                "            \"id\": 1930,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"The Amazing Spider-Man\",\n" +
-                "            \"overview\": \"Peter Parker is an outcast high schooler abandoned by his parents as a boy, leaving him to be raised by his Uncle Ben and Aunt May. Like most teenagers, Peter is trying to figure out who he is and how he got to be the person he is today. As Peter discovers a mysterious briefcase that belonged to his father, he begins a quest to understand his parents' disappearance – leading him directly to Oscorp and the lab of Dr. Curt Connors, his father's former partner. As Spider-Man is set on a collision course with Connors' alter ego, The Lizard, Peter will make life-altering choices to use his powers and shape his destiny to become a hero.\",\n" +
-                "            \"popularity\": 2616.278,\n" +
-                "            \"poster_path\": \"/fSbqPbqXa7ePo8bcnZYN9AHv6zA.jpg\",\n" +
-                "            \"release_date\": \"2012-06-23\",\n" +
-                "            \"title\": \"The Amazing Spider-Man\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 6.6,\n" +
-                "            \"vote_count\": 13979\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/1Wlwnhn5sXUIwlxpJgWszT622PS.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                16,\n" +
-                "                35,\n" +
-                "                10751\n" +
-                "            ],\n" +
-                "            \"id\": 585245,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Clifford the Big Red Dog\",\n" +
-                "            \"overview\": \"As Emily struggles to fit in at home and at school, she discovers a small red puppy who is destined to become her best friend. When Clifford magically undergoes one heck of a growth spurt, becomes a gigantic dog and attracts the attention of a genetics company, Emily and her Uncle Casey have to fight the forces of greed as they go on the run across New York City. Along the way, Clifford affects the lives of everyone around him and teaches Emily and her uncle the true meaning of acceptance and unconditional love.\",\n" +
-                "            \"popularity\": 2463.421,\n" +
-                "            \"poster_path\": \"/30ULVKdjBcQTsj2aOSThXXZNSxF.jpg\",\n" +
-                "            \"release_date\": \"2021-11-10\",\n" +
-                "            \"title\": \"Clifford the Big Red Dog\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.4,\n" +
-                "            \"vote_count\": 696\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/tTlAA0REGPXSZPBfWyTW9ipIv1I.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                12,\n" +
-                "                878,\n" +
-                "                18\n" +
-                "            ],\n" +
-                "            \"id\": 315635,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Spider-Man: Homecoming\",\n" +
-                "            \"overview\": \"Following the events of Captain America: Civil War, Peter Parker, with the help of his mentor Tony Stark, tries to balance his life as an ordinary high school student in Queens, New York City, with fighting crime as his superhero alter ego Spider-Man as a new threat, the Vulture, emerges.\",\n" +
-                "            \"popularity\": 2543.804,\n" +
-                "            \"poster_path\": \"/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg\",\n" +
-                "            \"release_date\": \"2017-07-05\",\n" +
-                "            \"title\": \"Spider-Man: Homecoming\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.4,\n" +
-                "            \"vote_count\": 17545\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/zlj0zHo67xXoj7hvwGtaKRkSdBV.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                878,\n" +
-                "                53,\n" +
-                "                12\n" +
-                "            ],\n" +
-                "            \"id\": 728526,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Encounter\",\n" +
-                "            \"overview\": \"A decorated Marine goes on a rescue mission to save his two young sons from an unhuman threat. As their journey takes them in increasingly dangerous directions, the boys will need to leave their childhoods behind.\",\n" +
-                "            \"popularity\": 2544.835,\n" +
-                "            \"poster_path\": \"/tUkY0WxffPZ9PoyC62PIyyUMGnt.jpg\",\n" +
-                "            \"release_date\": \"2021-12-03\",\n" +
-                "            \"title\": \"Encounter\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 6.3,\n" +
-                "            \"vote_count\": 128\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/lyvszvJJqqI8aqBJ70XzdCNoK0y.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                12,\n" +
-                "                14,\n" +
-                "                878\n" +
-                "            ],\n" +
-                "            \"id\": 524434,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Eternals\",\n" +
-                "            \"overview\": \"The Eternals are a team of ancient aliens who have been living on Earth in secret for thousands of years. When an unexpected tragedy forces them out of the shadows, they are forced to reunite against mankind’s most ancient enemy, the Deviants.\",\n" +
-                "            \"popularity\": 2056.438,\n" +
-                "            \"poster_path\": \"/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg\",\n" +
-                "            \"release_date\": \"2021-11-03\",\n" +
-                "            \"title\": \"Eternals\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.1,\n" +
-                "            \"vote_count\": 1518\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/sWvxBXNtCOaGdtpKNLiOqmwb10N.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                14,\n" +
-                "                28\n" +
-                "            ],\n" +
-                "            \"id\": 557,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Spider-Man\",\n" +
-                "            \"overview\": \"After being bitten by a genetically altered spider at Oscorp, nerdy but endearing high school student Peter Parker is endowed with amazing powers to become the superhero known as Spider-Man.\",\n" +
-                "            \"popularity\": 2015.247,\n" +
-                "            \"poster_path\": \"/gSZyYEK5AfZuOFFjnVPUCLvdOD6.jpg\",\n" +
-                "            \"release_date\": \"2002-05-01\",\n" +
-                "            \"title\": \"Spider-Man\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.2,\n" +
-                "            \"vote_count\": 14786\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/5B22eed7ErxFiYAG4Ksb4eLwKNF.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                16,\n" +
-                "                12,\n" +
-                "                35,\n" +
-                "                10751\n" +
-                "            ],\n" +
-                "            \"id\": 770254,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Back to the Outback\",\n" +
-                "            \"overview\": \"Tired of being locked in a reptile house where humans gawk at them like they are monsters, a ragtag group of Australia’s deadliest creatures plot an escape from their zoo to the Outback, a place where they’ll fit in without being judged.\",\n" +
-                "            \"popularity\": 1794.836,\n" +
-                "            \"poster_path\": \"/zNXNRLH5wJprUG6B1olaBTNZOjy.jpg\",\n" +
-                "            \"release_date\": \"2021-12-03\",\n" +
-                "            \"title\": \"Back to the Outback\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.8,\n" +
-                "            \"vote_count\": 144\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/xGrTm3J0FTafmuQ85vF7ZCw94x6.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                18,\n" +
-                "                36,\n" +
-                "                12\n" +
-                "            ],\n" +
-                "            \"id\": 589761,\n" +
-                "            \"original_language\": \"ru\",\n" +
-                "            \"original_title\": \"Чернобыль\",\n" +
-                "            \"overview\": \"The aftermath of a shocking explosion at the Chernobyl nuclear power station made hundreds of people sacrifice their lives to clean up the site of the catastrophe and to successfully prevent an even bigger disaster that could have turned a large part of the European continent into an uninhabitable exclusion zone. This is their story.\",\n" +
-                "            \"popularity\": 2051.173,\n" +
-                "            \"poster_path\": \"/lqu0E3zCBdT90U9HqsrOWx1Ycn3.jpg\",\n" +
-                "            \"release_date\": \"2021-04-15\",\n" +
-                "            \"title\": \"Chernobyl: Abyss\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 6.2,\n" +
-                "            \"vote_count\": 243\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/ng6SSB3JhbcpKTwbPDsRwUYK8Cq.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                12,\n" +
-                "                878\n" +
-                "            ],\n" +
-                "            \"id\": 429617,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Spider-Man: Far From Home\",\n" +
-                "            \"overview\": \"Peter Parker and his friends go on a summer trip to Europe. However, they will hardly be able to rest - Peter will have to agree to help Nick Fury uncover the mystery of creatures that cause natural disasters and destruction throughout the continent.\",\n" +
-                "            \"popularity\": 1959.079,\n" +
-                "            \"poster_path\": \"/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg\",\n" +
-                "            \"release_date\": \"2019-06-28\",\n" +
-                "            \"title\": \"Spider-Man: Far From Home\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.5,\n" +
-                "            \"vote_count\": 11445\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/u7SeO6Y42P7VCTWLhpnL96cyOqd.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                12,\n" +
-                "                14\n" +
-                "            ],\n" +
-                "            \"id\": 102382,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"The Amazing Spider-Man 2\",\n" +
-                "            \"overview\": \"For Peter Parker, life is busy. Between taking out the bad guys as Spider-Man and spending time with the person he loves, Gwen Stacy, high school graduation cannot come quickly enough. Peter has not forgotten about the promise he made to Gwen’s father to protect her by staying away, but that is a promise he cannot keep. Things will change for Peter when a new villain, Electro, emerges, an old friend, Harry Osborn, returns, and Peter uncovers new clues about his past.\",\n" +
-                "            \"popularity\": 1926.189,\n" +
-                "            \"poster_path\": \"/c3e9e18SSlvFd1cQaGmUj5tqL5P.jpg\",\n" +
-                "            \"release_date\": \"2014-04-16\",\n" +
-                "            \"title\": \"The Amazing Spider-Man 2\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 6.4,\n" +
-                "            \"vote_count\": 10228\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/mFbS5TwN95BcSEfiztdchLgTQ0v.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                28,\n" +
-                "                18,\n" +
-                "                36\n" +
-                "            ],\n" +
-                "            \"id\": 617653,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"The Last Duel\",\n" +
-                "            \"overview\": \"King Charles VI declares that Knight Jean de Carrouges settle his dispute with his squire, Jacques Le Gris, by challenging him to a duel.\",\n" +
-                "            \"popularity\": 1943.744,\n" +
-                "            \"poster_path\": \"/zjrJE0fpzPvX8saJXj8VNfcjBoU.jpg\",\n" +
-                "            \"release_date\": \"2021-10-13\",\n" +
-                "            \"title\": \"The Last Duel\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.6,\n" +
-                "            \"vote_count\": 1117\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"adult\": false,\n" +
-                "            \"backdrop_path\": \"/srFi3oLy8tBcpq07xusnAE5XhwE.jpg\",\n" +
-                "            \"genre_ids\": [\n" +
-                "                16,\n" +
-                "                35,\n" +
-                "                10751,\n" +
-                "                10402\n" +
-                "            ],\n" +
-                "            \"id\": 438695,\n" +
-                "            \"original_language\": \"en\",\n" +
-                "            \"original_title\": \"Sing 2\",\n" +
-                "            \"overview\": \"Buster and his new cast now have their sights set on debuting a new show at the Crystal Tower Theater in glamorous Redshore City. But with no connections, he and his singers must sneak into the Crystal Entertainment offices, run by the ruthless wolf mogul Jimmy Crystal, where the gang pitches the ridiculous idea of casting the lion rock legend Clay Calloway in their show. Buster must embark on a quest to find the now-isolated Clay and persuade him to return to the stage.\",\n" +
-                "            \"popularity\": 1949.936,\n" +
-                "            \"poster_path\": \"/aWeKITRFbbwY8txG5uCj4rMCfSP.jpg\",\n" +
-                "            \"release_date\": \"2021-12-01\",\n" +
-                "            \"title\": \"Sing 2\",\n" +
-                "            \"video\": false,\n" +
-                "            \"vote_average\": 7.6,\n" +
-                "            \"vote_count\": 56\n" +
-                "        }\n" +
-                "    ],\n" +
-                "    \"total_pages\": 31704,\n" +
-                "    \"total_results\": 634074\n" +
-                "}"
+        val jsonMovies = """
+            {
+                "page": 1,
+                "results": [
+                    {
+                        "adult": false,
+                        "backdrop_path": "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
+                        "genre_ids": [
+                            28,
+                            12,
+                            878
+                        ],
+                        "id": 634649,
+                        "original_language": "en",
+                        "original_title": "Spider-Man: No Way Home",
+                        "overview": "Peter Parker menghadapi masalah besar. Hal ini terjadi setelah identitasnya sebagai Spiderman terungkap. Dengan kepergian Tony Stark, Peter Parker pun harus meminta bantuan Doctor Strange agar semua orang bisa melupakan identitasnya sebagai manusia laba-laba.",
+                        "popularity": 10314.745,
+                        "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+                        "release_date": "2021-12-15",
+                        "title": "Spider-Man: No Way Home",
+                        "video": false,
+                        "vote_average": 8.4,
+                        "vote_count": 3351
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/hv7o3VgfsairBoQFAawgaQ4cR1m.jpg",
+                        "genre_ids": [
+                            28,
+                            878
+                        ],
+                        "id": 624860,
+                        "original_language": "en",
+                        "original_title": "The Matrix Resurrections",
+                        "overview": "Kisah Neo berlanjut, perjuangan kali ini akan lebih sulit dari sebelumnya. Perang antara dua dunia kembali lagi terjadi. Diganggu oleh kenangan aneh, kehidupan Neo berubah secara tak terduga ketika dia menemukan dirinya kembali kedalam Matrix.",
+                        "popularity": 8479.71,
+                        "poster_path": "/8c4a8kE7PizaGQQnditMmI1xbRp.jpg",
+                        "release_date": "2021-12-16",
+                        "title": "The Matrix Resurrections",
+                        "video": false,
+                        "vote_average": 7.1,
+                        "vote_count": 1576
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/o76ZDm8PS9791XiuieNB93UZcRV.jpg",
+                        "genre_ids": [
+                            27,
+                            28,
+                            878
+                        ],
+                        "id": 460458,
+                        "original_language": "en",
+                        "original_title": "Resident Evil: Welcome to Raccoon City",
+                        "overview": "",
+                        "popularity": 9400.802,
+                        "poster_path": "/6WR7wLCX0PGLhj51qyvK8MIxtT5.jpg",
+                        "release_date": "2021-11-24",
+                        "title": "Resident Evil: Welcome to Raccoon City",
+                        "video": false,
+                        "vote_average": 6.1,
+                        "vote_count": 637
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/3G1Q5xF40HkUBJXxt2DQgQzKTp5.jpg",
+                        "genre_ids": [
+                            16,
+                            35,
+                            10751,
+                            14
+                        ],
+                        "id": 568124,
+                        "original_language": "en",
+                        "original_title": "Encanto",
+                        "overview": "",
+                        "popularity": 8658.391,
+                        "poster_path": "/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg",
+                        "release_date": "2021-11-24",
+                        "title": "Encanto",
+                        "video": false,
+                        "vote_average": 7.8,
+                        "vote_count": 1788
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/vIgyYkXkg6NC2whRbYjBD7eb3Er.jpg",
+                        "genre_ids": [
+                            878,
+                            28,
+                            12
+                        ],
+                        "id": 580489,
+                        "original_language": "en",
+                        "original_title": "Venom: Let There Be Carnage",
+                        "overview": "Venom kembali beraksi ketika pembunuh berantai terkenal Cletus Cassidy menjadi pembantaian yang kejam.",
+                        "popularity": 5753.972,
+                        "poster_path": "/1MJNcPZy46hIy2CmSqOeru0yr5C.jpg",
+                        "release_date": "2021-09-30",
+                        "title": "Venom: Biarkan ada Pembantaian",
+                        "video": false,
+                        "vote_average": 7.2,
+                        "vote_count": 5471
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/dK12GIdhGP6NPGFssK2Fh265jyr.jpg",
+                        "genre_ids": [
+                            28,
+                            35,
+                            80,
+                            53
+                        ],
+                        "id": 512195,
+                        "original_language": "en",
+                        "original_title": "Red Notice",
+                        "overview": "Demi menangkap penjahat licin yang selalu selangkah di depan, penganalisis FBI terpaksa bersekutu dengan pencuri karya seni paling dicari yang selama ini dikejarnya.",
+                        "popularity": 3572.578,
+                        "poster_path": "/lAXONuqg41NwUMuzMiFvicDET9Y.jpg",
+                        "release_date": "2021-11-04",
+                        "title": "Red Notice",
+                        "video": false,
+                        "vote_average": 6.8,
+                        "vote_count": 2453
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/cinER0ESG0eJ49kXlExM0MEWGxW.jpg",
+                        "genre_ids": [
+                            28,
+                            12,
+                            14
+                        ],
+                        "id": 566525,
+                        "original_language": "en",
+                        "original_title": "Shang-Chi and the Legend of the Ten Rings",
+                        "overview": "Shang-Chi harus menghadapi masa lalu yang dia pikir telah di lupakan dan menghadapi ayahnya, pimpinan organisasi Sepuluh Cincin yang berbahaya.",
+                        "popularity": 2844.011,
+                        "poster_path": "/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg",
+                        "release_date": "2021-09-01",
+                        "title": "Shang-Chi dan Legenda Sepuluh Cincin",
+                        "video": false,
+                        "vote_average": 7.8,
+                        "vote_count": 4843
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/1BqX34aJS5J8PefVnQSfQIEPfkl.jpg",
+                        "genre_ids": [
+                            80,
+                            28,
+                            53
+                        ],
+                        "id": 826749,
+                        "original_language": "en",
+                        "original_title": "Fortress",
+                        "overview": "",
+                        "popularity": 2760.228,
+                        "poster_path": "/m76LAg0MchIcIW9i4yXsQPGQJJF.jpg",
+                        "release_date": "2021-12-17",
+                        "title": "Fortress",
+                        "video": false,
+                        "vote_average": 6.4,
+                        "vote_count": 69
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/nvxrQQspxmSblCYDtvDAbVFX8Jt.jpg",
+                        "genre_ids": [
+                            18,
+                            35,
+                            878
+                        ],
+                        "id": 646380,
+                        "original_language": "en",
+                        "original_title": "Don't Look Up",
+                        "overview": "",
+                        "popularity": 2299.899,
+                        "poster_path": "/5SkzM3TPpt72FoO46NSjipNXkNG.jpg",
+                        "release_date": "2021-12-07",
+                        "title": "Don't Look Up",
+                        "video": false,
+                        "vote_average": 7.3,
+                        "vote_count": 2566
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/srFi3oLy8tBcpq07xusnAE5XhwE.jpg",
+                        "genre_ids": [
+                            16,
+                            35,
+                            10751,
+                            10402
+                        ],
+                        "id": 438695,
+                        "original_language": "en",
+                        "original_title": "Sing 2",
+                        "overview": "",
+                        "popularity": 2174.088,
+                        "poster_path": "/aWeKITRFbbwY8txG5uCj4rMCfSP.jpg",
+                        "release_date": "2021-12-01",
+                        "title": "Sing 2",
+                        "video": false,
+                        "vote_average": 7.5,
+                        "vote_count": 119
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/1Wlwnhn5sXUIwlxpJgWszT622PS.jpg",
+                        "genre_ids": [
+                            16,
+                            35,
+                            10751
+                        ],
+                        "id": 585245,
+                        "original_language": "en",
+                        "original_title": "Clifford the Big Red Dog",
+                        "overview": "",
+                        "popularity": 1876.079,
+                        "poster_path": "/30ULVKdjBcQTsj2aOSThXXZNSxF.jpg",
+                        "release_date": "2021-11-10",
+                        "title": "Clifford the Big Red Dog",
+                        "video": false,
+                        "vote_average": 7.4,
+                        "vote_count": 782
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/zlj0zHo67xXoj7hvwGtaKRkSdBV.jpg",
+                        "genre_ids": [
+                            878,
+                            53,
+                            12
+                        ],
+                        "id": 728526,
+                        "original_language": "en",
+                        "original_title": "Encounter",
+                        "overview": "",
+                        "popularity": 1735.303,
+                        "poster_path": "/tUkY0WxffPZ9PoyC62PIyyUMGnt.jpg",
+                        "release_date": "2021-12-03",
+                        "title": "Encounter",
+                        "video": false,
+                        "vote_average": 6.3,
+                        "vote_count": 163
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/lyvszvJJqqI8aqBJ70XzdCNoK0y.jpg",
+                        "genre_ids": [
+                            28,
+                            12,
+                            14,
+                            878
+                        ],
+                        "id": 524434,
+                        "original_language": "en",
+                        "original_title": "Eternals",
+                        "overview": "The Eternals adalah tim alien kuno yang telah hidup di Bumi secara rahasia selama ribuan tahun. Ketika sebuah tragedi tak terduga memaksa mereka keluar dari bayang-bayang, mereka dipaksa untuk bersatu kembali melawan musuh paling kuno umat manusia, Deviants.",
+                        "popularity": 1806.119,
+                        "poster_path": "/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg",
+                        "release_date": "2021-11-03",
+                        "title": "Eternals",
+                        "video": false,
+                        "vote_average": 7.1,
+                        "vote_count": 1576
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/mFbS5TwN95BcSEfiztdchLgTQ0v.jpg",
+                        "genre_ids": [
+                            18,
+                            36
+                        ],
+                        "id": 617653,
+                        "original_language": "en",
+                        "original_title": "The Last Duel",
+                        "overview": "",
+                        "popularity": 1611.217,
+                        "poster_path": "/zjrJE0fpzPvX8saJXj8VNfcjBoU.jpg",
+                        "release_date": "2021-10-13",
+                        "title": "The Last Duel",
+                        "video": false,
+                        "vote_average": 7.6,
+                        "vote_count": 1254
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/gg2w8QYf6o5elN95RHtikQaVIsc.jpg",
+                        "genre_ids": [
+                            28,
+                            18,
+                            80
+                        ],
+                        "id": 592508,
+                        "original_language": "hi",
+                        "original_title": "Sooryavanshi",
+                        "overview": "",
+                        "popularity": 1781.192,
+                        "poster_path": "/1vuix8r1CJ2M6IldR27Z95hWm7e.jpg",
+                        "release_date": "2021-11-05",
+                        "title": "Sooryavanshi",
+                        "video": false,
+                        "vote_average": 5.5,
+                        "vote_count": 53
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/xGrTm3J0FTafmuQ85vF7ZCw94x6.jpg",
+                        "genre_ids": [
+                            18,
+                            36,
+                            12
+                        ],
+                        "id": 589761,
+                        "original_language": "ru",
+                        "original_title": "Чернобыль",
+                        "overview": "",
+                        "popularity": 1663.927,
+                        "poster_path": "/ssApiPZ0O0U7IHPJ306i29Ejcuw.jpg",
+                        "release_date": "2021-04-15",
+                        "title": "Чернобыль",
+                        "video": false,
+                        "vote_average": 6.2,
+                        "vote_count": 250
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/sLWUtbrpiLp23a0XDSiUiltdFPJ.jpg",
+                        "genre_ids": [
+                            28,
+                            12,
+                            14
+                        ],
+                        "id": 1930,
+                        "original_language": "en",
+                        "original_title": "The Amazing Spider-Man",
+                        "overview": "",
+                        "popularity": 1874.646,
+                        "poster_path": "/fSbqPbqXa7ePo8bcnZYN9AHv6zA.jpg",
+                        "release_date": "2012-06-23",
+                        "title": "The Amazing Spider-Man",
+                        "video": false,
+                        "vote_average": 6.6,
+                        "vote_count": 14121
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/weneJTnAb1IFI94SKcaXzBFmPKH.jpg",
+                        "genre_ids": [
+                            80,
+                            53,
+                            18,
+                            28
+                        ],
+                        "id": 818192,
+                        "original_language": "en",
+                        "original_title": "Ida Red",
+                        "overview": "",
+                        "popularity": 1667.975,
+                        "poster_path": "/etMxKseW67499tUJonLNHXTF538.jpg",
+                        "release_date": "2021-11-05",
+                        "title": "Ida Red",
+                        "video": false,
+                        "vote_average": 6,
+                        "vote_count": 13
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/tTlAA0REGPXSZPBfWyTW9ipIv1I.jpg",
+                        "genre_ids": [
+                            28,
+                            12,
+                            878,
+                            18
+                        ],
+                        "id": 315635,
+                        "original_language": "en",
+                        "original_title": "Spider-Man: Homecoming",
+                        "overview": "Peter Parker, dibawah bimbingan Tony Stark, mencoba menyeimbangkan perannya sebagai Spider-man dan remaja sekolah menengah atas ditengah kemunculan ancaman baru, sang Vulture.",
+                        "popularity": 1720.442,
+                        "poster_path": "/kY2c7wKgOfQjvbqe7yVzLTYkxJO.jpg",
+                        "release_date": "2017-07-05",
+                        "title": "Spider-Man: Homecoming",
+                        "video": false,
+                        "vote_average": 7.4,
+                        "vote_count": 17682
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/mRZDHjArYNWpOv06kxRK1cduQKh.jpg",
+                        "genre_ids": [
+                            27,
+                            53
+                        ],
+                        "id": 754934,
+                        "original_language": "en",
+                        "original_title": "Son",
+                        "overview": "",
+                        "popularity": 1346.773,
+                        "poster_path": "/4fl6EdtMp6p0RKJgESdFti1J3dC.jpg",
+                        "release_date": "2021-08-06",
+                        "title": "Son",
+                        "video": false,
+                        "vote_average": 6.4,
+                        "vote_count": 58
+                    }
+                ],
+                "total_pages": 31789,
+                "total_results": 635764
+            }
+        """.trimIndent()
+        val jsonTvs = """
+            {
+                "page": 1,
+                "results": [
+                    {
+                        "backdrop_path": "/35SS0nlBhu28cSe7TiO3ZiywZhl.jpg",
+                        "first_air_date": "2018-05-02",
+                        "genre_ids": [
+                            10759,
+                            18
+                        ],
+                        "id": 77169,
+                        "name": "Cobra Kai",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Cobra Kai",
+                        "overview": "",
+                        "popularity": 4744.821,
+                        "poster_path": "/5qMupAz4A9EN5Rutrkmov45mNXZ.jpg",
+                        "vote_average": 8.1,
+                        "vote_count": 3782
+                    },
+                    {
+                        "backdrop_path": "/5YTM1bh3Jyfy9IP2eS64W3JDeGs.jpg",
+                        "first_air_date": "2018-06-20",
+                        "genre_ids": [
+                            37,
+                            18
+                        ],
+                        "id": 73586,
+                        "name": "Yellowstone",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Yellowstone",
+                        "overview": "",
+                        "popularity": 2585.131,
+                        "poster_path": "/43nVQqVsrshaOx9GfJq6JstsfCX.jpg",
+                        "vote_average": 8,
+                        "vote_count": 752
+                    },
+                    {
+                        "backdrop_path": "/1R68vl3d5s86JsS2NPjl8UoMqIS.jpg",
+                        "first_air_date": "2021-11-24",
+                        "genre_ids": [
+                            10759,
+                            18
+                        ],
+                        "id": 88329,
+                        "name": "Hawkeye",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Hawkeye",
+                        "overview": "",
+                        "popularity": 1832.429,
+                        "poster_path": "/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg",
+                        "vote_average": 8.4,
+                        "vote_count": 1307
+                    },
+                    {
+                        "backdrop_path": "/1P3QtW1IkivqDrKbbwuR0zCYIf8.jpg",
+                        "first_air_date": "2021-11-18",
+                        "genre_ids": [
+                            10765,
+                            18
+                        ],
+                        "id": 71914,
+                        "name": "The Wheel of Time",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "The Wheel of Time",
+                        "overview": "",
+                        "popularity": 1620.929,
+                        "poster_path": "/mpgDeLhl8HbhI03XLB7iKO6M6JE.jpg",
+                        "vote_average": 8,
+                        "vote_count": 860
+                    },
+                    {
+                        "backdrop_path": "/zWX629wryQwpaIwsquP4BRUD6HT.jpg",
+                        "first_air_date": "2005-03-27",
+                        "genre_ids": [
+                            18
+                        ],
+                        "id": 1416,
+                        "name": "Anatomi Grey",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Grey's Anatomy",
+                        "overview": "Ikuti kehidupan pribadi dan profesional sekelompok dokter di Rumah Sakit Gray Sloan Memorial di Seattle.",
+                        "popularity": 1375.393,
+                        "poster_path": "/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                        "vote_average": 8.2,
+                        "vote_count": 7275
+                    },
+                    {
+                        "backdrop_path": "/xAKMj134XHQVNHLC6rWsccLMenG.jpg",
+                        "first_air_date": "2021-10-12",
+                        "genre_ids": [
+                            10765,
+                            80
+                        ],
+                        "id": 90462,
+                        "name": "Chucky",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Chucky",
+                        "overview": "",
+                        "popularity": 1336.481,
+                        "poster_path": "/iF8ai2QLNiHV4anwY1TuSGZXqfN.jpg",
+                        "vote_average": 7.9,
+                        "vote_count": 2823
+                    },
+                    {
+                        "backdrop_path": "/6W8zEF5jE9ErdhzatZBVI7fkpsP.jpg",
+                        "first_air_date": "2021-11-28",
+                        "genre_ids": [
+                            10764,
+                            10751
+                        ],
+                        "id": 133723,
+                        "name": "Harry Potter: Hogwarts Tournament of Houses",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Harry Potter: Hogwarts Tournament of Houses",
+                        "overview": "",
+                        "popularity": 1120.035,
+                        "poster_path": "/tEHHfzqHnfNJUp4L30wQeYl2xRo.jpg",
+                        "vote_average": 7.8,
+                        "vote_count": 114
+                    },
+                    {
+                        "backdrop_path": "/weqx7IQSQz9EzNBNk5u6IJZrM6f.jpg",
+                        "first_air_date": "2021-12-15",
+                        "genre_ids": [
+                            18,
+                            10765
+                        ],
+                        "id": 89614,
+                        "name": "雪中悍刀行",
+                        "origin_country": [
+                            "CN"
+                        ],
+                        "original_language": "zh",
+                        "original_name": "雪中悍刀行",
+                        "overview": "",
+                        "popularity": 1238.554,
+                        "poster_path": "/ffGCTwbwcGk1zgW9Rm2B94XGPXN.jpg",
+                        "vote_average": 6.4,
+                        "vote_count": 10
+                    },
+                    {
+                        "backdrop_path": "/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg",
+                        "first_air_date": "2019-12-20",
+                        "genre_ids": [
+                            10765,
+                            18,
+                            10759
+                        ],
+                        "id": 71912,
+                        "name": "The Witcher",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "The Witcher",
+                        "overview": "Geralt of Rivia, pemburu monster bermutasi untuk disewa, melakukan perjalanan menuju takdirnya di dunia yang bergejolak di mana orang-orang sering kali terbukti lebih jahat daripada binatang buas.",
+                        "popularity": 1132.66,
+                        "poster_path": "/phCNECtEhlyItIkatYEgDgB90tf.jpg",
+                        "vote_average": 8.2,
+                        "vote_count": 3153
+                    },
+                    {
+                        "backdrop_path": "/qw3J9cNeLioOLoR68WX7z79aCdK.jpg",
+                        "first_air_date": "2021-09-17",
+                        "genre_ids": [
+                            10759,
+                            9648,
+                            18
+                        ],
+                        "id": 93405,
+                        "name": "Squid Game",
+                        "origin_country": [
+                            "KR"
+                        ],
+                        "original_language": "ko",
+                        "original_name": "오징어 게임",
+                        "overview": "Ratusan pemain yang pailit menerima undangan aneh untuk bertanding dalam permainan anak-anak—dengan taruhan besar. Namun, hadiah menggiurkan menanti sang juara.",
+                        "popularity": 1090.014,
+                        "poster_path": "/yACIAqAkSLkX4coHafpyLWAtQjw.jpg",
+                        "vote_average": 7.8,
+                        "vote_count": 9676
+                    },
+                    {
+                        "backdrop_path": "/sjx6zjQI2dLGtEL0HGWsnq6UyLU.jpg",
+                        "first_air_date": "2021-12-29",
+                        "genre_ids": [
+                            10765,
+                            10759
+                        ],
+                        "id": 115036,
+                        "name": "The Book of Boba Fett",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "The Book of Boba Fett",
+                        "overview": "",
+                        "popularity": 1041.793,
+                        "poster_path": "/gNbdjDi1HamTCrfvM9JeA94bNi2.jpg",
+                        "vote_average": 8.6,
+                        "vote_count": 152
+                    },
+                    {
+                        "backdrop_path": "/41yaWnIT8AjIHiULHtTbKNzZTjc.jpg",
+                        "first_air_date": "2014-10-07",
+                        "genre_ids": [
+                            18,
+                            10765
+                        ],
+                        "id": 60735,
+                        "name": "Kilat",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "The Flash",
+                        "overview": "Setelah akselerator partikel menyebabkan badai aneh, Penyelidik CSI Barry Allen disambar petir dan jatuh koma. Beberapa bulan kemudian dia terbangun dengan kekuatan kecepatan super, memberinya kemampuan untuk bergerak melalui Central City seperti malaikat penjaga yang tak terlihat. Meskipun awalnya senang dengan kekuatan barunya, Barry terkejut menemukan bahwa dia bukan satu-satunya \"manusia meta\" yang diciptakan setelah ledakan akselerator - dan tidak semua orang menggunakan kekuatan baru mereka untuk kebaikan. Barry bermitra dengan S.T.A.R. Lab dan mendedikasikan hidupnya untuk melindungi yang tidak bersalah. Untuk saat ini, hanya beberapa teman dekat dan rekan yang tahu bahwa Barry secara harfiah adalah manusia tercepat, tetapi tidak lama sebelum dunia mengetahui apa yang menjadi Barry Allen ... The Flash.",
+                        "popularity": 980.347,
+                        "poster_path": "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
+                        "vote_average": 7.8,
+                        "vote_count": 9034
+                    },
+                    {
+                        "backdrop_path": "/sjGDODYR0hpwkwIY3Y543Dc64na.jpg",
+                        "first_air_date": "2021-12-11",
+                        "genre_ids": [
+                            10751
+                        ],
+                        "id": 138293,
+                        "name": "小敏家",
+                        "origin_country": [
+                            "CN"
+                        ],
+                        "original_language": "zh",
+                        "original_name": "小敏家",
+                        "overview": "",
+                        "popularity": 949.405,
+                        "poster_path": "/uYRmDMRm61p7BhLkXyybHUbguPJ.jpg",
+                        "vote_average": 4.7,
+                        "vote_count": 7
+                    },
+                    {
+                        "backdrop_path": "/8lBlBItnehgOAwFt0ezxlXuWeIO.jpg",
+                        "first_air_date": "2021-11-08",
+                        "genre_ids": [
+                            10766,
+                            18
+                        ],
+                        "id": 132375,
+                        "name": "Um Lugar ao Sol",
+                        "origin_country": [
+                            "BR"
+                        ],
+                        "original_language": "pt",
+                        "original_name": "Um Lugar ao Sol",
+                        "overview": "",
+                        "popularity": 948.846,
+                        "poster_path": "/63qlVcvlVzOvMaFO8tFA2VG64Yc.jpg",
+                        "vote_average": 6.6,
+                        "vote_count": 5
+                    },
+                    {
+                        "backdrop_path": "/ktDJ21QQscbMNQfPpZBsNORxdDx.jpg",
+                        "first_air_date": "2016-01-25",
+                        "genre_ids": [
+                            80,
+                            10765
+                        ],
+                        "id": 63174,
+                        "name": "Lucifer",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Lucifer",
+                        "overview": "Bosan dan tidak bahagia sebagai Penguasa Neraka, Lucifer Morningstar meninggalkan tahtanya dan pensiun ke Los Angeles, di mana ia telah bekerja sama dengan detektif LAPD Chloe Decker untuk menjatuhkan penjahat. Tapi semakin lama dia menjauh dari dunia bawah, semakin besar ancaman bahwa yang terburuk dari umat manusia dapat melarikan diri.",
+                        "popularity": 905.792,
+                        "poster_path": "/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+                        "vote_average": 8.5,
+                        "vote_count": 11227
+                    },
+                    {
+                        "backdrop_path": "/wiE9doxiLwq3WCGamDIOb2PqBqc.jpg",
+                        "first_air_date": "2013-09-12",
+                        "genre_ids": [
+                            80,
+                            18
+                        ],
+                        "id": 60574,
+                        "name": "Peaky Blinders",
+                        "origin_country": [
+                            "GB"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Peaky Blinders",
+                        "overview": "Sebuah epik keluarga gangster berlatar di Birmingham, Inggris pada tahun 1919 dan berpusat pada sebuah geng yang menjahit pisau silet di puncak topi mereka, dan bos mereka yang garang Tommy Shelby, yang bermaksud untuk naik ke dunia.",
+                        "popularity": 775.247,
+                        "poster_path": "/bGZn5RVzMMXju4ev7xbl1aLdXqq.jpg",
+                        "vote_average": 8.6,
+                        "vote_count": 4673
+                    },
+                    {
+                        "backdrop_path": "/gFZriCkpJYsApPZEF3jhxL4yLzG.jpg",
+                        "first_air_date": "2017-05-02",
+                        "genre_ids": [
+                            80,
+                            18
+                        ],
+                        "id": 71446,
+                        "name": "Money Heist",
+                        "origin_country": [
+                            "ES"
+                        ],
+                        "original_language": "es",
+                        "original_name": "La Casa de Papel",
+                        "overview": "8 pencuri melakukan penyanderaan dan mengunci diri mereka di Badan Percetakan Uang Spanyol sementara otak utama kejahatan mengakali polisi agar mewujudkan rencananya.",
+                        "popularity": 747.623,
+                        "poster_path": "/z01Dc0Ly2GmCpLe6Scx4d3dPP1S.jpg",
+                        "vote_average": 8.3,
+                        "vote_count": 15769
+                    },
+                    {
+                        "backdrop_path": "/eD2U2RwxQosUDwvu19n46KvJEf9.jpg",
+                        "first_air_date": "2021-09-13",
+                        "genre_ids": [
+                            18,
+                            35
+                        ],
+                        "id": 124549,
+                        "name": "Marry Me, Marry You",
+                        "origin_country": [
+                            "PH"
+                        ],
+                        "original_language": "tl",
+                        "original_name": "Marry Me, Marry You",
+                        "overview": "",
+                        "popularity": 969.317,
+                        "poster_path": "/7qZUC0AQmSi7pxNP6cH3swkb8Is.jpg",
+                        "vote_average": 3,
+                        "vote_count": 4
+                    },
+                    {
+                        "backdrop_path": "/hpU2cHC9tk90hswCFEpf5AtbqoL.jpg",
+                        "first_air_date": "1989-12-17",
+                        "genre_ids": [
+                            10751,
+                            16,
+                            35
+                        ],
+                        "id": 456,
+                        "name": "Simpsons",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "The Simpsons",
+                        "overview": "Bertempat di Springfield, kota rata-rata di Amerika, pertunjukan ini berfokus pada kejenakaan dan petualangan sehari-hari keluarga Simpson; Homer, Marge, Bart, Lisa dan Maggie, serta ribuan pemain virtual. Sejak awal, serial ini telah menjadi ikon budaya pop, menarik ratusan selebriti menjadi bintang tamu. Acara ini juga menjadi terkenal karena satirnya yang tak kenal takut terhadap kehidupan politik, media, dan Amerika secara umum.",
+                        "popularity": 709.223,
+                        "poster_path": "/k5UALlcA0EnviaCUn2wMjOWYiOO.jpg",
+                        "vote_average": 7.9,
+                        "vote_count": 7434
+                    },
+                    {
+                        "backdrop_path": "/rkB4LyZHo1NHXFEDHl9vSD9r1lI.jpg",
+                        "first_air_date": "2021-11-06",
+                        "genre_ids": [
+                            16,
+                            10765,
+                            10759,
+                            18
+                        ],
+                        "id": 94605,
+                        "name": "Arcane",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Arcane",
+                        "overview": "",
+                        "popularity": 720.332,
+                        "poster_path": "/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg",
+                        "vote_average": 9.1,
+                        "vote_count": 1412
+                    }
+                ],
+                "total_pages": 6111,
+                "total_results": 122206
+            }
+        """.trimIndent()
     }
 }
