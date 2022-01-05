@@ -87,14 +87,14 @@ open class RemoteRepository() {
         return data
     }
 
-    fun getMovieDetail(id: Int, callback: Callback<MovieDetailData?>){
+    open fun getMovieDetail(id: Int, callback: Callback<MovieDetailData?>){
         ApiClient.get().getDetailMovies(
             id = id,
             api_key = BuildConfig.MOVIE_API_KEY,
         )?.enqueue(callback);
     }
 
-    fun getSimilarMovies(id: Int, callback: Callback<SimilarMovieResponse?>){
+    open fun getSimilarMovies(id: Int, callback: Callback<SimilarMovieResponse?>){
         ApiClient.get().getSimilarMovies(
             id = id,
             api_key = BuildConfig.MOVIE_API_KEY,
