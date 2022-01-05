@@ -13,8 +13,6 @@ import retrofit2.Response
 
 
 open class RemoteRepository() {
-    private val client = ApiClient.get()
-
     companion object{
         private var INSTANCE: RemoteRepository? = null
 
@@ -26,27 +24,45 @@ open class RemoteRepository() {
         }
     }
 
-    fun getTvs(page: Int, search: String, callback: Callback<TvResponse?>){
+    open fun getTvs(page: Int, search: String, callback: LoadTvCallback?) : LiveData<TvResponse>{
+        val data: MutableLiveData<TvResponse> = MutableLiveData()
+        val listener = object : Callback<TvResponse?>{
+            override fun onResponse(call: Call<TvResponse?>, response: Response<TvResponse?>) {
+                if (response.code() == 200) {
+                    data.value = response.body()
+                    callback?.onAllTvReceived(response.body())
+                } else {
+                    callback?.onDataNotAvailable()
+                }
+            }
+
+            override fun onFailure(call: Call<TvResponse?>, t: Throwable) {
+                callback?.onDataNotAvailable()
+            }
+        }
+
         if(search.isEmpty()){
-            client.getTv(
+            ApiClient.get().getTv(
                 api_key = BuildConfig.MOVIE_API_KEY,
                 page = page,
                 language = "id",
-            )?.enqueue(callback);
+            )?.enqueue(listener);
         } else {
-            client.getSearchTv(
+            ApiClient.get().getSearchTv(
                 api_key = BuildConfig.MOVIE_API_KEY,
                 page = page,
                 language = "id",
                 query = search,
-            )?.enqueue(callback);
+            )?.enqueue(listener);
         }
+
+        return data
     }
 
-    fun getMovies(page: Int, callback: LoadMovieCallback?) : LiveData<MovieResponse> {
+    open fun getMovies(page: Int, callback: LoadMovieCallback?) : LiveData<MovieResponse> {
         val data: MutableLiveData<MovieResponse> = MutableLiveData()
 
-        client.getMovies(
+        ApiClient.get().getMovies(
             api_key = BuildConfig.MOVIE_API_KEY,
             page = page,
             language = "id",
@@ -71,23 +87,78 @@ open class RemoteRepository() {
         return data
     }
 
-    fun getMovieDetail(id: Int, callback: Callback<MovieDetailData?>){
-        client.getDetailMovies(
+    open fun getMovieDetail(id: Int, callback: LoadDetailMovieCallback?) : LiveData<MovieDetailData>{
+        val data: MutableLiveData<MovieDetailData> = MutableLiveData()
+
+        ApiClient.get().getDetailMovies(
             id = id,
             api_key = BuildConfig.MOVIE_API_KEY,
-        )?.enqueue(callback);
+        )?.enqueue(object : Callback<MovieDetailData?>{
+            override fun onResponse(
+                call: Call<MovieDetailData?>,
+                response: Response<MovieDetailData?>
+            ) {
+                if (response.code() == 200) {
+                    data.value = response.body()
+                    callback?.onDetailMovieReceived(response.body())
+                } else {
+                    callback?.onDataNotAvailable()
+                }
+            }
+
+            override fun onFailure(call: Call<MovieDetailData?>, t: Throwable) {
+                callback?.onDataNotAvailable()
+            }
+        });
+
+        return data
     }
 
-    fun getSimilarMovies(id: Int, callback: Callback<SimilarMovieResponse?>){
-        client.getSimilarMovies(
+    open fun getSimilarMovies(id: Int, callback: LoadSimilarMovieCallback?) : LiveData<SimilarMovieResponse>{
+        val data: MutableLiveData<SimilarMovieResponse> = MutableLiveData()
+
+        ApiClient.get().getSimilarMovies(
             id = id,
             api_key = BuildConfig.MOVIE_API_KEY,
             language = "id",
-        )?.enqueue(callback);
+        )?.enqueue(object : Callback<SimilarMovieResponse?>{
+            override fun onResponse(
+                call: Call<SimilarMovieResponse?>,
+                response: Response<SimilarMovieResponse?>
+            ) {
+                if (response.code() == 200) {
+                    data.value = response.body()
+                    callback?.onSimilarMovieReceived(response.body())
+                } else {
+                    callback?.onDataNotAvailable()
+                }
+            }
+
+            override fun onFailure(call: Call<SimilarMovieResponse?>, t: Throwable) {
+                callback?.onDataNotAvailable()
+            }
+        });
+
+        return data
+    }
+
+    interface LoadTvCallback {
+        fun onAllTvReceived(tvResponse: TvResponse?)
+        fun onDataNotAvailable()
     }
 
     interface LoadMovieCallback {
         fun onAllMovieReceived(movieResponse: MovieResponse?)
+        fun onDataNotAvailable()
+    }
+
+    interface LoadDetailMovieCallback {
+        fun onDetailMovieReceived(movieDetailData: MovieDetailData?)
+        fun onDataNotAvailable()
+    }
+
+    interface LoadSimilarMovieCallback {
+        fun onSimilarMovieReceived(similarMovieResponse: SimilarMovieResponse?)
         fun onDataNotAvailable()
     }
 }

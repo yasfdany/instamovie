@@ -1,6 +1,7 @@
 package dev.studiocloud.instamovie.data
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import dev.studiocloud.instamovie.data.local.LocalRepository
 import dev.studiocloud.instamovie.data.local.entity.Movie
@@ -16,11 +17,8 @@ import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieRespon
 import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class MainRepository(
+open class MainRepository(
     private val remoteRepository: RemoteRepository,
     private val localRepository: LocalRepository,
 ) : MainDataSource {
@@ -46,13 +44,15 @@ class MainRepository(
         }
     }
 
-    override fun getMovies(page: Int, onFinish : (data: MovieData?) -> Unit) {
+    override fun getMovies(page: Int, onFinish : (data: MovieData?) -> Unit): LiveData<MovieResponse> {
+        val response: MutableLiveData<MovieResponse> = MutableLiveData()
         val movies : MutableList<MovieItem> = mutableListOf()
         var currentPage: Int
         var currentMaxPage: Int
 
         remoteRepository.getMovies(page, object: RemoteRepository.LoadMovieCallback{
             override fun onAllMovieReceived(movieResponse: MovieResponse?) {
+                response.value = movieResponse
                 currentMaxPage = movieResponse?.totalPages!!
                 movies.addAll(movieResponse.results!!.toMutableList())
 
@@ -79,35 +79,36 @@ class MainRepository(
                 onFinish(MovieData(1,1, movies))
             }
         })
+
+        return response
     }
 
-    override fun getTvs(page: Int, search : String, onFinish : (data: TvData?) -> Unit) {
+    override fun getTvs(page: Int, search: String, onFinish: (data: TvData?) -> Unit): LiveData<TvResponse> {
+        val response: MutableLiveData<TvResponse> = MutableLiveData()
         val tvs : MutableList<TvItem> = mutableListOf()
         var currentPage: Int
         var currentMaxPage: Int
 
-        remoteRepository.getTvs(page, search, object: Callback<TvResponse?>{
-            override fun onResponse(call: Call<TvResponse?>, response: Response<TvResponse?>) {
-                if(response.code() == 200){
-                    currentMaxPage = response.body()?.totalPages!!
-                    tvs.addAll(response.body()?.results!!.toMutableList())
+        remoteRepository.getTvs(page, search, object : RemoteRepository.LoadTvCallback{
+            override fun onAllTvReceived(tvResponse: TvResponse?) {
+                response.value = tvResponse
 
-                    currentPage = page + 1
+                currentMaxPage = tvResponse?.totalPages!!
+                tvs.addAll(tvResponse.results!!.toMutableList())
 
-                    onFinish(TvData(currentPage, currentMaxPage, tvs))
+                currentPage = page + 1
 
-                    for(tvItem in tvs){
-                        val jsonTv = Gson().toJson(tvItem)
-                        val convertedTv = Gson().fromJson(jsonTv, Tv::class.java)
+                onFinish(TvData(currentPage, currentMaxPage, tvs))
 
-                        localRepository.insertTv(convertedTv)
-                    }
-                } else {
-                    onFinish(null)
+                for(tvItem in tvs){
+                    val jsonTv = Gson().toJson(tvItem)
+                    val convertedTv = Gson().fromJson(jsonTv, Tv::class.java)
+
+                    localRepository.insertTv(convertedTv)
                 }
             }
 
-            override fun onFailure(call: Call<TvResponse?>, t: Throwable) {
+            override fun onDataNotAvailable() {
                 if (search.isEmpty()){
                     val localTvs = localRepository.getAllTv()
                     for(tv in localTvs){
@@ -126,34 +127,30 @@ class MainRepository(
                     }
 
                     onFinish(TvData(1,1, tvs))
-
                 }
             }
         })
+
+        return response
     }
 
-    override fun getMovieDetail(id: Int, onFinish: (data: MovieDetailData?) -> Unit) {
-        remoteRepository.getMovieDetail(id, object: Callback<MovieDetailData?>{
-            override fun onResponse(
-                call: Call<MovieDetailData?>,
-                response: Response<MovieDetailData?>
-            ) {
-                if (response.code() == 200){
-                    onFinish(response.body())
-                    val jsonDetail = Gson().toJson(response.body())
-                    val convertedDetail = Gson().fromJson(jsonDetail, MovieDetail::class.java)
-                    val genres = response.body()?.genres?.joinToString { it.name.toString() }
-                    convertedDetail.genres = genres
-                    convertedDetail.id = id
-                    Log.d("id",id.toString())
+    override fun getMovieDetail(id: Int, onFinish: (data: MovieDetailData?) -> Unit) : LiveData<MovieDetailData> {
+        val response: MutableLiveData<MovieDetailData> = MutableLiveData()
 
-                    localRepository.insertMovieDetail(convertedDetail)
-                } else {
-                    onFinish(null)
-                }
+        remoteRepository.getMovieDetail(id, object: RemoteRepository.LoadDetailMovieCallback{
+            override fun onDetailMovieReceived(movieDetailData: MovieDetailData?) {
+                response.value = movieDetailData
+                onFinish(movieDetailData)
+                val jsonDetail = Gson().toJson(movieDetailData)
+                val convertedDetail = Gson().fromJson(jsonDetail, MovieDetail::class.java)
+                val genres = movieDetailData?.genres?.joinToString { it.name.toString() }
+                convertedDetail.genres = genres
+                convertedDetail.id = id
+
+                localRepository.insertMovieDetail(convertedDetail)
             }
 
-            override fun onFailure(call: Call<MovieDetailData?>, t: Throwable) {
+            override fun onDataNotAvailable() {
                 val localDetails = localRepository.getMovieDetailById(id)
                 if(localDetails.isNotEmpty()){
                     val jsonDetail = Gson().toJson(localDetails[0])
@@ -171,22 +168,25 @@ class MainRepository(
                     onFinish(null)
                 }
             }
-        });
+
+        })
+
+        return response
     }
 
-    override fun getSimilarMovies(id: Int, onFinish: (data: MutableList<MovieItem>?) -> Unit) {
-        remoteRepository.getSimilarMovies(id, object: Callback<SimilarMovieResponse?>{
-            override fun onResponse(
-                call: Call<SimilarMovieResponse?>,
-                response: Response<SimilarMovieResponse?>
-            ) {
-                if (response.code() == 200){
-                    onFinish(response.body()?.results)
-                }
+    override fun getSimilarMovies(id: Int, onFinish: (data: MutableList<MovieItem>?) -> Unit) : LiveData<SimilarMovieResponse> {
+        val response: MutableLiveData<SimilarMovieResponse> = MutableLiveData()
+
+        remoteRepository.getSimilarMovies(id, object : RemoteRepository.LoadSimilarMovieCallback{
+            override fun onSimilarMovieReceived(similarMovieResponse: SimilarMovieResponse?) {
+                response.value = similarMovieResponse
+                onFinish(similarMovieResponse?.results)
             }
 
-            override fun onFailure(call: Call<SimilarMovieResponse?>, t: Throwable) {
+            override fun onDataNotAvailable() {
             }
         })
+
+        return response
     }
 }
