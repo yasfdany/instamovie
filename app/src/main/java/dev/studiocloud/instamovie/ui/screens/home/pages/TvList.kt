@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.booleanResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -80,7 +81,8 @@ fun TvList(
                     hint = "Search here...",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(14.dp),
+                        .padding(14.dp)
+                        .testTag("search_bar"),
                     trailingIcon = {
                         if (searchValue.isNotEmpty()){
                             Image(
@@ -100,6 +102,7 @@ fun TvList(
                                             )
                                         },
                                     )
+                                    .testTag("clear_search")
                             )
 
                         }
@@ -130,6 +133,7 @@ fun TvList(
                 LazyVerticalGrid(
                     cells = GridCells.Fixed(if(isTablet) 4 else 3),
                     state = scrollState,
+                    modifier = Modifier.testTag("tv_list")
                 ) {
                     itemsIndexed(tvViewModel.tvExplore) { index, tv ->
                         if (index == tvViewModel.tvExplore.count() - 2
