@@ -1233,5 +1233,499 @@ class FakeDummyData {
                 "total_results": 34
             }
         """.trimIndent()
+        val jsonSpiderManDetail = """
+            {
+                "adult": false,
+                "backdrop_path": "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
+                "belongs_to_collection": {
+                    "id": 531241,
+                    "name": "Spider-Man (Avengers) Collection",
+                    "poster_path": "/nogV4th2P5QWYvQIMiWHj4CFLU9.jpg",
+                    "backdrop_path": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
+                },
+                "budget": 200000000,
+                "genres": [
+                    {
+                        "id": 28,
+                        "name": "Action"
+                    },
+                    {
+                        "id": 12,
+                        "name": "Adventure"
+                    },
+                    {
+                        "id": 878,
+                        "name": "Science Fiction"
+                    }
+                ],
+                "homepage": "https://www.spidermannowayhome.movie",
+                "id": 634649,
+                "imdb_id": "tt10872600",
+                "original_language": "en",
+                "original_title": "Spider-Man: No Way Home",
+                "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+                "popularity": 8817.063,
+                "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+                "production_companies": [
+                    {
+                        "id": 420,
+                        "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+                        "name": "Marvel Studios",
+                        "origin_country": "US"
+                    },
+                    {
+                        "id": 84041,
+                        "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+                        "name": "Pascal Pictures",
+                        "origin_country": "US"
+                    },
+                    {
+                        "id": 5,
+                        "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+                        "name": "Columbia Pictures",
+                        "origin_country": "US"
+                    }
+                ],
+                "production_countries": [
+                    {
+                        "iso_3166_1": "US",
+                        "name": "United States of America"
+                    }
+                ],
+                "release_date": "2021-12-15",
+                "revenue": 1380000000,
+                "runtime": 148,
+                "spoken_languages": [
+                    {
+                        "english_name": "English",
+                        "iso_639_1": "en",
+                        "name": "English"
+                    },
+                    {
+                        "english_name": "Tagalog",
+                        "iso_639_1": "tl",
+                        "name": ""
+                    }
+                ],
+                "status": "Released",
+                "tagline": "The Multiverse unleashed.",
+                "title": "Spider-Man: No Way Home",
+                "video": false,
+                "vote_average": 8.4,
+                "vote_count": 3438
+            }
+        """.trimIndent()
+        val jsonSimilarMovie = """
+            {
+                "page": 1,
+                "results": [
+                    {
+                        "adult": false,
+                        "backdrop_path": "/sWvxBXNtCOaGdtpKNLiOqmwb10N.jpg",
+                        "genre_ids": [
+                            14,
+                            28
+                        ],
+                        "id": 557,
+                        "title": "Spider-Man",
+                        "original_language": "en",
+                        "original_title": "Spider-Man",
+                        "overview": "",
+                        "popularity": 1100.174,
+                        "poster_path": "/gSZyYEK5AfZuOFFjnVPUCLvdOD6.jpg",
+                        "release_date": "2002-05-01",
+                        "video": false,
+                        "vote_average": 7.213,
+                        "vote_count": 14915
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/6al048Lat3eLVQOuKtc9h6Tu94d.jpg",
+                        "genre_ids": [
+                            28,
+                            12,
+                            14
+                        ],
+                        "id": 558,
+                        "title": "Spider-Man 2",
+                        "original_language": "en",
+                        "original_title": "Spider-Man 2",
+                        "overview": "",
+                        "popularity": 277.161,
+                        "poster_path": "/olxpyq9kJAZ2NU1siLshhhXEPR7.jpg",
+                        "release_date": "2004-06-25",
+                        "video": false,
+                        "vote_average": 7.175,
+                        "vote_count": 12005
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/6MQmtWk4cFwSDyNvIgoJRBIHUT3.jpg",
+                        "genre_ids": [
+                            14,
+                            28,
+                            12
+                        ],
+                        "id": 559,
+                        "title": "Spider-Man 3",
+                        "original_language": "en",
+                        "original_title": "Spider-Man 3",
+                        "overview": "",
+                        "popularity": 1021.273,
+                        "poster_path": "/2jLxKF73SAPkyhIWrnv67IH7kJ1.jpg",
+                        "release_date": "2007-05-01",
+                        "video": false,
+                        "vote_average": 6.328,
+                        "vote_count": 10984
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/tIG8FwHRiHLOlWJdizp2oxdkSL2.jpg",
+                        "genre_ids": [
+                            14,
+                            28,
+                            27
+                        ],
+                        "id": 561,
+                        "title": "Constantine",
+                        "original_language": "en",
+                        "original_title": "Constantine",
+                        "overview": "",
+                        "popularity": 64.808,
+                        "poster_path": "/vPYgvd2MwHlxTamAOjwVQp4qs1W.jpg",
+                        "release_date": "2005-02-08",
+                        "video": false,
+                        "vote_average": 6.973,
+                        "vote_count": 5329
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/m4vNXgy0EfvOSSXMWJC6FfMSyIR.jpg",
+                        "genre_ids": [
+                            27,
+                            35
+                        ],
+                        "id": 1547,
+                        "title": "The Lost Boys",
+                        "original_language": "en",
+                        "original_title": "The Lost Boys",
+                        "overview": "",
+                        "popularity": 17.066,
+                        "poster_path": "/nH1lvyQvfbL5GKScTtT6zkIvDEn.jpg",
+                        "release_date": "1987-07-31",
+                        "video": false,
+                        "vote_average": 7.043,
+                        "vote_count": 1455
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/8eRscFbRYl681zDfkjv1jjW1KAA.jpg",
+                        "genre_ids": [
+                            878,
+                            28,
+                            12
+                        ],
+                        "id": 1452,
+                        "title": "Superman Returns",
+                        "original_language": "en",
+                        "original_title": "Superman Returns",
+                        "overview": "",
+                        "popularity": 29.892,
+                        "poster_path": "/385XwTQZDpRX2d3kxtnpiLrjBXw.jpg",
+                        "release_date": "2006-06-28",
+                        "video": false,
+                        "vote_average": 5.682,
+                        "vote_count": 3308
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/v6ejJREqtrKoveHhX7q0mwP9iUd.jpg",
+                        "genre_ids": [
+                            14,
+                            28
+                        ],
+                        "id": 1487,
+                        "title": "Hellboy",
+                        "original_language": "en",
+                        "original_title": "Hellboy",
+                        "overview": "",
+                        "popularity": 28.67,
+                        "poster_path": "/kukfPWDRXVe7b4HFYMKnxKvMg18.jpg",
+                        "release_date": "2004-04-02",
+                        "video": false,
+                        "vote_average": 6.652,
+                        "vote_count": 5613
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/8VGaEXbTOGeWGW7IvzOf1j2rjet.jpg",
+                        "genre_ids": [
+                            878,
+                            12,
+                            28,
+                            35,
+                            10751
+                        ],
+                        "id": 1497,
+                        "title": "Teenage Mutant Ninja Turtles II: The Secret of the Ooze",
+                        "original_language": "en",
+                        "original_title": "Teenage Mutant Ninja Turtles II: The Secret of the Ooze",
+                        "overview": "",
+                        "popularity": 15.614,
+                        "poster_path": "/Hyvvz9Z3le1is8a0EeFJQm0aSC.jpg",
+                        "release_date": "1991-03-22",
+                        "video": false,
+                        "vote_average": 6.075,
+                        "vote_count": 801
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/vVDPB2bU5qFpjI6xx9DipgfRfT0.jpg",
+                        "genre_ids": [
+                            878,
+                            28,
+                            12,
+                            35,
+                            10751
+                        ],
+                        "id": 1498,
+                        "title": "Teenage Mutant Ninja Turtles",
+                        "original_language": "en",
+                        "original_title": "Teenage Mutant Ninja Turtles",
+                        "overview": "",
+                        "popularity": 16.421,
+                        "poster_path": "/shfAU6xIIEAEtsloIT3n9Fscz2E.jpg",
+                        "release_date": "1990-03-30",
+                        "video": false,
+                        "vote_average": 6.58,
+                        "vote_count": 1291
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/iY8P5N4ENtE05ngDbY2k2TTmL3I.jpg",
+                        "genre_ids": [
+                            28,
+                            12,
+                            35,
+                            10751,
+                            14,
+                            878
+                        ],
+                        "id": 1499,
+                        "title": "Teenage Mutant Ninja Turtles III",
+                        "original_language": "en",
+                        "original_title": "Teenage Mutant Ninja Turtles III",
+                        "overview": "",
+                        "popularity": 15.816,
+                        "poster_path": "/fwX5RdPDBFsbEAXc46DrvRz5Bca.jpg",
+                        "release_date": "1993-03-17",
+                        "video": false,
+                        "vote_average": 5.4,
+                        "vote_count": 573
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/xdefSJpYARFdW4jPhPsuvUlmt2M.jpg",
+                        "genre_ids": [
+                            12,
+                            10751,
+                            14
+                        ],
+                        "id": 11533,
+                        "title": "Jason and the Argonauts",
+                        "original_language": "en",
+                        "original_title": "Jason and the Argonauts",
+                        "overview": "",
+                        "popularity": 20.148,
+                        "poster_path": "/tNxU5agqGybrnVHGaxfEuAksRoO.jpg",
+                        "release_date": "1963-06-19",
+                        "video": false,
+                        "vote_average": 7.114,
+                        "vote_count": 417
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/ikpwuaK0yzNhXO24OeB7cKulhZE.jpg",
+                        "genre_ids": [
+                            16,
+                            10751
+                        ],
+                        "id": 10895,
+                        "title": "Pinocchio",
+                        "original_language": "en",
+                        "original_title": "Pinocchio",
+                        "overview": "",
+                        "popularity": 71.25,
+                        "poster_path": "/ynkEEi296ofs9kCfRWcaWxOWN1n.jpg",
+                        "release_date": "1940-02-23",
+                        "video": false,
+                        "vote_average": 7.077,
+                        "vote_count": 4680
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/5Whto90zxlMr09mUtj5PfegFv02.jpg",
+                        "genre_ids": [
+                            28,
+                            14,
+                            53
+                        ],
+                        "id": 10546,
+                        "title": "The Crow: City of Angels",
+                        "original_language": "en",
+                        "original_title": "The Crow: City of Angels",
+                        "overview": "",
+                        "popularity": 10.988,
+                        "poster_path": "/wcWXBujfOUKYbWRnfnAUJaqxRrn.jpg",
+                        "release_date": "1996-08-29",
+                        "video": false,
+                        "vote_average": 5.543,
+                        "vote_count": 372
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/7ZmZxar3bYORcl0TPA4oceyxcaE.jpg",
+                        "genre_ids": [
+                            16,
+                            28,
+                            35,
+                            10751
+                        ],
+                        "id": 10555,
+                        "title": "Shark Tale",
+                        "original_language": "en",
+                        "original_title": "Shark Tale",
+                        "overview": "",
+                        "popularity": 54.706,
+                        "poster_path": "/r08DpyPyhXcJTfNZAICNGMzcQ8l.jpg",
+                        "release_date": "2004-09-20",
+                        "video": false,
+                        "vote_average": 6.023,
+                        "vote_count": 5264
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/z1enxniAr0DhbcnIUwpNhJSnd6W.jpg",
+                        "genre_ids": [
+                            10751,
+                            35
+                        ],
+                        "id": 10992,
+                        "title": "Cats & Dogs",
+                        "original_language": "en",
+                        "original_title": "Cats & Dogs",
+                        "overview": "",
+                        "popularity": 42.125,
+                        "poster_path": "/77dmCJelVTBPBwbTppiisQx0e82.jpg",
+                        "release_date": "2001-07-04",
+                        "video": false,
+                        "vote_average": 5.374,
+                        "vote_count": 1270
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/7lmBufEG7P7Y1HClYK3gCxYrkgS.jpg",
+                        "genre_ids": [
+                            12,
+                            28,
+                            878
+                        ],
+                        "id": 10138,
+                        "title": "Iron Man 2",
+                        "original_language": "en",
+                        "original_title": "Iron Man 2",
+                        "overview": "",
+                        "popularity": 273.613,
+                        "poster_path": "/6WBeq4fCfn7AN0o21W9qNcRF2l9.jpg",
+                        "release_date": "2010-04-28",
+                        "video": false,
+                        "vote_average": 6.838,
+                        "vote_count": 17236
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/cDJ61O1STtbWNBwefuqVrRe3d7l.jpg",
+                        "genre_ids": [
+                            12,
+                            14,
+                            28
+                        ],
+                        "id": 10195,
+                        "title": "Thor",
+                        "original_language": "en",
+                        "original_title": "Thor",
+                        "overview": "Melawan kehedak Ayahnya Odin, Sang Perkasa Thor – Dewa pejuang yang kuat namun sombong – dengan ceroboh menyalakan kembali perang kuno. Thor dibuang ke Bumi dan dipaksa untuk hidup di antara manusia sebagai hukuman. Begitu tiba di sini, Thor belajar apa yang diperlukan untuk menjadi pahlawan sejati ketika penjahat paling berbahaya di dunianya mengirimkan pasukan tergelap Asgard untuk menyerang Bumi.",
+                        "popularity": 201.812,
+                        "poster_path": "/prSfAi1xGrhLQNxVSUFh61xQ4Qy.jpg",
+                        "release_date": "2011-04-21",
+                        "video": false,
+                        "vote_average": 6.767,
+                        "vote_count": 17563
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/spFSZBt83uruCwedMN8HR2uFklI.jpg",
+                        "genre_ids": [
+                            28,
+                            12,
+                            878
+                        ],
+                        "id": 11411,
+                        "title": "Superman IV: The Quest for Peace",
+                        "original_language": "en",
+                        "original_title": "Superman IV: The Quest for Peace",
+                        "overview": "",
+                        "popularity": 20.6,
+                        "poster_path": "/vhs3P0JwqzlgfBqhjnCWDEOtDmS.jpg",
+                        "release_date": "1987-07-23",
+                        "video": false,
+                        "vote_average": 4.513,
+                        "vote_count": 913
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/bSPqnIvyDPLkp5BDch083UtgZhY.jpg",
+                        "genre_ids": [
+                            12,
+                            35,
+                            10751
+                        ],
+                        "id": 11459,
+                        "title": "Sky High",
+                        "original_language": "en",
+                        "original_title": "Sky High",
+                        "overview": "",
+                        "popularity": 26.576,
+                        "poster_path": "/oK54M9VKOCLR1u0j26ttRix0G18.jpg",
+                        "release_date": "2005-07-29",
+                        "video": false,
+                        "vote_average": 6.235,
+                        "vote_count": 1855
+                    },
+                    {
+                        "adult": false,
+                        "backdrop_path": "/98YHKGqgiRSnjkpOvht9DJEhYHe.jpg",
+                        "genre_ids": [
+                            28,
+                            36,
+                            10752
+                        ],
+                        "id": 10590,
+                        "title": "We Were Soldiers",
+                        "original_language": "en",
+                        "original_title": "We Were Soldiers",
+                        "overview": "",
+                        "popularity": 20.586,
+                        "poster_path": "/q2LeLzw4q9HTelkKx29dyTMf5zK.jpg",
+                        "release_date": "2002-03-01",
+                        "video": false,
+                        "vote_average": 7.096,
+                        "vote_count": 1520
+                    }
+                ],
+                "total_pages": 500,
+                "total_results": 10000
+            }
+        """.trimIndent()
     }
 }

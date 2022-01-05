@@ -6,6 +6,7 @@ import dev.studiocloud.instamovie.data.models.TvData
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
 
 interface MainDataSource {
@@ -23,10 +24,10 @@ interface MainDataSource {
     fun getMovieDetail(
         id: Int,
         onFinish: (data: MovieDetailData?) -> Unit
-    )
+    ): LiveData<MovieDetailData>
 
     fun getSimilarMovies(
         id: Int,
         onFinish: (data: MutableList<MovieItem>?) -> Unit
-    )
+    ): LiveData<SimilarMovieResponse>
 }

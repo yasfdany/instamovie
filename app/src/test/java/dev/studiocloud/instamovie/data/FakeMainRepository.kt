@@ -1,24 +1,17 @@
 package dev.studiocloud.instamovie.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.Gson
 import dev.studiocloud.instamovie.data.local.LocalRepository
-import dev.studiocloud.instamovie.data.local.entity.MovieDetail
 import dev.studiocloud.instamovie.data.models.MovieData
 import dev.studiocloud.instamovie.data.models.TvData
 import dev.studiocloud.instamovie.data.remote.RemoteRepository
-import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.GenresItem
 import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
 import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 open class FakeMainRepository(
     private val remoteRepository: RemoteRepository,
@@ -101,62 +94,36 @@ open class FakeMainRepository(
         return response
     }
 
-    override fun getMovieDetail(id: Int, onFinish: (data: MovieDetailData?) -> Unit) {
-        remoteRepository.getMovieDetail(id, object : Callback<MovieDetailData?> {
-            override fun onResponse(
-                call: Call<MovieDetailData?>,
-                response: Response<MovieDetailData?>
-            ) {
-                if (response.code() == 200) {
-                    onFinish(response.body())
-                    val jsonDetail = Gson().toJson(response.body())
-                    val convertedDetail = Gson().fromJson(jsonDetail, MovieDetail::class.java)
-                    val genres = response.body()?.genres?.joinToString { it.name.toString() }
-                    convertedDetail.genres = genres
-                    convertedDetail.id = id
-                    Log.d("id", id.toString())
+    override fun getMovieDetail(id: Int, onFinish: (data: MovieDetailData?) -> Unit) : LiveData<MovieDetailData> {
+        val response: MutableLiveData<MovieDetailData> = MutableLiveData()
 
-                    localRepository.insertMovieDetail(convertedDetail)
-                } else {
-                    onFinish(null)
-                }
+        remoteRepository.getMovieDetail(id, object: RemoteRepository.LoadDetailMovieCallback{
+            override fun onDetailMovieReceived(movieDetailData: MovieDetailData?) {
+                response.value = movieDetailData
+                onFinish(movieDetailData)
             }
 
-            override fun onFailure(call: Call<MovieDetailData?>, t: Throwable) {
-                val localDetails = localRepository.getMovieDetailById(id)
-                if (localDetails.isNotEmpty()) {
-                    val jsonDetail = Gson().toJson(localDetails[0])
-                    val detailData = Gson().fromJson(jsonDetail, MovieDetailData::class.java)
-                    val genres = if (localDetails.isNotEmpty()) localDetails[0].genres?.split(",")
-                        ?: listOf() else listOf()
-
-                    val genreItems = mutableListOf<GenresItem>()
-                    for (genre in genres) {
-                        genreItems.add(GenresItem(0, genre))
-                    }
-                    detailData.genres = genreItems
-
-                    onFinish(detailData)
-                } else {
-                    onFinish(null)
-                }
+            override fun onDataNotAvailable() {
             }
-        });
+
+        })
+
+        return response
     }
 
-    override fun getSimilarMovies(id: Int, onFinish: (data: MutableList<MovieItem>?) -> Unit) {
-        remoteRepository.getSimilarMovies(id, object : Callback<SimilarMovieResponse?> {
-            override fun onResponse(
-                call: Call<SimilarMovieResponse?>,
-                response: Response<SimilarMovieResponse?>
-            ) {
-                if (response.code() == 200) {
-                    onFinish(response.body()?.results)
-                }
+    override fun getSimilarMovies(id: Int, onFinish: (data: MutableList<MovieItem>?) -> Unit) : LiveData<SimilarMovieResponse> {
+        val response: MutableLiveData<SimilarMovieResponse> = MutableLiveData()
+
+        remoteRepository.getSimilarMovies(id, object : RemoteRepository.LoadSimilarMovieCallback{
+            override fun onSimilarMovieReceived(similarMovieResponse: SimilarMovieResponse?) {
+                response.value = similarMovieResponse
+                onFinish(similarMovieResponse?.results)
             }
 
-            override fun onFailure(call: Call<SimilarMovieResponse?>, t: Throwable) {
+            override fun onDataNotAvailable() {
             }
         })
+
+        return response
     }
 }

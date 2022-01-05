@@ -4,7 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.gson.Gson
 import dev.studiocloud.instamovie.data.local.LocalRepository
 import dev.studiocloud.instamovie.data.remote.RemoteRepository
+import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
 import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
 import dev.studiocloud.instamovie.utils.FakeDummyData
 import dev.studiocloud.instamovie.utils.LiveDataTestUtil
@@ -27,6 +29,8 @@ class MainRepositoryTest {
     private val dummyMovieResponse = Gson().fromJson(FakeDummyData.jsonMovies, MovieResponse::class.java)
     private val dummyTvResponse = Gson().fromJson(FakeDummyData.jsonTvs, TvResponse::class.java)
     private val dummySpiderManTvResponse = Gson().fromJson(FakeDummyData.jsonSpiderManTv, TvResponse::class.java)
+    private val dummySpiderManDetailResponse = Gson().fromJson(FakeDummyData.jsonSpiderManDetail, MovieDetailData::class.java)
+    private val dummySimilarMovieResponse = Gson().fromJson(FakeDummyData.jsonSimilarMovie, SimilarMovieResponse::class.java)
 
     @Test
     fun `Test get all movie list`() {
@@ -68,11 +72,28 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun getMovieDetail() {
+    fun `Test detail movie if it match with the movie`() {
+        `when`(remoteRepository.getMovieDetail(eq(634649), any())).thenAnswer {
+            (it.arguments[1] as RemoteRepository.LoadDetailMovieCallback).onDetailMovieReceived(dummySpiderManDetailResponse)
+            null
+        }
+
+        val result = LiveDataTestUtil.getValue(fakeMainRepository.getMovieDetail(634649){})
+        verify(remoteRepository, times(1)).getMovieDetail(eq(634649), any())
+        assertEquals(dummySpiderManDetailResponse.id,result?.id)
+        assertEquals(dummySpiderManDetailResponse.title,result?.title)
     }
 
     @Test
-    fun getSimilarMovies() {
-    }
+    fun `Test similar movie in spiderman`() {
+        `when`(remoteRepository.getSimilarMovies(eq(634649), any())).thenAnswer {
+            (it.arguments[1] as RemoteRepository.LoadSimilarMovieCallback).onSimilarMovieReceived(dummySimilarMovieResponse)
+            null
+        }
 
+        val result = LiveDataTestUtil.getValue(fakeMainRepository.getSimilarMovies(634649){})
+        verify(remoteRepository, times(1)).getSimilarMovies(eq(634649), any())
+        assertEquals(dummySimilarMovieResponse.results?.size, result?.results?.size)
+        assertEquals(dummySimilarMovieResponse.results?.first()?.id, result?.results?.first()?.id)
+    }
 }
