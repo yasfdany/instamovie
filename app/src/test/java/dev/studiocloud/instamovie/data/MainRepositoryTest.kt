@@ -1,52 +1,99 @@
+package dev.studiocloud.instamovie.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import dev.studiocloud.instamovie.data.local.LocalRepository
 import dev.studiocloud.instamovie.data.remote.RemoteRepository
+import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
+import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
 import dev.studiocloud.instamovie.utils.FakeDummyData
-import org.junit.After
+import dev.studiocloud.instamovie.utils.LiveDataTestUtil
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
-import org.mockito.kotlin.any
-import org.mockito.kotlin.validateMockitoUsage
+import org.mockito.kotlin.*
 
 class MainRepositoryTest {
-    @Rule
-    @JvmField
-    val rule = InstantTaskExecutorRule()
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val remote = mock(RemoteRepository::class.java)
-    private val local = mock(LocalRepository::class.java)
+    private val remoteRepository = mock<RemoteRepository>()
+    private val localRepository = mock<LocalRepository>()
+    private val fakeMainRepository = FakeMainRepository(remoteRepository, localRepository)
 
-    private val fakeMainRepository: FakeMainRepository? = FakeMainRepository.getInstance(remote, local)
-    private val gson: Gson = Gson()
-    private val movieResponse: MutableLiveData<MovieResponse> = MutableLiveData(gson.fromJson(FakeDummyData.jsonMovies, MovieResponse::class.java))
+    private val dummyMovieResponse = Gson().fromJson(FakeDummyData.jsonMovies, MovieResponse::class.java)
+    private val dummyTvResponse = Gson().fromJson(FakeDummyData.jsonTvs, TvResponse::class.java)
+    private val dummySpiderManTvResponse = Gson().fromJson(FakeDummyData.jsonSpiderManTv, TvResponse::class.java)
+    private val dummySpiderManDetailResponse = Gson().fromJson(FakeDummyData.jsonSpiderManDetail, MovieDetailData::class.java)
+    private val dummySimilarMovieResponse = Gson().fromJson(FakeDummyData.jsonSimilarMovie, SimilarMovieResponse::class.java)
 
     @Test
-    fun getMovies() {
-        `when`(
-            remote.getMovies(1, any())
-        ).thenReturn(movieResponse)
+    fun `Test get all movie list`() {
+        `when`(remoteRepository.getMovies(anyInt(), any())).thenAnswer {
+            (it.arguments[1] as RemoteRepository.LoadMovieCallback).onAllMovieReceived(dummyMovieResponse)
+            null
+        }
+
+        val result = LiveDataTestUtil.getValue(fakeMainRepository.getMovies(1){});
+        verify(remoteRepository, times(1)).getMovies(anyInt(), any())
+        assertEquals(dummyMovieResponse.results?.size, result?.results?.size);
+        assertEquals(dummyMovieResponse.results?.first()?.id, result?.results?.first()?.id);
     }
 
     @Test
-    fun getTvs() {
+    fun `Test getTv with empty search query`() {
+        `when`(remoteRepository.getTvs(anyInt(), anyString(), any())).thenAnswer {
+            (it.arguments[2] as RemoteRepository.LoadTvCallback).onAllTvReceived(dummyTvResponse)
+            null
+        }
+
+        val result = LiveDataTestUtil.getValue(fakeMainRepository.getTvs(1, ""){})
+        verify(remoteRepository, times(1)).getTvs(anyInt(), anyString(),any())
+        assertEquals(dummyTvResponse.results?.size, result?.results?.size)
+        assertEquals(dummyTvResponse.results?.first()?.id, result?.results?.first()?.id)
     }
 
     @Test
-    fun getMovieDetail() {
+    fun `Test getTv with spiderman search query`() {
+        `when`(remoteRepository.getTvs(eq(1), eq("spiderman"), any())).thenAnswer {
+            (it.arguments[2] as RemoteRepository.LoadTvCallback).onAllTvReceived(dummySpiderManTvResponse)
+            null
+        }
+
+        val result = LiveDataTestUtil.getValue(fakeMainRepository.getTvs(1, "spiderman"){})
+        verify(remoteRepository, times(1)).getTvs(eq(1), eq("spiderman"),any())
+        assertEquals(dummySpiderManTvResponse.results?.size, result?.results?.size)
+        assertEquals(dummySpiderManTvResponse.results?.first()?.id, result?.results?.first()?.id)
     }
 
     @Test
-    fun getSimilarMovies() {
+    fun `Test detail movie if it match with the movie`() {
+        `when`(remoteRepository.getMovieDetail(eq(634649), any())).thenAnswer {
+            (it.arguments[1] as RemoteRepository.LoadDetailMovieCallback).onDetailMovieReceived(dummySpiderManDetailResponse)
+            null
+        }
+
+        val result = LiveDataTestUtil.getValue(fakeMainRepository.getMovieDetail(634649){})
+        verify(remoteRepository, times(1)).getMovieDetail(eq(634649), any())
+        assertEquals(dummySpiderManDetailResponse.id,result?.id)
+        assertEquals(dummySpiderManDetailResponse.title,result?.title)
     }
 
-    @After
-    fun validate() {
-        validateMockitoUsage()
+    @Test
+    fun `Test similar movie in spiderman`() {
+        `when`(remoteRepository.getSimilarMovies(eq(634649), any())).thenAnswer {
+            (it.arguments[1] as RemoteRepository.LoadSimilarMovieCallback).onSimilarMovieReceived(dummySimilarMovieResponse)
+            null
+        }
+
+        val result = LiveDataTestUtil.getValue(fakeMainRepository.getSimilarMovies(634649){})
+        verify(remoteRepository, times(1)).getSimilarMovies(eq(634649), any())
+        assertEquals(dummySimilarMovieResponse.results?.size, result?.results?.size)
+        assertEquals(dummySimilarMovieResponse.results?.first()?.id, result?.results?.first()?.id)
     }
 }
