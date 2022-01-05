@@ -826,5 +826,412 @@ class FakeDummyData {
                 "total_results": 122206
             }
         """.trimIndent()
+        val jsonSpiderManTv = """
+            {
+                "page": 1,
+                "results": [
+                    {
+                        "backdrop_path": "/4QNBIgt5fwgNCN3OSU6BTFv0NGR.jpg",
+                        "first_air_date": "1994-11-19",
+                        "genre_ids": [
+                            16,
+                            10759
+                        ],
+                        "id": 888,
+                        "name": "Spider-Man",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider-Man",
+                        "overview": "",
+                        "popularity": 146.338,
+                        "poster_path": "/wXthtEN5kdWA1bHz03lkuCJS6hA.jpg",
+                        "vote_average": 8.3,
+                        "vote_count": 714
+                    },
+                    {
+                        "backdrop_path": "/atkOOO7Ct4qqeSx4EHWCWkFy4ns.jpg",
+                        "first_air_date": "2017-08-19",
+                        "genre_ids": [
+                            16,
+                            10765
+                        ],
+                        "id": 72705,
+                        "name": "Marvel's Spider-Man",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Marvel's Spider-Man",
+                        "overview": "",
+                        "popularity": 134.637,
+                        "poster_path": "/dKdcyyHUR5WTMnrbPdYN5y9xPVp.jpg",
+                        "vote_average": 7.6,
+                        "vote_count": 268
+                    },
+                    {
+                        "backdrop_path": "/fjtttNJpwa6usPstiYuyKMBFQDN.jpg",
+                        "first_air_date": "2012-04-01",
+                        "genre_ids": [
+                            10762,
+                            10759,
+                            16,
+                            35
+                        ],
+                        "id": 34391,
+                        "name": "Marvel's Ultimate Spider-Man",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Marvel's Ultimate Spider-Man",
+                        "overview": "",
+                        "popularity": 224.358,
+                        "poster_path": "/fmjCL1PCAqO5kr8ztOT5UXTouVw.jpg",
+                        "vote_average": 7.7,
+                        "vote_count": 790
+                    },
+                    {
+                        "backdrop_path": "/9NsEsTott0zkvDoGszJsEnQqCzJ.jpg",
+                        "first_air_date": "1981-09-12",
+                        "genre_ids": [
+                            16,
+                            10762
+                        ],
+                        "id": 3973,
+                        "name": "Spider-Man",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider-Man",
+                        "overview": "",
+                        "popularity": 49.974,
+                        "poster_path": "/5xZac4wWUlXQmEBqIIKJ9rqXnUh.jpg",
+                        "vote_average": 7,
+                        "vote_count": 31
+                    },
+                    {
+                        "backdrop_path": "/nVKaObLEsiPyqfmrPXW4BW1MT3n.jpg",
+                        "first_air_date": "1967-09-09",
+                        "genre_ids": [
+                            10762,
+                            16,
+                            10759
+                        ],
+                        "id": 1482,
+                        "name": "Spider-Man",
+                        "origin_country": [
+                            "US",
+                            "CA"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider-Man",
+                        "overview": "",
+                        "popularity": 42.909,
+                        "poster_path": "/n6eMF2lPQxiGmh2D612R5Tuxbzm.jpg",
+                        "vote_average": 7.7,
+                        "vote_count": 131
+                    },
+                    {
+                        "backdrop_path": "/2q8XkP4CSl2MTP7VfVeeHQHuUHD.jpg",
+                        "first_air_date": "2008-03-08",
+                        "genre_ids": [
+                            10759,
+                            16
+                        ],
+                        "id": 3854,
+                        "name": "The Spectacular Spider-Man",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "The Spectacular Spider-Man",
+                        "overview": "",
+                        "popularity": 156.319,
+                        "poster_path": "/zecWVrTlyhJemd9zzk7rtrvyc5e.jpg",
+                        "vote_average": 8.7,
+                        "vote_count": 508
+                    },
+                    {
+                        "backdrop_path": "/3WRvDj6od3V6PB90LXFthFLBJmL.jpg",
+                        "first_air_date": "1999-10-02",
+                        "genre_ids": [
+                            16,
+                            10759
+                        ],
+                        "id": 10079,
+                        "name": "Spider-Man Unlimited",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider-Man Unlimited",
+                        "overview": "",
+                        "popularity": 80.983,
+                        "poster_path": "/m954cXz0qyHOJc9BVr9kSRpjhhY.jpg",
+                        "vote_average": 7.3,
+                        "vote_count": 163
+                    },
+                    {
+                        "backdrop_path": "/ts5Lq4DIkgcOzUBdpkhGdBTJTim.jpg",
+                        "first_air_date": "1979-09-22",
+                        "genre_ids": [
+                            16
+                        ],
+                        "id": 4784,
+                        "name": "Spider-Woman",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider-Woman",
+                        "overview": "",
+                        "popularity": 22.206,
+                        "poster_path": "/lDuUr0D4gEh8xTEBcUfonBQpvyw.jpg",
+                        "vote_average": 7.8,
+                        "vote_count": 52
+                    },
+                    {
+                        "backdrop_path": "/cL8MPDoy00GtVnUvhhNJXBcreNU.jpg",
+                        "first_air_date": "1981-09-12",
+                        "genre_ids": [
+                            10759,
+                            16,
+                            10751,
+                            10765
+                        ],
+                        "id": 1269,
+                        "name": "Spider-Man and His Amazing Friends",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider-Man and His Amazing Friends",
+                        "overview": "",
+                        "popularity": 57.468,
+                        "poster_path": "/4GjLlD5u8LtkF5XJ75FlPW16fHG.jpg",
+                        "vote_average": 7.5,
+                        "vote_count": 169
+                    },
+                    {
+                        "backdrop_path": "/nVHovBi2yqZAYW17273ytA8SE7c.jpg",
+                        "first_air_date": "2003-07-11",
+                        "genre_ids": [
+                            16,
+                            10759
+                        ],
+                        "id": 1664,
+                        "name": "Spider-Man: The New Animated Series",
+                        "origin_country": [
+                            "US",
+                            "CA"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider-Man: The New Animated Series",
+                        "overview": "",
+                        "popularity": 73.213,
+                        "poster_path": "/z4CRC612QrGrC1kLtDm8ykLeIrs.jpg",
+                        "vote_average": 7.2,
+                        "vote_count": 261
+                    },
+                    {
+                        "backdrop_path": "/49VI6PxMo3swVqq0VLELEQ2fpks.jpg",
+                        "first_air_date": "1978-04-05",
+                        "genre_ids": [
+                            10765,
+                            10759
+                        ],
+                        "id": 4552,
+                        "name": "The Amazing Spider-Man",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "The Amazing Spider-Man",
+                        "overview": "",
+                        "popularity": 24.57,
+                        "poster_path": "/kUTCJhSnH3Dt0KVzcQp8DnbmsjN.jpg",
+                        "vote_average": 6.3,
+                        "vote_count": 10
+                    },
+                    {
+                        "backdrop_path": null,
+                        "first_air_date": "",
+                        "genre_ids": [
+                            16,
+                            10759
+                        ],
+                        "id": 138503,
+                        "name": "Spider-Man: Freshman Year",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider-Man: Freshman Year",
+                        "overview": "",
+                        "popularity": 28.375,
+                        "poster_path": "/7ecqjxf49CaTsqQFIUd1iceoXZB.jpg",
+                        "vote_average": 0,
+                        "vote_count": 0
+                    },
+                    {
+                        "backdrop_path": "/sH1RoZI7226e7B3tfRC7cRJBUDy.jpg",
+                        "first_air_date": "2009-08-18",
+                        "genre_ids": [
+                            16,
+                            10759
+                        ],
+                        "id": 77269,
+                        "name": "Marvel Knights: Spider-Woman, Agent of S.W.O.R.D.",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Marvel Knights: Spider-Woman, Agent of S.W.O.R.D.",
+                        "overview": "",
+                        "popularity": 26.837,
+                        "poster_path": "/93pxdXPT8RC2pArLU3iQPGyQkAX.jpg",
+                        "vote_average": 6.2,
+                        "vote_count": 13
+                    },
+                    {
+                        "backdrop_path": "/nRy8fPhHIc4I7aSq5r4kwr5KuBr.jpg",
+                        "first_air_date": "2017-11-06",
+                        "genre_ids": [
+                            16,
+                            35,
+                            10762
+                        ],
+                        "id": 93588,
+                        "name": "Lucas the Spider",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Lucas the Spider",
+                        "overview": "",
+                        "popularity": 3.014,
+                        "poster_path": "/15jIBAyaNkzcU3lz29Wird5IEDM.jpg",
+                        "vote_average": 8,
+                        "vote_count": 3
+                    },
+                    {
+                        "backdrop_path": null,
+                        "first_air_date": "1991-09-26",
+                        "genre_ids": [],
+                        "id": 1156,
+                        "name": "Spider!",
+                        "origin_country": [
+                            "GB"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Spider!",
+                        "overview": "",
+                        "popularity": 1.233,
+                        "poster_path": "/eEAR0K9i5Ge1DS5O53a67jf2yxJ.jpg",
+                        "vote_average": 8.5,
+                        "vote_count": 2
+                    },
+                    {
+                        "backdrop_path": null,
+                        "first_air_date": "2021-09-18",
+                        "genre_ids": [
+                            10762
+                        ],
+                        "id": 153492,
+                        "name": "Lucas the Spider",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Lucas the Spider",
+                        "overview": "",
+                        "popularity": 2.438,
+                        "poster_path": null,
+                        "vote_average": 0,
+                        "vote_count": 0
+                    },
+                    {
+                        "backdrop_path": "/yhDHgYKaZiX8XEyWJFTOBwKaVdN.jpg",
+                        "first_air_date": "1978-05-17",
+                        "genre_ids": [
+                            10759,
+                            10765
+                        ],
+                        "id": 2640,
+                        "name": "スパイダーマン",
+                        "origin_country": [
+                            "JP",
+                            "US"
+                        ],
+                        "original_language": "ja",
+                        "original_name": "スパイダーマン",
+                        "overview": "",
+                        "popularity": 36.093,
+                        "poster_path": "/38AVLCBEoQKJWMyzt9jkxqeefGb.jpg",
+                        "vote_average": 7.2,
+                        "vote_count": 86
+                    },
+                    {
+                        "backdrop_path": "/2D78M7AuO1J1NiZicEcho83GsPC.jpg",
+                        "first_air_date": "2021-01-08",
+                        "genre_ids": [
+                            16,
+                            35,
+                            10759,
+                            10765
+                        ],
+                        "id": 99618,
+                        "name": "蜘蛛ですが、なにか？",
+                        "origin_country": [
+                            "JP"
+                        ],
+                        "original_language": "ja",
+                        "original_name": "蜘蛛ですが、なにか？",
+                        "overview": "",
+                        "popularity": 30.43,
+                        "poster_path": "/rR9gNmpy8EDDYL4ImkazdmBDrqY.jpg",
+                        "vote_average": 8.2,
+                        "vote_count": 93
+                    },
+                    {
+                        "backdrop_path": null,
+                        "genre_ids": [],
+                        "id": 9339,
+                        "name": "Spider and Fly",
+                        "origin_country": [],
+                        "original_language": "en",
+                        "original_name": "Spider and Fly",
+                        "overview": "",
+                        "popularity": 0.6,
+                        "poster_path": null,
+                        "vote_average": 0,
+                        "vote_count": 0
+                    },
+                    {
+                        "backdrop_path": null,
+                        "genre_ids": [
+                            16
+                        ],
+                        "id": 5571,
+                        "name": "Itsy Bitsy Spider",
+                        "origin_country": [
+                            "US"
+                        ],
+                        "original_language": "en",
+                        "original_name": "Itsy Bitsy Spider",
+                        "overview": "",
+                        "popularity": 0.937,
+                        "poster_path": null,
+                        "vote_average": 9.8,
+                        "vote_count": 8
+                    }
+                ],
+                "total_pages": 2,
+                "total_results": 34
+            }
+        """.trimIndent()
     }
 }

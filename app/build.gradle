@@ -91,11 +91,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
     //Unit Test Libs
-    testImplementation "io.mockk:mockk:$mockk_version"
-    testImplementation "io.mockk:mockk:$mockk_version"
-    testImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
 
     //UI Test Libs
     androidTestImplementation 'androidx.test:runner:1.4.0'
