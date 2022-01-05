@@ -24,7 +24,7 @@ open class RemoteRepository() {
         }
     }
 
-    fun getTvs(page: Int, search: String, callback: LoadTvCallback?) : LiveData<TvResponse>{
+    open fun getTvs(page: Int, search: String, callback: LoadTvCallback?) : LiveData<TvResponse>{
         val data: MutableLiveData<TvResponse> = MutableLiveData()
         val listener = object : Callback<TvResponse?>{
             override fun onResponse(call: Call<TvResponse?>, response: Response<TvResponse?>) {
@@ -59,7 +59,7 @@ open class RemoteRepository() {
         return data
     }
 
-    fun getMovies(page: Int, callback: LoadMovieCallback?) : LiveData<MovieResponse> {
+    open fun getMovies(page: Int, callback: LoadMovieCallback?) : LiveData<MovieResponse> {
         val data: MutableLiveData<MovieResponse> = MutableLiveData()
 
         ApiClient.get().getMovies(
