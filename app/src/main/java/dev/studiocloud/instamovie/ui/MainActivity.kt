@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
         movieViewModel = ViewModelProvider(this,viewModelFactory!!)[MovieViewModel::class.java]
         tvViewModel = ViewModelProvider(this, viewModelFactory!!)[TvViewModel::class.java]
 
-
         movieViewModel.getMovies(reset = true)
         tvViewModel.getTvs(reset = true)
         tvViewModel.searchTv(
@@ -49,7 +48,11 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ProvideWindowInsets {
-                AppNavigation(movieViewModel = movieViewModel, tvViewModel = tvViewModel);
+                AppNavigation(
+                    movieViewModel = movieViewModel,
+                    tvViewModel = tvViewModel,
+                    context = this,
+                );
             }
         }
     }
