@@ -1,5 +1,10 @@
 package dev.studiocloud.instamovie.ui.screens.home
 
+import android.content.Context
+import android.graphics.Bitmap
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -29,9 +34,35 @@ import dev.studiocloud.instamovie.ui.screens.home.pages.TvList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+
+private fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int) {
+    outputStream().use { out ->
+        bitmap.compress(format, quality, out)
+        out.flush()
+    }
+}
 
 @Composable
-fun HeaderHome(){
+fun HeaderHome(
+    context: Context,
+    navController: NavHostController,
+){
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+        val filePath = context.externalCacheDir?.absolutePath + "/" + System.currentTimeMillis().toString()
+        if(it != null){
+            File(filePath).writeBitmap(
+                bitmap = it,
+                quality = 100,
+                format = Bitmap.CompressFormat.JPEG,
+            )
+            val encodedPath = URLEncoder.encode(filePath, StandardCharsets.UTF_8.toString())
+            navController.navigate(Screen.Upload.route + "/path=" + encodedPath)
+        }
+    }
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth()
@@ -46,7 +77,7 @@ fun HeaderHome(){
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(bounded = false),
                     onClick = {
-
+                        launcher.launch()
                     },
                 )
         )
@@ -76,6 +107,7 @@ fun HomeScreen(
     navController: NavHostController,
     movieViewModel: MovieViewModel,
     tvViewModel: TvViewModel,
+    context: Context,
 ){
     var selectedTab by remember { mutableStateOf("movie") }
     val pagerState = rememberPagerState(initialPage = 0)
@@ -121,7 +153,7 @@ fun HomeScreen(
                 )
             }
             Column {
-                HeaderHome()
+                HeaderHome(context, navController)
                 HorizontalPager(
                     state = pagerState,
                     count =  navigationItems.count(),

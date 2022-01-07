@@ -1,5 +1,6 @@
 package dev.studiocloud.instamovie.ui
 
+import android.content.Context
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -17,6 +18,7 @@ import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.screens.detail_movie.DetailMovieScreen
 import dev.studiocloud.instamovie.ui.screens.home.HomeScreen
 import dev.studiocloud.instamovie.ui.screens.story.StoryScreen
+import dev.studiocloud.instamovie.ui.screens.upload.UploadScreen
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @ExperimentalPagerApi
@@ -59,6 +61,7 @@ fun animatedComposable(
 fun AppNavigation (
     movieViewModel: MovieViewModel,
     tvViewModel: TvViewModel,
+    context: Context,
 ){
     val navController = rememberAnimatedNavController()
     AnimatedNavHost(
@@ -73,6 +76,7 @@ fun AppNavigation (
                 navController = navController,
                 movieViewModel = movieViewModel,
                 tvViewModel = tvViewModel,
+                context = context,
             )
         }
         animatedComposable(
@@ -97,6 +101,20 @@ fun AppNavigation (
                 navController = navController,
                 movieViewModel = movieViewModel
             )
+        }
+        animatedComposable(
+            route = Screen.Upload.route + "/path={path}",
+            arguments = listOf(
+                navArgument("path"){type = NavType.StringType}
+            ),
+            navGraphBuilder = this,
+        ) {
+            it.arguments?.getString("path").let { path ->
+                UploadScreen(
+                    navController = navController,
+                    bitmapPath = path!!,
+                )
+            }
         }
     }
 }
