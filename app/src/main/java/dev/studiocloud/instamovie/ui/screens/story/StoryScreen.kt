@@ -15,7 +15,13 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
-import dev.studiocloud.instamovie.data.viewModels.TvViewModel
+import dev.studiocloud.instamovie.viewModel.TvViewModel
+
+class StoryScreen{
+    companion object {
+        const val route = "story"
+    }
+}
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi

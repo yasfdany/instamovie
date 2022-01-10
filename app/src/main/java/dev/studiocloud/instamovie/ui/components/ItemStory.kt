@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
-import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
+import dev.studiocloud.instamovie.data.model.tvResponse.TvItem
 
 @Composable
 fun ItemStory(

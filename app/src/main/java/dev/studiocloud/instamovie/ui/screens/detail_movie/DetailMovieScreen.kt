@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
@@ -38,16 +39,22 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
-import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
-import dev.studiocloud.instamovie.data.viewModels.DetailMovieViewModel
+import dev.studiocloud.instamovie.data.model.movieResponse.MovieItem
 import dev.studiocloud.instamovie.ui.Screen
 import dev.studiocloud.instamovie.ui.components.GradientBox
 import dev.studiocloud.instamovie.ui.components.ItemRow
 import dev.studiocloud.instamovie.ui.theme.*
+import dev.studiocloud.instamovie.viewModel.DetailMovieViewModel
 import dev.studiocloud.instamovie.viewModel.ViewModelFactory
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
+
+class DetailMovieScreen{
+    companion object {
+        const val route = "detail_movie"
+    }
+}
 
 @ExperimentalMaterialApi
 @Composable
@@ -110,6 +117,8 @@ fun DetailMovieScreen(
                             Text(
                                 text = movieDetail?.title ?: "",
                                 fontSize = 16.sp * (1 - state.toolbarState.progress),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
                             ) },
                         modifier = Modifier
                             .statusBarsPadding(),

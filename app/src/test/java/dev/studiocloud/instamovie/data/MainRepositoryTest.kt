@@ -2,12 +2,12 @@ package dev.studiocloud.instamovie.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.gson.Gson
-import dev.studiocloud.instamovie.data.local.LocalRepository
-import dev.studiocloud.instamovie.data.remote.RemoteRepository
-import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
-import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
-import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
-import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
+import dev.studiocloud.instamovie.data.repository.LocalRepository
+import dev.studiocloud.instamovie.data.repository.RemoteRepository
+import dev.studiocloud.instamovie.data.model.movieDetailResponse.MovieDetailData
+import dev.studiocloud.instamovie.data.model.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.model.similarMovieResponse.SimilarMovieResponse
+import dev.studiocloud.instamovie.data.model.tvResponse.TvResponse
 import dev.studiocloud.instamovie.utils.FakeDummyData
 import dev.studiocloud.instamovie.utils.LiveDataTestUtil
 import org.junit.Assert.assertEquals

@@ -2,16 +2,16 @@ package dev.studiocloud.instamovie.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import dev.studiocloud.instamovie.data.local.LocalRepository
-import dev.studiocloud.instamovie.data.models.MovieData
-import dev.studiocloud.instamovie.data.models.TvData
-import dev.studiocloud.instamovie.data.remote.RemoteRepository
-import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
-import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
-import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieResponse
-import dev.studiocloud.instamovie.data.remote.response.similarMovieResponse.SimilarMovieResponse
-import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
-import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvResponse
+import dev.studiocloud.instamovie.data.repository.LocalRepository
+import dev.studiocloud.instamovie.data.model.MovieData
+import dev.studiocloud.instamovie.data.model.TvData
+import dev.studiocloud.instamovie.data.repository.RemoteRepository
+import dev.studiocloud.instamovie.data.model.movieDetailResponse.MovieDetailData
+import dev.studiocloud.instamovie.data.model.movieResponse.MovieItem
+import dev.studiocloud.instamovie.data.model.movieResponse.MovieResponse
+import dev.studiocloud.instamovie.data.model.similarMovieResponse.SimilarMovieResponse
+import dev.studiocloud.instamovie.data.model.tvResponse.TvItem
+import dev.studiocloud.instamovie.data.model.tvResponse.TvResponse
 
 open class FakeMainRepository(
     private val remoteRepository: RemoteRepository,

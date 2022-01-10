@@ -2,10 +2,7 @@ package dev.studiocloud.instamovie.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dev.studiocloud.instamovie.data.MainRepository
-import dev.studiocloud.instamovie.data.viewModels.DetailMovieViewModel
-import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
-import dev.studiocloud.instamovie.data.viewModels.TvViewModel
+import dev.studiocloud.instamovie.data.repository.MainRepository
 
 class ViewModelFactory(private val mainRepository: MainRepository?) : ViewModelProvider.Factory {
     companion object{

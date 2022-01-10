@@ -1,10 +1,10 @@
 package dev.studiocloud.instamovie.di
 
 import android.app.Application
-import dev.studiocloud.instamovie.data.MainRepository
-import dev.studiocloud.instamovie.data.local.DatabaseClient
-import dev.studiocloud.instamovie.data.local.LocalRepository
-import dev.studiocloud.instamovie.data.remote.RemoteRepository
+import dev.studiocloud.instamovie.data.repository.MainRepository
+import dev.studiocloud.instamovie.data.database.DatabaseClient
+import dev.studiocloud.instamovie.data.repository.LocalRepository
+import dev.studiocloud.instamovie.data.repository.RemoteRepository
 
 
 class Injection {

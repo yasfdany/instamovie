@@ -25,18 +25,25 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.studiocloud.instamovie.R
-import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
-import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.Screen
 import dev.studiocloud.instamovie.ui.components.Line
 import dev.studiocloud.instamovie.ui.screens.home.pages.MovieList
 import dev.studiocloud.instamovie.ui.screens.home.pages.TvList
+import dev.studiocloud.instamovie.viewModel.MovieViewModel
+import dev.studiocloud.instamovie.viewModel.TvViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+
+class HomeScreen{
+    companion object {
+        const val route = "home"
+    }
+}
+
 
 private fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int) {
     outputStream().use { out ->
