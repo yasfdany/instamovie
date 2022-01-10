@@ -1,6 +1,5 @@
 package dev.studiocloud.instamovie.ui.screens.detail_movie
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -12,6 +11,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +24,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.NavController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.skydoves.landscapist.CircularReveal
@@ -31,22 +34,31 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
-import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
-import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
+import dev.studiocloud.instamovie.data.viewModels.DetailMovieViewModel
+import dev.studiocloud.instamovie.ui.Screen
 import dev.studiocloud.instamovie.ui.components.GradientBox
 import dev.studiocloud.instamovie.ui.components.ItemRow
 import dev.studiocloud.instamovie.ui.theme.*
+import dev.studiocloud.instamovie.viewModel.ViewModelFactory
 
 @ExperimentalMaterialApi
 @Composable
 fun DetailMovieScreen(
-    navController: NavHostController,
-    movieViewModel: MovieViewModel,
+    id: Int,
+    viewModelStoreOwner: ViewModelStoreOwner,
+    viewModelFactory: ViewModelFactory?,
+    navController: NavController,
 ) {
-    val historyIds = remember { mutableListOf<Int>() }
-    val movieDetail: MovieDetailData? =  movieViewModel.movieDetail.value
-    val similarMovies: MutableList<MovieItem> =  movieViewModel.similarMovies
+    val viewModel = remember { mutableStateOf<DetailMovieViewModel?>(null) }
+    LaunchedEffect(id){
+        viewModel.value = ViewModelProvider(viewModelStoreOwner, viewModelFactory!!)[DetailMovieViewModel::class.java]
+        viewModel.value?.getMovieDetail(id)
+        viewModel.value?.getSimilarMovies(id)
+    }
+
+    val movieDetail =  viewModel.value?.movieDetail?.value
+    val similarMovies =  viewModel.value?.similarMovies
 
     val systemUiController = rememberSystemUiController()
     systemUiController.setStatusBarColor(
@@ -54,23 +66,13 @@ fun DetailMovieScreen(
         darkIcons = false,
     )
 
-    BackHandler {
-        if (historyIds.isEmpty()){
-            navController.popBackStack()
-        } else {
-            movieViewModel.getMovieDetail(historyIds.last())
-            movieViewModel.getSimilarMovies(historyIds.last())
-            historyIds.removeLast()
-        }
-    }
-
     Surface(
         color = Color.White,
         modifier = Modifier
             .fillMaxHeight()
             .navigationBarsPadding()
     ) {
-        if(movieViewModel.loadingDetail.value || movieDetail != null){
+        if(viewModel.value?.loadingDetail?.value == true || movieDetail != null){
             Column(modifier = Modifier
                 .verticalScroll(rememberScrollState())
             ) {
@@ -135,13 +137,7 @@ fun DetailMovieScreen(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = rememberRipple(bounded = false),
                                 onClick = {
-                                    if (historyIds.isEmpty()){
-                                        navController.popBackStack()
-                                    } else {
-                                        movieViewModel.getMovieDetail(historyIds.last())
-                                        movieViewModel.getSimilarMovies(historyIds.last())
-                                        historyIds.removeLast()
-                                    }
+                                    navController.popBackStack()
                                 },
                             )
                             .width(32.dp)
@@ -263,13 +259,11 @@ fun DetailMovieScreen(
                         bottom = 14.dp
                     )
                 ){
-                    itemsIndexed(similarMovies){ _, movie ->
+                    itemsIndexed(similarMovies?.toMutableList() ?: mutableListOf()){ _, movie ->
                         ItemSimilarMovie(
                             movie = movie,
                             onTap = {
-                                historyIds.add(movieDetail?.id!!)
-                                movieViewModel.getMovieDetail(movie.id)
-                                movieViewModel.getSimilarMovies(movie.id)
+                                navController.navigate(Screen.DetailMovie.route + "/id=" + movie.id)
                             }
                         )
                     }

@@ -49,9 +49,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProvideWindowInsets {
                 AppNavigation(
+                    context = this,
+                    viewModelStoreOwner = this,
+                    viewModelFactory = viewModelFactory,
                     movieViewModel = movieViewModel,
                     tvViewModel = tvViewModel,
-                    context = this,
                 );
             }
         }

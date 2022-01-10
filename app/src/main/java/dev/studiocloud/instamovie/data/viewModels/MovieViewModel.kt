@@ -6,45 +6,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dev.studiocloud.instamovie.data.MainRepository
 import dev.studiocloud.instamovie.data.models.MovieData
-import dev.studiocloud.instamovie.data.remote.response.movieDetailResponse.MovieDetailData
 import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
 
 class MovieViewModel(private val mainRepository: MainRepository?) : ViewModel() {
     val loading: MutableState<Boolean> = mutableStateOf(false);
-    val loadingDetail: MutableState<Boolean> = mutableStateOf(false);
-    val movieDetail : MutableState<MovieDetailData?> = mutableStateOf(null)
 
     val movies = mutableStateListOf<MovieItem>()
-    val similarMovies = mutableStateListOf<MovieItem>()
 
     var page: Int = 1;
     var maxPage: Int = -1;
-
-    fun getMovieDetail(
-        id: Int,
-        onFinish : (data: MovieDetailData?) -> Unit = {},
-    ){
-        loadingDetail.value = true;
-        movieDetail.value = null;
-
-        mainRepository?.getMovieDetail(id){
-            loadingDetail.value = false
-            movieDetail.value = it
-            onFinish(it)
-        }
-    }
-
-    fun getSimilarMovies(
-        id: Int,
-        onFinish : (data: MutableList<MovieItem>?) -> Unit = {},
-    ){
-        similarMovies.clear()
-
-        mainRepository?.getSimilarMovies(id){
-            similarMovies.addAll(it ?: mutableStateListOf())
-            onFinish(it)
-        }
-    }
 
     fun getMovies(
         reset : Boolean = false,
