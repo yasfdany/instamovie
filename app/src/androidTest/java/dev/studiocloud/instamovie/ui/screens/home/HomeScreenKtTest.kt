@@ -5,10 +5,14 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.studiocloud.instamovie.ui.MainActivity
+import dev.studiocloud.instamovie.utils.EspressoIdlingResource
 import kotlinx.coroutines.InternalCoroutinesApi
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,6 +27,16 @@ class HomeScreenKtTest {
     @get:Rule
     val activityTestRule = createAndroidComposeRule(MainActivity::class.java)
 
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingresource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingresource)
+    }
+
     @Test
     fun homeScreen() {
         val movieTab = activityTestRule.onNode(hasContentDescription("movie"))
@@ -33,6 +47,8 @@ class HomeScreenKtTest {
         val searchBar = activityTestRule.onNode(hasTestTag("search_bar"))
         val clearSearchButton = activityTestRule.onNode(hasTestTag("clear_search"))
 
+        Thread.sleep(1000)
+
         movieTab.assertIsDisplayed()
         tvTab.assertIsDisplayed()
 
@@ -40,21 +56,13 @@ class HomeScreenKtTest {
         storyList.assertIsDisplayed()
 
         //Test scrolling story
-        Thread.sleep(1000)
         storyList.performScrollToIndex(6)
         //End test scrolling story
 
         //Test scrolling movie
-        Thread.sleep(1000)
         movieList.performScrollToIndex(6)
-
-        Thread.sleep(1000)
         movieList.performScrollToIndex(12)
-
-        Thread.sleep(1000)
         movieList.performScrollToIndex(18)
-
-        Thread.sleep(1000)
         movieList.performScrollToIndex(24)
         Thread.sleep(1000)
         //End test scrolling movie
@@ -65,28 +73,15 @@ class HomeScreenKtTest {
 
         //Test search tv
         searchBar.performTextInput("Spiderman")
-        Thread.sleep(1000)
         clearSearchButton.assertIsDisplayed()
         clearSearchButton.performClick()
-        Thread.sleep(1000)
         //End test search tv
 
         //Test scrolling tv
-        Thread.sleep(1000)
         tvList.performScrollToIndex(6)
-
-        Thread.sleep(1000)
         tvList.performScrollToIndex(12)
-
-        Thread.sleep(1000)
         tvList.performScrollToIndex(18)
-
-        Thread.sleep(1000)  
         tvList.performScrollToIndex(24)
-        Thread.sleep(1000)
         //End scrolling tv
-
-        movieTab.performClick()
-        Thread.sleep(1000)
     }
 }

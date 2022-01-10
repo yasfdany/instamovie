@@ -16,6 +16,7 @@ import dev.studiocloud.instamovie.data.model.movieResponse.MovieResponse
 import dev.studiocloud.instamovie.data.model.similarMovieResponse.SimilarMovieResponse
 import dev.studiocloud.instamovie.data.model.tvResponse.TvItem
 import dev.studiocloud.instamovie.data.model.tvResponse.TvResponse
+import dev.studiocloud.instamovie.utils.EspressoIdlingResource
 
 open class MainRepository(
     private val remoteRepository: RemoteRepository,
@@ -49,6 +50,7 @@ open class MainRepository(
         var currentPage: Int
         var currentMaxPage: Int
 
+        EspressoIdlingResource.increment()
         remoteRepository.getMovies(page, object: RemoteRepository.LoadMovieCallback{
             override fun onAllMovieReceived(movieResponse: MovieResponse?) {
                 response.value = movieResponse
@@ -65,6 +67,10 @@ open class MainRepository(
 
                     localRepository.insertMovie(convertedMovie)
                 }
+
+                if (!EspressoIdlingResource.idlingresource.isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             }
 
             override fun onDataNotAvailable() {
@@ -76,6 +82,9 @@ open class MainRepository(
                 }
 
                 onFinish(MovieData(1,1, movies))
+                if (!EspressoIdlingResource.idlingresource.isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             }
         })
 
@@ -88,6 +97,7 @@ open class MainRepository(
         var currentPage: Int
         var currentMaxPage: Int
 
+        EspressoIdlingResource.increment()
         remoteRepository.getTvs(page, search, object : RemoteRepository.LoadTvCallback{
             override fun onAllTvReceived(tvResponse: TvResponse?) {
                 response.value = tvResponse
@@ -104,6 +114,10 @@ open class MainRepository(
                     val convertedTv = Gson().fromJson(jsonTv, Tv::class.java)
 
                     localRepository.insertTv(convertedTv)
+                }
+
+                if (!EspressoIdlingResource.idlingresource.isIdleNow) {
+                    EspressoIdlingResource.decrement()
                 }
             }
 
@@ -127,6 +141,10 @@ open class MainRepository(
 
                     onFinish(TvData(1,1, tvs))
                 }
+
+                if (!EspressoIdlingResource.idlingresource.isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             }
         })
 
@@ -136,6 +154,7 @@ open class MainRepository(
     override fun getMovieDetail(id: Int, onFinish: (data: MovieDetailData?) -> Unit) : LiveData<MovieDetailData> {
         val response: MutableLiveData<MovieDetailData> = MutableLiveData()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getMovieDetail(id, object: RemoteRepository.LoadDetailMovieCallback{
             override fun onDetailMovieReceived(movieDetailData: MovieDetailData?) {
                 response.value = movieDetailData
@@ -147,6 +166,10 @@ open class MainRepository(
                 convertedDetail.id = id
 
                 localRepository.insertMovieDetail(convertedDetail)
+
+                if (!EspressoIdlingResource.idlingresource.isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             }
 
             override fun onDataNotAvailable() {
@@ -166,6 +189,10 @@ open class MainRepository(
                 } else {
                     onFinish(null)
                 }
+
+                if (!EspressoIdlingResource.idlingresource.isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             }
 
         })
@@ -176,13 +203,21 @@ open class MainRepository(
     override fun getSimilarMovies(id: Int, onFinish: (data: MutableList<MovieItem>?) -> Unit) : LiveData<SimilarMovieResponse> {
         val response: MutableLiveData<SimilarMovieResponse> = MutableLiveData()
 
+        EspressoIdlingResource.increment()
         remoteRepository.getSimilarMovies(id, object : RemoteRepository.LoadSimilarMovieCallback{
             override fun onSimilarMovieReceived(similarMovieResponse: SimilarMovieResponse?) {
                 response.value = similarMovieResponse
                 onFinish(similarMovieResponse?.results)
+
+                if (!EspressoIdlingResource.idlingresource.isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             }
 
             override fun onDataNotAvailable() {
+                if (!EspressoIdlingResource.idlingresource.isIdleNow) {
+                    EspressoIdlingResource.decrement()
+                }
             }
         })
 
