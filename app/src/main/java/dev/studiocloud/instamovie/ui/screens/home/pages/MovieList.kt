@@ -17,8 +17,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.booleanResource
 import androidx.navigation.NavHostController
 import dev.studiocloud.instamovie.R
-import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
-import dev.studiocloud.instamovie.data.viewModels.TvViewModel
+import dev.studiocloud.instamovie.viewModel.MovieViewModel
+import dev.studiocloud.instamovie.viewModel.TvViewModel
 import dev.studiocloud.instamovie.ui.Screen
 import dev.studiocloud.instamovie.ui.components.ItemMovie
 import dev.studiocloud.instamovie.ui.components.Line
@@ -89,9 +89,7 @@ fun MovieList(
                     ItemMovie(
                         item =  movie,
                         onTapPost = {
-                            movieViewModel.getMovieDetail(it.id)
-                            movieViewModel.getSimilarMovies(it.id)
-                            navController.navigate(Screen.DetailMovie.route)
+                            navController.navigate(Screen.DetailMovie.route + "/id=" + it.id)
                         }
                     )
                 }

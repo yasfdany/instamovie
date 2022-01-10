@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
-import dev.studiocloud.instamovie.data.viewModels.TvViewModel
+import dev.studiocloud.instamovie.data.model.tvResponse.TvItem
 import dev.studiocloud.instamovie.ui.components.ItemStory
+import dev.studiocloud.instamovie.viewModel.TvViewModel
 
 @Composable
 fun StoryTabletList(

@@ -10,10 +10,10 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
-import dev.studiocloud.instamovie.data.MainRepository
-import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
-import dev.studiocloud.instamovie.data.viewModels.TvViewModel
+import dev.studiocloud.instamovie.data.repository.MainRepository
 import dev.studiocloud.instamovie.di.Injection
+import dev.studiocloud.instamovie.viewModel.MovieViewModel
+import dev.studiocloud.instamovie.viewModel.TvViewModel
 import dev.studiocloud.instamovie.viewModel.ViewModelFactory
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -49,9 +49,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProvideWindowInsets {
                 AppNavigation(
+                    context = this,
+                    viewModelStoreOwner = this,
+                    viewModelFactory = viewModelFactory,
                     movieViewModel = movieViewModel,
                     tvViewModel = tvViewModel,
-                    context = this,
                 );
             }
         }

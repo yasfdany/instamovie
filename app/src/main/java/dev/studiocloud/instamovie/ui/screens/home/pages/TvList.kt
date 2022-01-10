@@ -29,8 +29,8 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
-import dev.studiocloud.instamovie.data.remote.response.tvResponse.TvItem
-import dev.studiocloud.instamovie.data.viewModels.TvViewModel
+import dev.studiocloud.instamovie.data.model.tvResponse.TvItem
+import dev.studiocloud.instamovie.viewModel.TvViewModel
 import dev.studiocloud.instamovie.ui.components.Line
 import dev.studiocloud.instamovie.ui.components.TextArea
 import dev.studiocloud.instamovie.ui.theme.blackText14

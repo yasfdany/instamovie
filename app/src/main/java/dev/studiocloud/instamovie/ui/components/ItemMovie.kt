@@ -29,7 +29,7 @@ import coil.compose.rememberImagePainter
 import com.skydoves.landscapist.glide.GlideImage
 import dev.studiocloud.instamovie.BuildConfig
 import dev.studiocloud.instamovie.R
-import dev.studiocloud.instamovie.data.remote.response.movieResponse.MovieItem
+import dev.studiocloud.instamovie.data.model.movieResponse.MovieItem
 import java.util.*
 import kotlin.concurrent.schedule
 

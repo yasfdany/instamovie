@@ -27,6 +27,12 @@ import dev.studiocloud.instamovie.ui.components.TextArea
 import dev.studiocloud.instamovie.ui.theme.Purple200
 import java.io.File
 
+class UploadScreen{
+    companion object {
+        const val route = "upload"
+    }
+}
+
 @ExperimentalMaterialApi
 @Composable
 fun UploadScreen(

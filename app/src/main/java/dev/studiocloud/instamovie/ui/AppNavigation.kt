@@ -8,17 +8,19 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.*
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import dev.studiocloud.instamovie.data.viewModels.MovieViewModel
-import dev.studiocloud.instamovie.data.viewModels.TvViewModel
 import dev.studiocloud.instamovie.ui.screens.detail_movie.DetailMovieScreen
 import dev.studiocloud.instamovie.ui.screens.home.HomeScreen
 import dev.studiocloud.instamovie.ui.screens.story.StoryScreen
 import dev.studiocloud.instamovie.ui.screens.upload.UploadScreen
+import dev.studiocloud.instamovie.viewModel.MovieViewModel
+import dev.studiocloud.instamovie.viewModel.TvViewModel
+import dev.studiocloud.instamovie.viewModel.ViewModelFactory
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @ExperimentalPagerApi
@@ -59,9 +61,11 @@ fun animatedComposable(
 @ExperimentalMaterialApi
 @Composable
 fun AppNavigation (
+    context: Context,
     movieViewModel: MovieViewModel,
     tvViewModel: TvViewModel,
-    context: Context,
+    viewModelStoreOwner: ViewModelStoreOwner,
+    viewModelFactory: ViewModelFactory?,
 ){
     val navController = rememberAnimatedNavController()
     AnimatedNavHost(
@@ -94,13 +98,20 @@ fun AppNavigation (
             }
         }
         animatedComposable(
-            route = Screen.DetailMovie.route,
+            route = Screen.DetailMovie.route + "/id={id}",
+            arguments = listOf(
+                navArgument("id"){type = NavType.IntType}
+            ),
             navGraphBuilder = this,
         ) {
-            DetailMovieScreen(
-                navController = navController,
-                movieViewModel = movieViewModel
-            )
+            it.arguments?.getInt("id").let { id ->
+                DetailMovieScreen(
+                    id = id!!,
+                    viewModelStoreOwner = viewModelStoreOwner,
+                    viewModelFactory = viewModelFactory,
+                    navController = navController,
+                )
+            }
         }
         animatedComposable(
             route = Screen.Upload.route + "/path={path}",
